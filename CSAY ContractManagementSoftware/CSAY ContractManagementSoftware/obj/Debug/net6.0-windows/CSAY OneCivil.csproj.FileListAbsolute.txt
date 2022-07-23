@@ -1,0 +1,138 @@
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.exe
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.deps.json
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.runtimeconfig.json
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.pdb
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.AssemblyReference.cache
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmContract.resources
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmMain.resources
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.GenerateResource.cache
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.GeneratedMSBuildEditorConfig.editorconfig
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.AssemblyInfoInputs.cache
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.AssemblyInfo.cs
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.CoreCompileInputs.cache
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\refint\CSAY OneCivil.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.pdb
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.genruntimeconfig.cache
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\ref\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.exe
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.deps.json
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.runtimeconfig.json
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.pdb
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.AssemblyReference.cache
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmContract.resources
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmMain.resources
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.GenerateResource.cache
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.GeneratedMSBuildEditorConfig.editorconfig
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.AssemblyInfoInputs.cache
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.AssemblyInfo.cs
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.CoreCompileInputs.cache
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\refint\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.pdb
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.genruntimeconfig.cache
+F:\AY\VS_2017\C#\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\ref\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.exe
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.deps.json
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.runtimeconfig.json
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\CSAY OneCivil.pdb
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.AssemblyReference.cache
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmContract.resources
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmMain.resources
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.GenerateResource.cache
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.GeneratedMSBuildEditorConfig.editorconfig
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.AssemblyInfoInputs.cache
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.AssemblyInfo.cs
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.CoreCompileInputs.cache
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\refint\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.pdb
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.genruntimeconfig.cache
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\ref\CSAY OneCivil.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\EntityFramework.SqlServer.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\EntityFramework.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\System.Data.SQLite.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\System.Data.SQLite.EF6.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libsqlite3.so
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libsqlite3.dylib
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win7-x64\native\sqlite3.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win7-x86\native\sqlite3.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\linux-x64\native\SQLite.Interop.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\osx-x64\native\SQLite.Interop.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x64\native\SQLite.Interop.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x86\native\SQLite.Interop.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.CopyComplete
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\EntityFramework.SqlServer.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\EntityFramework.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\System.Data.SQLite.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\System.Data.SqlClient.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\System.Data.SQLite.EF6.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-arm64\native\sni.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x64\native\sni.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x86\native\sni.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\linux-x64\native\libsqlite3.so
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\osx-x64\native\libsqlite3.dylib
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win7-x64\native\sqlite3.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win7-x86\native\sqlite3.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\linux-x64\native\SQLite.Interop.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\osx-x64\native\SQLite.Interop.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x64\native\SQLite.Interop.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win-x86\native\SQLite.Interop.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmAbout.resources
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY OneCivil.csproj.CopyComplete
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\obj\Debug\net6.0-windows\CSAY_OneCivil.FrmAbout.resources
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.barcodes.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.forms.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.io.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.kernel.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.layout.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.pdfa.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.sign.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.styledxmlparser.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.svg.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.commons.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.DotNet.PlatformAbstractions.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyModel.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.barcodes.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.forms.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.io.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.kernel.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.layout.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.pdfa.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.sign.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.styledxmlparser.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.svg.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\itext.commons.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.DotNet.PlatformAbstractions.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyModel.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Excel.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\office.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\Microsoft.Vbe.Interop.dll
+E:\Work Folder\VS\CSAY OneCivil\CSAY OneCivil\bin\Debug\net6.0-windows\stdole.dll
