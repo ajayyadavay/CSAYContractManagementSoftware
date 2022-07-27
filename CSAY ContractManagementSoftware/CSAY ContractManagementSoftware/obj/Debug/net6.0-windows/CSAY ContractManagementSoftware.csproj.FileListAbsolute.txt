@@ -82,7 +82,6 @@ F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractMan
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\Microsoft.Extensions.Options.dll
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\Microsoft.Extensions.Primitives.dll
-F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Excel.dll
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\BouncyCastle.Crypto.dll
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\System.Data.SQLite.dll
@@ -116,3 +115,11 @@ F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractMan
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.pdb
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.genruntimeconfig.cache
 F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\ref\CSAY ContractManagementSoftware.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\Interop.Microsoft.Office.Interop.Excel.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.csproj.ResolveComReference.cache
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\Interop.Microsoft.Office.Interop.Word.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\NPOI.OOXML.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\NPOI.OpenXml4Net.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\NPOI.OpenXmlFormats.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\NPOI.dll
+F:\AY\VS_2017\C#\CSAY OneCivil1\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\ICSharpCode.SharpZipLib.dll

@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.TabLoadAllRecord = new System.Windows.Forms.TabPage();
+            this.BtnSave2Excel = new System.Windows.Forms.Button();
             this.BtnExportAllToExcel = new System.Windows.Forms.Button();
             this.LblRecordNo = new System.Windows.Forms.Label();
             this.LblDbLog = new System.Windows.Forms.Label();
@@ -184,6 +185,8 @@
             this.ColAmountThisbillOnly = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToExcelxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabContractProjectInfo = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.TxtHeight = new System.Windows.Forms.TextBox();
@@ -231,6 +234,7 @@
             this.BtnAnalyseDate = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.TabMenu = new System.Windows.Forms.TabPage();
+            this.BtnCreateDocx = new System.Windows.Forms.Button();
             this.BtnCreateAllPdf = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.RadioMDD = new System.Windows.Forms.RadioButton();
@@ -302,6 +306,7 @@
             // 
             // TabLoadAllRecord
             // 
+            this.TabLoadAllRecord.Controls.Add(this.BtnSave2Excel);
             this.TabLoadAllRecord.Controls.Add(this.BtnExportAllToExcel);
             this.TabLoadAllRecord.Controls.Add(this.LblRecordNo);
             this.TabLoadAllRecord.Controls.Add(this.LblDbLog);
@@ -314,6 +319,22 @@
             this.TabLoadAllRecord.Text = "Load All Record";
             this.TabLoadAllRecord.UseVisualStyleBackColor = true;
             // 
+            // BtnSave2Excel
+            // 
+            this.BtnSave2Excel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.BtnSave2Excel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.BtnSave2Excel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.BtnSave2Excel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnSave2Excel.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BtnSave2Excel.ForeColor = System.Drawing.Color.Black;
+            this.BtnSave2Excel.Location = new System.Drawing.Point(354, 373);
+            this.BtnSave2Excel.Name = "BtnSave2Excel";
+            this.BtnSave2Excel.Size = new System.Drawing.Size(137, 43);
+            this.BtnSave2Excel.TabIndex = 15;
+            this.BtnSave2Excel.Text = "Save to Excel";
+            this.BtnSave2Excel.UseVisualStyleBackColor = true;
+            this.BtnSave2Excel.Click += new System.EventHandler(this.BtnSave2Excel_Click);
+            // 
             // BtnExportAllToExcel
             // 
             this.BtnExportAllToExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
@@ -322,9 +343,9 @@
             this.BtnExportAllToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnExportAllToExcel.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BtnExportAllToExcel.ForeColor = System.Drawing.Color.Black;
-            this.BtnExportAllToExcel.Location = new System.Drawing.Point(201, 373);
+            this.BtnExportAllToExcel.Location = new System.Drawing.Point(190, 373);
             this.BtnExportAllToExcel.Name = "BtnExportAllToExcel";
-            this.BtnExportAllToExcel.Size = new System.Drawing.Size(158, 43);
+            this.BtnExportAllToExcel.Size = new System.Drawing.Size(137, 43);
             this.BtnExportAllToExcel.TabIndex = 14;
             this.BtnExportAllToExcel.Text = "Export to Excel";
             this.BtnExportAllToExcel.UseVisualStyleBackColor = true;
@@ -335,7 +356,7 @@
             this.LblRecordNo.AutoSize = true;
             this.LblRecordNo.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LblRecordNo.ForeColor = System.Drawing.Color.DarkViolet;
-            this.LblRecordNo.Location = new System.Drawing.Point(401, 384);
+            this.LblRecordNo.Location = new System.Drawing.Point(497, 384);
             this.LblRecordNo.Name = "LblRecordNo";
             this.LblRecordNo.Size = new System.Drawing.Size(204, 20);
             this.LblRecordNo.TabIndex = 13;
@@ -346,7 +367,7 @@
             this.LblDbLog.AutoSize = true;
             this.LblDbLog.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LblDbLog.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.LblDbLog.Location = new System.Drawing.Point(750, 384);
+            this.LblDbLog.Location = new System.Drawing.Point(820, 384);
             this.LblDbLog.Name = "LblDbLog";
             this.LblDbLog.Size = new System.Drawing.Size(125, 20);
             this.LblDbLog.TabIndex = 12;
@@ -362,7 +383,7 @@
             this.BtnLoadAllRecord.ForeColor = System.Drawing.Color.Black;
             this.BtnLoadAllRecord.Location = new System.Drawing.Point(26, 373);
             this.BtnLoadAllRecord.Name = "BtnLoadAllRecord";
-            this.BtnLoadAllRecord.Size = new System.Drawing.Size(158, 43);
+            this.BtnLoadAllRecord.Size = new System.Drawing.Size(137, 43);
             this.BtnLoadAllRecord.TabIndex = 11;
             this.BtnLoadAllRecord.Text = "Load All Record";
             this.BtnLoadAllRecord.UseVisualStyleBackColor = true;
@@ -1726,14 +1747,14 @@
             // dataGridView1
             // 
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColSN_E,
@@ -1745,14 +1766,14 @@
             this.ColAmountUp2Thisbill,
             this.ColAmountThisbillOnly});
             this.dataGridView1.ContextMenuStrip = this.contextMenuStrip1;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(18, 17);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
@@ -1816,16 +1837,31 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportToExcelToolStripMenuItem});
+            this.exportToExcelToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.saveToExcelxlsxToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(154, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(177, 70);
             // 
             // exportToExcelToolStripMenuItem
             // 
             this.exportToExcelToolStripMenuItem.Name = "exportToExcelToolStripMenuItem";
-            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.exportToExcelToolStripMenuItem.Text = "Export To Excel";
             this.exportToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportToExcelToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(176, 22);
+            this.toolStripMenuItem2.Text = "_";
+            // 
+            // saveToExcelxlsxToolStripMenuItem
+            // 
+            this.saveToExcelxlsxToolStripMenuItem.Name = "saveToExcelxlsxToolStripMenuItem";
+            this.saveToExcelxlsxToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.saveToExcelxlsxToolStripMenuItem.Text = "Save to Excel (.xlsx)";
+            this.saveToExcelxlsxToolStripMenuItem.Click += new System.EventHandler(this.saveToExcelxlsxToolStripMenuItem_Click);
             // 
             // TabContractProjectInfo
             // 
@@ -2044,6 +2080,7 @@
             // 
             // TabLetter
             // 
+            this.TabLetter.Controls.Add(this.BtnCreateDocx);
             this.TabLetter.Controls.Add(this.TxtBody7);
             this.TabLetter.Controls.Add(this.TxtBody8);
             this.TabLetter.Controls.Add(this.BtnCreatePdf);
@@ -2350,6 +2387,22 @@
             this.TabMenu.Text = "Menu";
             this.TabMenu.UseVisualStyleBackColor = true;
             // 
+            // BtnCreateDocx
+            // 
+            this.BtnCreateDocx.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.BtnCreateDocx.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.BtnCreateDocx.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.BtnCreateDocx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCreateDocx.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BtnCreateDocx.ForeColor = System.Drawing.Color.Black;
+            this.BtnCreateDocx.Location = new System.Drawing.Point(1171, 228);
+            this.BtnCreateDocx.Name = "BtnCreateDocx";
+            this.BtnCreateDocx.Size = new System.Drawing.Size(152, 43);
+            this.BtnCreateDocx.TabIndex = 12;
+            this.BtnCreateDocx.Text = "Create docx";
+            this.BtnCreateDocx.UseVisualStyleBackColor = true;
+            this.BtnCreateDocx.Click += new System.EventHandler(this.BtnCreateDocx_Click);
+            // 
             // BtnCreateAllPdf
             // 
             this.BtnCreateAllPdf.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
@@ -2362,7 +2415,7 @@
             this.BtnCreateAllPdf.Name = "BtnCreateAllPdf";
             this.BtnCreateAllPdf.Size = new System.Drawing.Size(168, 92);
             this.BtnCreateAllPdf.TabIndex = 11;
-            this.BtnCreateAllPdf.Text = "Create Pdf";
+            this.BtnCreateAllPdf.Text = "Create All Pdf";
             this.BtnCreateAllPdf.UseVisualStyleBackColor = true;
             this.BtnCreateAllPdf.Click += new System.EventHandler(this.BtnCreateAllPdf_Click);
             // 
@@ -3019,5 +3072,9 @@
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem exportToExcelToolStripMenuItem;
         private Button BtnExportAllToExcel;
+        private Button BtnCreateDocx;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem saveToExcelxlsxToolStripMenuItem;
+        private Button BtnSave2Excel;
     }
 }

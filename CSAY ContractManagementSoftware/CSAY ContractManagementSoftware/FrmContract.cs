@@ -20,6 +20,9 @@ using iText.IO.Font.Constants;
 using iText.Kernel.Pdf.Canvas.Draw;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
+using Word = Microsoft.Office.Interop.Word;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 namespace CSAY_ContractManagementSoftware
 {
@@ -39,7 +42,7 @@ namespace CSAY_ContractManagementSoftware
 
         private void FrmContract_Load(object sender, EventArgs e)
         {
-            tabControl1.TabPages.Remove(TabLetter);
+            //tabControl1.TabPages.Remove(TabLetter);
             //string tdate = DateTime.UtcNow.ToString("MM-dd-yyyy");
             string tdate = DateTime.UtcNow.ToString("yyyy-MM-dd");
             TxtToday.Text = tdate;
@@ -1441,7 +1444,7 @@ namespace CSAY_ContractManagementSoftware
              document.Add(subheader);*/
 
             // Table
-            Table table = new Table(2, false);
+            iText.Layout.Element.Table table = new iText.Layout.Element.Table(2, false);
             Cell cell11 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
                .SetTextAlignment(TextAlignment.CENTER)
@@ -1536,7 +1539,7 @@ namespace CSAY_ContractManagementSoftware
             document.Add(generated2);
 
             // Table
-            Table table = new Table(3, false);
+            iText.Layout.Element.Table table = new iText.Layout.Element.Table(3, false);
 
             //Row0------------------------------------------------------
             Cell cell00 = new Cell(1, 3)
@@ -2630,14 +2633,14 @@ namespace CSAY_ContractManagementSoftware
 
             float[] colwidth = new float[] {15f, 15f, 15f, 15f ,15f, 15f, 15f, 15f};
             
-            Table table1 = PDFTableFromDGV(dataGridView1, colwidth);
+            iText.Layout.Element.Table table1 = PDFTableFromDGV(dataGridView1, colwidth);
             document.Add(table1);
 
             document.Close();
             MessageBox.Show("Pdf Created Successfully.", "Create Pdf");
 
         }
-        private Table PDFTableFromDGV(DataGridView dgv, float[] cloumnwidth)
+        private iText.Layout.Element.Table PDFTableFromDGV(DataGridView dgv, float[] cloumnwidth)
         {
             // Getting Rows & Columns Counts
             int dgvrowcount = dgv.Rows.Count - 1;//12
@@ -2646,7 +2649,7 @@ namespace CSAY_ContractManagementSoftware
             string[,] datagridcontent = new string[15,10];
 
             // Set The Table like new float [] {15f, 15f, 15f, 15f, 15f }
-            Table table = new Table(cloumnwidth);
+            iText.Layout.Element.Table table = new iText.Layout.Element.Table(cloumnwidth);
             table.SetWidth(iText.Layout.Properties.UnitValue.CreatePercentValue(100));
 
             // Print The DGV Header To Table Header
@@ -2759,6 +2762,249 @@ namespace CSAY_ContractManagementSoftware
             catch
             {
 
+
+            }
+        }
+
+        private void BtnCreateDocx_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Create an instance for word app  
+                Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
+
+                //Set animation status for word application  
+                winword.ShowAnimation = false;
+
+                //Set status for word application is to be visible or not.  
+                winword.Visible = false;
+
+                //Create a missing variable for missing value  
+                object missing = System.Reflection.Missing.Value;
+
+                //Create a new document  
+                Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
+
+                //Add header into the document  
+                foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+                {
+                    //Get the header range and add the header details.  
+                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdRed;
+                    headerRange.Font.Size = 10;
+                    headerRange.Text = TxtHeader.Text + Environment.NewLine;
+                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                    headerRange.Text += TxtPatra.Text + "\t\t" + TxtMiti.Text + Environment.NewLine + TxtChalani.Text;
+                }
+
+                //Add the footers into the document  
+                foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
+                {
+                    //Get the footer range and add the footer details.  
+                    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
+                    footerRange.Font.Size = 10;
+                    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                    footerRange.Text = "Footer text goes here";
+                }
+
+                //adding text to document  
+                document.Content.SetRange(0, 0);
+                document.Content.Text = "This is test document " + Environment.NewLine;
+
+                //Add paragraph with Heading 1 style  
+                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                object styleHeading1 = "Heading 1";
+                para1.Range.set_Style(ref styleHeading1);
+                para1.Range.Text = TxtHeader.Text;
+                para1.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style  
+                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
+                object styleHeading2 = "Heading 2";
+                para2.Range.set_Style(ref styleHeading2);
+                para2.Range.Text = "Para 2 text";
+                para2.Range.InsertParagraphAfter();
+
+                //Create a 5X5 table and insert some dummy record  
+                Word.Table firstTable = document.Tables.Add(para1.Range, 2, 2, ref missing, ref missing);
+
+                firstTable.Borders.Enable = 1;
+                foreach (Word.Row row in firstTable.Rows)
+                {
+                    foreach (Word.Cell cell in row.Cells)
+                    {
+                        //Header row  
+                        if (cell.RowIndex == 1)
+                        {
+                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
+                            cell.Range.Font.Bold = 1;
+                            //other format properties goes here  
+                            cell.Range.Font.Name = "verdana";
+                            cell.Range.Font.Size = 10;
+                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                              
+                            cell.Shading.BackgroundPatternColor = Word.WdColor.wdColorGray25;
+                            //Center alignment for the Header cells  
+                            cell.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+                            cell.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+
+                        }
+                        //Data row  
+                        else
+                        {
+                            //cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
+                            cell.Range.Text = TxtHeader.Text;
+                        }
+                    }
+                }
+
+                //Save the document  
+                object filename = "temp1.docx";
+                document.SaveAs2(ref filename);
+                document.Close(ref missing, ref missing, ref missing);
+                document = null;
+                winword.Quit(ref missing, ref missing, ref missing);
+                winword = null;
+                MessageBox.Show("Document created successfully !");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        public static DataTable DataGridView_To_Datatable(DataGridView dg)
+        {
+            DataTable ExportDataTable = new DataTable();
+            foreach (DataGridViewColumn col in dg.Columns)
+            {
+                ExportDataTable.Columns.Add(col.Name);
+            }
+            foreach (DataGridViewRow row in dg.Rows)
+            {
+                DataRow dRow = ExportDataTable.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    dRow[cell.ColumnIndex] = cell.Value;
+                }
+                ExportDataTable.Rows.Add(dRow);
+            }
+            return ExportDataTable;
+        }
+
+        private void saveToExcelxlsxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //if (dataGridView1.Rows.Count > 1)
+                //{
+                DataTable table = DataGridView_To_Datatable(dataGridView1);
+                var name1 = table.Rows[0][1];
+                //MessageBox.Show("Data is Converted!");
+                //}
+
+
+                //DataTable table = (DataTable)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(persons), (typeof(DataTable)));
+                var memoryStream = new MemoryStream();
+                string filename = "Result.xlsx";
+
+                using (var fs = new FileStream(filename, FileMode.Create, FileAccess.Write))
+                {
+                    IWorkbook workbook = new XSSFWorkbook();
+                    ISheet excelSheet = workbook.CreateSheet("Sheet1");
+
+                    List<String> columns = new List<string>();
+                    IRow row = excelSheet.CreateRow(0);
+                    int columnIndex = 0;
+
+                    foreach (System.Data.DataColumn column in table.Columns)
+                    {
+                        columns.Add(column.ColumnName);
+                        row.CreateCell(columnIndex).SetCellValue(column.ColumnName);
+                        columnIndex++;
+                    }
+
+                    int rowIndex = 1;
+                    foreach (DataRow dsrow in table.Rows)
+                    {
+                        row = excelSheet.CreateRow(rowIndex);
+                        int cellIndex = 0;
+                        foreach (String col in columns)
+                        {
+                            row.CreateCell(cellIndex).SetCellValue(dsrow[col].ToString());
+                            cellIndex++;
+                        }
+
+                        rowIndex++;
+                    }
+                    workbook.Write(fs);
+                }
+                MessageBox.Show("Contract and Bill saved to Excel", "Save to Excel");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+        }
+
+        private void BtnSave2Excel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //if (dataGridView1.Rows.Count > 1)
+                //{
+                DataTable table = DataGridView_To_Datatable(dataGridView2);
+                var name1 = table.Rows[0][1];
+                //MessageBox.Show("Data is Converted!");
+                //}
+
+
+                //DataTable table = (DataTable)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(persons), (typeof(DataTable)));
+                var memoryStream = new MemoryStream();
+                string filename = "AllRecord.xlsx";
+
+                using (var fs = new FileStream(filename, FileMode.Create, FileAccess.Write))
+                {
+                    IWorkbook workbook = new XSSFWorkbook();
+                    ISheet excelSheet = workbook.CreateSheet("Sheet1");
+
+                    List<String> columns = new List<string>();
+                    IRow row = excelSheet.CreateRow(0);
+                    int columnIndex = 0;
+
+                    foreach (System.Data.DataColumn column in table.Columns)
+                    {
+                        columns.Add(column.ColumnName);
+                        row.CreateCell(columnIndex).SetCellValue(column.ColumnName);
+                        columnIndex++;
+                    }
+
+                    int rowIndex = 1;
+                    foreach (DataRow dsrow in table.Rows)
+                    {
+                        row = excelSheet.CreateRow(rowIndex);
+                        int cellIndex = 0;
+                        foreach (String col in columns)
+                        {
+                            row.CreateCell(cellIndex).SetCellValue(dsrow[col].ToString());
+                            cellIndex++;
+                        }
+
+                        rowIndex++;
+                    }
+                    workbook.Write(fs);
+                }
+                MessageBox.Show("All Records saved to Excel", "Save to Excel");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
 
             }
         }
