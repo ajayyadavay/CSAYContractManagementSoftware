@@ -185,7 +185,6 @@
             this.ColAmountThisbillOnly = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.exportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToExcelxlsxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TabContractProjectInfo = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
@@ -211,6 +210,7 @@
             this.TxtContractorName = new System.Windows.Forms.TextBox();
             this.label45 = new System.Windows.Forms.Label();
             this.TabLetter = new System.Windows.Forms.TabPage();
+            this.BtnCreateDocx = new System.Windows.Forms.Button();
             this.TxtBody7 = new System.Windows.Forms.TextBox();
             this.TxtBody8 = new System.Windows.Forms.TextBox();
             this.BtnCreatePdf = new System.Windows.Forms.Button();
@@ -234,7 +234,6 @@
             this.BtnAnalyseDate = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.TabMenu = new System.Windows.Forms.TabPage();
-            this.BtnCreateDocx = new System.Windows.Forms.Button();
             this.BtnCreateAllPdf = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.RadioMDD = new System.Windows.Forms.RadioButton();
@@ -261,6 +260,7 @@
             this.ComboBoxDistinctVal1 = new System.Windows.Forms.ComboBox();
             this.ComboBoxFilterBy1 = new System.Windows.Forms.ComboBox();
             this.TxtLog = new System.Windows.Forms.TextBox();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.tabControl1.SuspendLayout();
             this.TabLoadAllRecord.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -1841,25 +1841,19 @@
             this.toolStripMenuItem2,
             this.saveToExcelxlsxToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(177, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 76);
             // 
             // exportToExcelToolStripMenuItem
             // 
             this.exportToExcelToolStripMenuItem.Name = "exportToExcelToolStripMenuItem";
-            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.exportToExcelToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exportToExcelToolStripMenuItem.Text = "Export To Excel";
             this.exportToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportToExcelToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(176, 22);
-            this.toolStripMenuItem2.Text = "_";
             // 
             // saveToExcelxlsxToolStripMenuItem
             // 
             this.saveToExcelxlsxToolStripMenuItem.Name = "saveToExcelxlsxToolStripMenuItem";
-            this.saveToExcelxlsxToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.saveToExcelxlsxToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToExcelxlsxToolStripMenuItem.Text = "Save to Excel (.xlsx)";
             this.saveToExcelxlsxToolStripMenuItem.Click += new System.EventHandler(this.saveToExcelxlsxToolStripMenuItem_Click);
             // 
@@ -2106,6 +2100,22 @@
             this.TabLetter.TabIndex = 5;
             this.TabLetter.Text = "Letter";
             this.TabLetter.UseVisualStyleBackColor = true;
+            // 
+            // BtnCreateDocx
+            // 
+            this.BtnCreateDocx.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.BtnCreateDocx.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.BtnCreateDocx.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.BtnCreateDocx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnCreateDocx.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BtnCreateDocx.ForeColor = System.Drawing.Color.Black;
+            this.BtnCreateDocx.Location = new System.Drawing.Point(1171, 228);
+            this.BtnCreateDocx.Name = "BtnCreateDocx";
+            this.BtnCreateDocx.Size = new System.Drawing.Size(152, 43);
+            this.BtnCreateDocx.TabIndex = 12;
+            this.BtnCreateDocx.Text = "Create docx";
+            this.BtnCreateDocx.UseVisualStyleBackColor = true;
+            this.BtnCreateDocx.Click += new System.EventHandler(this.BtnCreateDocx_Click);
             // 
             // TxtBody7
             // 
@@ -2386,22 +2396,6 @@
             this.TabMenu.TabIndex = 1;
             this.TabMenu.Text = "Menu";
             this.TabMenu.UseVisualStyleBackColor = true;
-            // 
-            // BtnCreateDocx
-            // 
-            this.BtnCreateDocx.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.BtnCreateDocx.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.BtnCreateDocx.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.BtnCreateDocx.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnCreateDocx.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.BtnCreateDocx.ForeColor = System.Drawing.Color.Black;
-            this.BtnCreateDocx.Location = new System.Drawing.Point(1171, 228);
-            this.BtnCreateDocx.Name = "BtnCreateDocx";
-            this.BtnCreateDocx.Size = new System.Drawing.Size(152, 43);
-            this.BtnCreateDocx.TabIndex = 12;
-            this.BtnCreateDocx.Text = "Create docx";
-            this.BtnCreateDocx.UseVisualStyleBackColor = true;
-            this.BtnCreateDocx.Click += new System.EventHandler(this.BtnCreateDocx_Click);
             // 
             // BtnCreateAllPdf
             // 
@@ -2785,6 +2779,11 @@
             this.TxtLog.Size = new System.Drawing.Size(1222, 49);
             this.TxtLog.TabIndex = 40;
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            // 
             // FrmContract
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3073,8 +3072,8 @@
         private ToolStripMenuItem exportToExcelToolStripMenuItem;
         private Button BtnExportAllToExcel;
         private Button BtnCreateDocx;
-        private ToolStripMenuItem toolStripMenuItem2;
         private ToolStripMenuItem saveToExcelxlsxToolStripMenuItem;
         private Button BtnSave2Excel;
+        private ToolStripSeparator toolStripMenuItem2;
     }
 }

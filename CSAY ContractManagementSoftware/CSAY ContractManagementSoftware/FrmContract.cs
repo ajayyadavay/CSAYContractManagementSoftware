@@ -42,7 +42,7 @@ namespace CSAY_ContractManagementSoftware
 
         private void FrmContract_Load(object sender, EventArgs e)
         {
-            //tabControl1.TabPages.Remove(TabLetter);
+            tabControl1.TabPages.Remove(TabLetter);
             //string tdate = DateTime.UtcNow.ToString("MM-dd-yyyy");
             string tdate = DateTime.UtcNow.ToString("yyyy-MM-dd");
             TxtToday.Text = tdate;
@@ -2793,10 +2793,25 @@ namespace CSAY_ContractManagementSoftware
                     headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
                     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                     headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdRed;
-                    headerRange.Font.Size = 10;
+                    headerRange.Font.Size = 12;
                     headerRange.Text = TxtHeader.Text + Environment.NewLine;
-                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                    //headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
                     headerRange.Text += TxtPatra.Text + "\t\t" + TxtMiti.Text + Environment.NewLine + TxtChalani.Text;
+
+                   /* Object name = new Object();
+                    name =   TxtHeader.Text;
+                    Microsoft.Office.Interop.Word.Range range =  Word.Bookmarks.get_Item(ref name).Range;
+
+                    //BOOK MARK FOR START OF SELECTION
+                    Object oBookmarkStart = "BookMark1_Start";
+                    Object oRngoBookMarkStart = Word.Bookmarks.get_Item(ref oBookmarkDesignInfoStart).Range.Start;
+                    //BOOK MARK FOR END OF SELECTION
+                    Object oBookmarkEnd = "BookMark1_End";
+                    Object oRngoBookMarkEnd = Word.Bookmarks.get_Item(ref oBookmarkDesignInfoEnd).Range.Start;
+                    //SETTING THE RANGE ON THE BOOKMARK BETWEEN TWO BOOKMARKS
+                    Word.Range rngBKMarkSelection = Word.Range(ref oRngoBookMarkStart, ref oRngoBookMarkEnd);
+                    //SELECTING THE TEXT
+                    rngBKMarkSelection.Select();*/
                 }
 
                 //Add the footers into the document  
@@ -2812,20 +2827,20 @@ namespace CSAY_ContractManagementSoftware
 
                 //adding text to document  
                 document.Content.SetRange(0, 0);
-                document.Content.Text = "This is test document " + Environment.NewLine;
+                document.Content.Text = TxtToBank.Text + Environment.NewLine;
 
                 //Add paragraph with Heading 1 style  
                 Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                 object styleHeading1 = "Heading 1";
                 para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Text = TxtHeader.Text;
+                para1.Range.Text = TxtSubject.Text;
                 para1.Range.InsertParagraphAfter();
 
                 //Add paragraph with Heading 2 style  
                 Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
                 object styleHeading2 = "Heading 2";
                 para2.Range.set_Style(ref styleHeading2);
-                para2.Range.Text = "Para 2 text";
+                para2.Range.Text = TxtBody1.Text + TxtBody2.Text+ TxtBody3.Text + TxtBody4.Text+ TxtBody5.Text + TxtBody6.Text + TxtBody7.Text + TxtBody8.Text + TxtBody9.Text;
                 para2.Range.InsertParagraphAfter();
 
                 //Create a 5X5 table and insert some dummy record  
@@ -2860,8 +2875,24 @@ namespace CSAY_ContractManagementSoftware
                     }
                 }
 
+                //Add paragraph with Heading 2 style  
+                Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
+                //object styleHeading3 = "Heading 2";
+                //para3.Range.set_Style(ref styleHeading3);
+                para3.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
+                para3.Range.Text = TxtNibedak.Text + Environment.NewLine;
+                para3.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style  
+                Microsoft.Office.Interop.Word.Paragraph para4 = document.Content.Paragraphs.Add(ref missing);
+                object styleHeading4 = "Heading 2";
+                para4.Range.set_Style(ref styleHeading4);
+                para4.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
+                para4.Range.Text = TxtBodharth.Text;
+                para4.Range.InsertParagraphAfter();
+
                 //Save the document  
-                object filename = "temp1.docx";
+                object filename = @"F:\temp2.docx";
                 document.SaveAs2(ref filename);
                 document.Close(ref missing, ref missing, ref missing);
                 document = null;
@@ -2899,50 +2930,66 @@ namespace CSAY_ContractManagementSoftware
         {
             try
             {
-                //if (dataGridView1.Rows.Count > 1)
-                //{
-                DataTable table = DataGridView_To_Datatable(dataGridView1);
-                var name1 = table.Rows[0][1];
-                //MessageBox.Show("Data is Converted!");
-                //}
-
-
-                //DataTable table = (DataTable)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(persons), (typeof(DataTable)));
-                var memoryStream = new MemoryStream();
-                string filename = "Result.xlsx";
-
-                using (var fs = new FileStream(filename, FileMode.Create, FileAccess.Write))
+                if (TxtFY.Text == "" || TxtContractID.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "")
                 {
-                    IWorkbook workbook = new XSSFWorkbook();
-                    ISheet excelSheet = workbook.CreateSheet("Sheet1");
+                    TxtLog.Text += "Either Fiscal Year or Contract ID or Ward or Project Type is Empty. Please fill to continue.";
+                    TxtLog.Text = Environment.NewLine;
+                    TxtBillLog.Text = "Either Fiscal Year or Contract ID or Ward or Project Type is Empty. Please fill to continue.";
+                    TxtBillLog.Text = Environment.NewLine;
+                }
+                else
+                {
+                    //string BillFileName;
 
-                    List<String> columns = new List<string>();
-                    IRow row = excelSheet.CreateRow(0);
-                    int columnIndex = 0;
+                    //string ThisContractID, ThisWard;
+                    CreateAccessProjectFolders();
 
-                    foreach (System.Data.DataColumn column in table.Columns)
+                    //if (dataGridView1.Rows.Count > 1)
+                    //{
+                    DataTable table = DataGridView_To_Datatable(dataGridView1);
+                    var name1 = table.Rows[0][1];
+                    //MessageBox.Show("Data is Converted!");
+                    //}
+
+                    
+                    //DataTable table = (DataTable)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(persons), (typeof(DataTable)));
+                    var memoryStream = new MemoryStream();
+                    //string filename = "Result.xlsx";
+                    string filename = EventHistoryFolder + "\\Bill.xlsx";
+                    using (var fs = new FileStream(filename, FileMode.Create, FileAccess.Write))
                     {
-                        columns.Add(column.ColumnName);
-                        row.CreateCell(columnIndex).SetCellValue(column.ColumnName);
-                        columnIndex++;
-                    }
+                        IWorkbook workbook = new XSSFWorkbook();
+                        ISheet excelSheet = workbook.CreateSheet("Sheet1");
 
-                    int rowIndex = 1;
-                    foreach (DataRow dsrow in table.Rows)
-                    {
-                        row = excelSheet.CreateRow(rowIndex);
-                        int cellIndex = 0;
-                        foreach (String col in columns)
+                        List<String> columns = new List<string>();
+                        IRow row = excelSheet.CreateRow(0);
+                        int columnIndex = 0;
+
+                        foreach (System.Data.DataColumn column in table.Columns)
                         {
-                            row.CreateCell(cellIndex).SetCellValue(dsrow[col].ToString());
-                            cellIndex++;
+                            columns.Add(column.ColumnName);
+                            row.CreateCell(columnIndex).SetCellValue(column.ColumnName);
+                            columnIndex++;
                         }
 
-                        rowIndex++;
+                        int rowIndex = 1;
+                        foreach (DataRow dsrow in table.Rows)
+                        {
+                            row = excelSheet.CreateRow(rowIndex);
+                            int cellIndex = 0;
+                            foreach (String col in columns)
+                            {
+                                row.CreateCell(cellIndex).SetCellValue(dsrow[col].ToString());
+                                cellIndex++;
+                            }
+
+                            rowIndex++;
+                        }
+                        workbook.Write(fs);
                     }
-                    workbook.Write(fs);
+                    MessageBox.Show("Contract and Bill saved to Excel", "Save to Excel");
                 }
-                MessageBox.Show("Contract and Bill saved to Excel", "Save to Excel");
+                
 
             }
             catch (Exception ex)
@@ -2967,7 +3014,7 @@ namespace CSAY_ContractManagementSoftware
                 //DataTable table = (DataTable)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(persons), (typeof(DataTable)));
                 var memoryStream = new MemoryStream();
                 string filename = "AllRecord.xlsx";
-
+                //string filename = EventHistoryFolder + "\\Bill.xlsx";
                 using (var fs = new FileStream(filename, FileMode.Create, FileAccess.Write))
                 {
                     IWorkbook workbook = new XSSFWorkbook();
@@ -3079,75 +3126,75 @@ namespace CSAY_ContractManagementSoftware
                 }
                 else
                 {
-
-                }
-                DialogResult dr = MessageBox.Show("Are you sure, you want to Save Contract Bill?", "Save Bill to Text File", MessageBoxButtons.YesNo);
-                if (dr == DialogResult.Yes)
-                {
-                    //String[,] sd = new String[rowsAmtGrid, colsAmtGrid]; //[12,8]
-
-                    string SaveBillintextFile, BillFileName, SaveLastBillInTxt;
-
-                    //string ThisContractID, ThisWard;
-                    CreateAccessProjectFolders();
-                                       
-
-                    SaveBillintextFile = "";
-                    SaveLastBillInTxt = "";
-                    SaveBillintextFile += Environment.NewLine;
-                    SaveBillintextFile += "ModifiedDate:" + DateTime.Now.ToString("F");
-                    SaveBillintextFile += Environment.NewLine;
-
-                    SaveBillintextFile += "--------------------------------------";
-                    SaveBillintextFile += Environment.NewLine;
-
-                    /*for (int col = 0; col < dataGridView1.ColumnCount; col++)
+                    DialogResult dr = MessageBox.Show("Are you sure, you want to Save Contract Bill?", "Save Bill to Text File", MessageBoxButtons.YesNo);
+                    if (dr == DialogResult.Yes)
                     {
-                        SaveBillintextFile += Convert.ToString(dataGridView1.Columns[col].HeaderText);
-                    }*/
+                        //String[,] sd = new String[rowsAmtGrid, colsAmtGrid]; //[12,8]
 
-                    SaveBillintextFile += "--------------------------------------";
-                    SaveBillintextFile += Environment.NewLine;
+                        string SaveBillintextFile, BillFileName, SaveLastBillInTxt;
 
-                    for (int i = 0; i < rowsAmtGrid; i++)
-                    {
-                        for (int j = 0; j < colsAmtGrid; j++)
-                        {
-                            SaveBillintextFile += dataGridView1.Rows[i].Cells[j].Value;
-                            SaveBillintextFile += "\t";
+                        //string ThisContractID, ThisWard;
+                        CreateAccessProjectFolders();
 
-                            SaveLastBillInTxt += dataGridView1.Rows[i].Cells[j].Value;
-                            SaveLastBillInTxt += "\t";
-                            
-                        }
+
+                        SaveBillintextFile = "";
+                        SaveLastBillInTxt = "";
                         SaveBillintextFile += Environment.NewLine;
-                        SaveLastBillInTxt += Environment.NewLine;
-                    }
+                        SaveBillintextFile += "ModifiedDate:" + DateTime.Now.ToString("F");
+                        SaveBillintextFile += Environment.NewLine;
 
-                    BillFileName = EventHistoryFolder + "\\Bill.txt";
-                    //using (StreamWriter sw = File.AppendText(@".\EventHistory.\Bill\" + BillFileName))
-                    using (StreamWriter sw = File.AppendText(BillFileName))
+                        SaveBillintextFile += "--------------------------------------";
+                        SaveBillintextFile += Environment.NewLine;
+
+                        /*for (int col = 0; col < dataGridView1.ColumnCount; col++)
+                        {
+                            SaveBillintextFile += Convert.ToString(dataGridView1.Columns[col].HeaderText);
+                        }*/
+
+                        SaveBillintextFile += "--------------------------------------";
+                        SaveBillintextFile += Environment.NewLine;
+
+                        for (int i = 0; i < rowsAmtGrid; i++)
+                        {
+                            for (int j = 0; j < colsAmtGrid; j++)
+                            {
+                                SaveBillintextFile += dataGridView1.Rows[i].Cells[j].Value;
+                                SaveBillintextFile += "\t";
+
+                                SaveLastBillInTxt += dataGridView1.Rows[i].Cells[j].Value;
+                                SaveLastBillInTxt += "\t";
+
+                            }
+                            SaveBillintextFile += Environment.NewLine;
+                            SaveLastBillInTxt += Environment.NewLine;
+                        }
+
+                        BillFileName = EventHistoryFolder + "\\Bill.txt";
+                        //using (StreamWriter sw = File.AppendText(@".\EventHistory.\Bill\" + BillFileName))
+                        using (StreamWriter sw = File.AppendText(BillFileName))
+                        {
+                            sw.WriteLine(SaveBillintextFile);
+                        }
+                        TxtBillLog.Text = "Recent: Appended to Text Successful at " + BillFileName;
+                        TxtBillLog.Text = Environment.NewLine;
+
+                        BillFileName = LastEventFolder + "\\LastBill.txt";
+                        //using (StreamWriter swl = new StreamWriter(@".\LastEvent\LastBill.txt"))
+                        using (StreamWriter swl = new StreamWriter(BillFileName))
+                        {
+                            swl.Write(SaveLastBillInTxt);
+                        }
+
+                        TxtBillLog.Text += "Recent: Last bill Saved to Text Successfully at " + BillFileName;
+                        TxtBillLog.Text = Environment.NewLine;
+                    }
+                    else if (dr == DialogResult.No)
                     {
-                        sw.WriteLine(SaveBillintextFile);
+                        //do nothing
+                        TxtBillLog.Text = "Recent: Save to Text cancelled !";
                     }
-                    TxtBillLog.Text = "Recent: Appended to Text Successful at " + BillFileName;
-                    TxtBillLog.Text = Environment.NewLine;
-
-                    BillFileName = LastEventFolder + "\\LastBill.txt";
-                    //using (StreamWriter swl = new StreamWriter(@".\LastEvent\LastBill.txt"))
-                    using (StreamWriter swl = new StreamWriter(BillFileName))
-                    {
-                        swl.Write(SaveLastBillInTxt);
-                    }
-
-                    TxtBillLog.Text += "Recent: Last bill Saved to Text Successfully at " + BillFileName;
-                    TxtBillLog.Text = Environment.NewLine;
                 }
-                else if (dr == DialogResult.No)
-                {
-                    //do nothing
-                    TxtBillLog.Text = "Recent: Save to Text cancelled !";
-                }
+                
             }
             catch
             {
