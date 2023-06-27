@@ -1263,10 +1263,10 @@
             TabGuarantee.Controls.Add(groupBox5);
             TabGuarantee.Controls.Add(groupBox4);
             TabGuarantee.Controls.Add(groupBox3);
-            TabGuarantee.Location = new Point(4, 24);
+            TabGuarantee.Location = new Point(4, 29);
             TabGuarantee.Name = "TabGuarantee";
             TabGuarantee.Padding = new Padding(3);
-            TabGuarantee.Size = new Size(1341, 571);
+            TabGuarantee.Size = new Size(1341, 566);
             TabGuarantee.TabIndex = 1;
             TabGuarantee.Text = "Gurantee";
             TabGuarantee.UseVisualStyleBackColor = true;
@@ -1945,9 +1945,9 @@
             TabContractBill.Controls.Add(TxtBillLog);
             TabContractBill.Controls.Add(groupBox1);
             TabContractBill.Controls.Add(dataGridView1);
-            TabContractBill.Location = new Point(4, 24);
+            TabContractBill.Location = new Point(4, 29);
             TabContractBill.Name = "TabContractBill";
-            TabContractBill.Size = new Size(1341, 571);
+            TabContractBill.Size = new Size(1341, 566);
             TabContractBill.TabIndex = 2;
             TabContractBill.Text = "Contract and Bill";
             TabContractBill.UseVisualStyleBackColor = true;
@@ -2210,9 +2210,9 @@
             // 
             TabContractProjectInfo.Controls.Add(groupBox12);
             TabContractProjectInfo.Controls.Add(groupBox11);
-            TabContractProjectInfo.Location = new Point(4, 24);
+            TabContractProjectInfo.Location = new Point(4, 29);
             TabContractProjectInfo.Name = "TabContractProjectInfo";
-            TabContractProjectInfo.Size = new Size(1341, 571);
+            TabContractProjectInfo.Size = new Size(1341, 566);
             TabContractProjectInfo.TabIndex = 3;
             TabContractProjectInfo.Text = "Contractor and Project Info";
             TabContractProjectInfo.UseVisualStyleBackColor = true;
@@ -2504,43 +2504,46 @@
             // addToolStripMenuItem
             // 
             addToolStripMenuItem.Name = "addToolStripMenuItem";
-            addToolStripMenuItem.Size = new Size(127, 24);
+            addToolStripMenuItem.Size = new Size(180, 24);
             addToolStripMenuItem.Text = "Add";
             addToolStripMenuItem.Click += addToolStripMenuItem_Click;
             // 
             // toolStripMenuItem5
             // 
             toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new Size(124, 6);
+            toolStripMenuItem5.Size = new Size(177, 6);
             // 
             // displayToolStripMenuItem
             // 
+            displayToolStripMenuItem.Enabled = false;
             displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            displayToolStripMenuItem.Size = new Size(127, 24);
+            displayToolStripMenuItem.Size = new Size(180, 24);
             displayToolStripMenuItem.Text = "Display";
             displayToolStripMenuItem.Click += displayToolStripMenuItem_Click;
             // 
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new Size(124, 6);
+            toolStripMenuItem4.Size = new Size(177, 6);
             // 
             // modifyToolStripMenuItem
             // 
+            modifyToolStripMenuItem.Enabled = false;
             modifyToolStripMenuItem.Name = "modifyToolStripMenuItem";
-            modifyToolStripMenuItem.Size = new Size(127, 24);
+            modifyToolStripMenuItem.Size = new Size(180, 24);
             modifyToolStripMenuItem.Text = "Modify";
             modifyToolStripMenuItem.Click += modifyToolStripMenuItem_Click;
             // 
             // toolStripMenuItem6
             // 
             toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new Size(124, 6);
+            toolStripMenuItem6.Size = new Size(177, 6);
             // 
             // deleteToolStripMenuItem
             // 
+            deleteToolStripMenuItem.Enabled = false;
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(127, 24);
+            deleteToolStripMenuItem.Size = new Size(180, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -2555,7 +2558,7 @@
             // 
             modeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addToolStripMenuItem1, displayModifyDeleteToolStripMenuItem });
             modeToolStripMenuItem.Name = "modeToolStripMenuItem";
-            modeToolStripMenuItem.Size = new Size(117, 24);
+            modeToolStripMenuItem.Size = new Size(180, 24);
             modeToolStripMenuItem.Text = "Mode";
             // 
             // addToolStripMenuItem1

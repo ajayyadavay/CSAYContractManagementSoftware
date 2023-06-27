@@ -994,7 +994,6 @@ namespace CSAY_ContractManagementSoftware
         {
             //BillFileName = EventHistoryFolder + "\\Bill.txt";
             string ThisDir = Environment.CurrentDirectory;
-            string FontDir0 = ThisDir + "\\Font\\Kalimati Regular.otf";
             //string FontDir1 = ThisDir + "\\Font\\Preeti Normal.otf";
             // path folder
             CreateAccessProjectFolders();
@@ -1004,7 +1003,7 @@ namespace CSAY_ContractManagementSoftware
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
 
-            PdfFont KalimatiFont = PdfFontFactory.CreateFont(FontDir0, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
+            //PdfFont KalimatiFont = PdfFontFactory.CreateFont(FontDir0, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
             //PdfFont PreetiFont = PdfFontFactory.CreateFont(FontDir1, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
 
             Paragraph header = new Paragraph();
@@ -1742,7 +1741,7 @@ namespace CSAY_ContractManagementSoftware
                .Add(new Paragraph(TxtContractorName.Text + ", " + TxtAddressOfContractor.Text));
 
             //Row44------------------------------------------------------
-            Cell cell441 = new Cell(1, 1)
+            /*Cell cell441 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
                .SetTextAlignment(TextAlignment.LEFT)
                .Add(new Paragraph("44"));
@@ -1755,12 +1754,12 @@ namespace CSAY_ContractManagementSoftware
                //.SetBackgroundColor(Color.GRAY)
                .SetTextAlignment(TextAlignment.LEFT)
                .Add(new Paragraph(TxtContractorNameDev.Text + ", " + TxtContractorAddressDev.Text).SetFont(KalimatiFont));
-
+            */
             //Row45------------------------------------------------------
             Cell cell451 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
                .SetTextAlignment(TextAlignment.LEFT)
-               .Add(new Paragraph("45"));
+               .Add(new Paragraph("44"));
 
             Cell cell452 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
@@ -1775,7 +1774,7 @@ namespace CSAY_ContractManagementSoftware
             Cell cell461 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
                .SetTextAlignment(TextAlignment.LEFT)
-               .Add(new Paragraph("46"));
+               .Add(new Paragraph("45"));
 
             Cell cell462 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
@@ -1793,11 +1792,11 @@ namespace CSAY_ContractManagementSoftware
                .SetTextAlignment(TextAlignment.CENTER)
                .Add(new Paragraph("H. Project Informtion"));
 
-            //Row47------------------------------------------------------
+            //Row46------------------------------------------------------
             Cell cell471 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
                .SetTextAlignment(TextAlignment.LEFT)
-               .Add(new Paragraph("47"));
+               .Add(new Paragraph("46"));
 
             Cell cell472 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
@@ -1807,6 +1806,21 @@ namespace CSAY_ContractManagementSoftware
                //.SetBackgroundColor(Color.GRAY)
                .SetTextAlignment(TextAlignment.LEFT)
                .Add(new Paragraph(TxtProjectDescription.Text));
+
+            //Row47------------------------------------------------------
+            Cell cell4711 = new Cell(1, 1)
+               //.SetBackgroundColor(Color.Green)
+               .SetTextAlignment(TextAlignment.LEFT)
+               .Add(new Paragraph("47"));
+
+            Cell cell4721 = new Cell(1, 1)
+               //.SetBackgroundColor(Color.Green)
+               .SetTextAlignment(TextAlignment.LEFT)
+               .Add(new Paragraph("Procurement Cat and Method"));
+            Cell cell4731 = new Cell(1, 1)
+               //.SetBackgroundColor(Color.GRAY)
+               .SetTextAlignment(TextAlignment.LEFT)
+               .Add(new Paragraph(TxtProcurementcategory.Text + " - " + TxtProcurementMethod.Text));
 
             //Row48------------------------------------------------------
             Cell cell481 = new Cell(1, 1)
@@ -2080,9 +2094,9 @@ namespace CSAY_ContractManagementSoftware
             table.AddCell(cell432);
             table.AddCell(cell433);
 
-            table.AddCell(cell441);
-            table.AddCell(cell442);
-            table.AddCell(cell443);
+            //table.AddCell(cell441);
+            //table.AddCell(cell442);
+            //table.AddCell(cell443);
 
             table.AddCell(cell451);
             table.AddCell(cell452);
@@ -2097,6 +2111,10 @@ namespace CSAY_ContractManagementSoftware
             table.AddCell(cell471);
             table.AddCell(cell472);
             table.AddCell(cell473);
+
+            table.AddCell(cell4711);
+            table.AddCell(cell4721);
+            table.AddCell(cell4731);
 
             table.AddCell(cell481);
             table.AddCell(cell482);
