@@ -78,6 +78,7 @@ Retention Amount  = Retention% * (PS + Sub-total) = R
 Total Advance Payment = Advance payment1 + Advance Payment2 = TAP
 Advance Payment deduction% = APD% {It is deducted in bill}
 Advane Payment Amount deducted = TAP  *  APD% = APAD
-Net Payment to Contractor = T - R - APAD</value>
+Net Payment to Contractor = T - R - APAD
+</value>
   </data>
 </root>

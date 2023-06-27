@@ -1,0 +1,38 @@
+
+ModifiedDate:Tuesday, June 27, 2023 8:57:12 PM
+-----------------------------------------------------------
+General Information of the Contract
+-----------------------------------------------------------
+1. Project ID		:	
+2. Fiscal Year		:	08081
+3. Contract ID		:	gbia/caan/road/01/2079-80
+4. Contract Name		:	construction of buildings
+5. Contract Budget		:	50000
+6. Location and Ward	:	oscar location-8
+7. Budget Type		:	Fiscal Equalization Grant
+9. Project Type		:	Building
+-----------------------------------------------------------
+Important Event Dates of the Contract
+-----------------------------------------------------------
+10. Current Status		:	Notice Issued
+11. Notice Issued		:	2023-06-27
+12. LOI			:	
+13. LOA			:	
+14. Contract Agreement	:	2023-07-27
+15. Work Permit		:	2023-07-27
+16. Work Complete		:	2023-09-28
+17. Running Bill		:	
+18. Final Bill		:	
+19. Contract Day remaining	:	93
+-----------------------------------------------------------
+Procurement Info
+-----------------------------------------------------------
+20. Procurement Category	:	Consultancy
+21. Procurement Method	:	QCBS
+22. Public Entity	:	
+-----------------------------------------------------------
+Amount Summary Info
+-----------------------------------------------------------
+23. Total Estimated Amount	:	49800
+24. Total Contract Amount	:	49000
+25. Total Final Bill Amount	:	

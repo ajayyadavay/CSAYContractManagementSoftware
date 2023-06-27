@@ -23,15 +23,17 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace CSAY_ContractManagementSoftware
 {
     public partial class FrmContract : Form
     {
-        #nullable disable
+#nullable disable
         //Declare global variables
         int rowsAmtGrid = 12, colsAmtGrid = 8;
-        int  n_of_calc_Row = 4, n_of_calc_Col = 5;
+        int rowsAmtGridBill = 12;
+        int n_of_calc_Row = 4, n_of_calc_Col = 5;
 
         string Cur_Dir, Contract_ID, Ward, Project_Type, Project_Folders, ThisContractFolder, EventHistoryFolder, LastEventFolder;
         string FYFolder;
@@ -42,13 +44,43 @@ namespace CSAY_ContractManagementSoftware
 
         private void FrmContract_Load(object sender, EventArgs e)
         {
-            tabControl1.TabPages.Remove(TabLetter);
+            //Control1.TabPages.Remove(TabLetter);
             //string tdate = DateTime.UtcNow.ToString("MM-dd-yyyy");
             string tdate = DateTime.UtcNow.ToString("yyyy-MM-dd");
             TxtToday.Text = tdate;
-            GenerateAmountDataGrid();
+
+
+            //load format bill in combobox
+            string dir = Environment.CurrentDirectory + "\\ComboBoxList\\BillFormat";
+            string[] files = Directory.GetFiles(dir, "*.txt", SearchOption.AllDirectories);//Directory.GetFiles(dir);
+
+            foreach (string filePath in files) ComboBoxFormatBill.Items.Add(System.IO.Path.GetFileName(filePath));
+
+
+            //load default format bill format text name
+            string[] FormatbillList = System.IO.File.ReadAllLines(@".\ComboBoxList\DefaultFormatBill.txt");
+            TxtFormatBill.Text = FormatbillList[0];
+            /*foreach (var line in FormatbillList)
+            {
+                ComboBoxFY.Items.Add(line);
+            }*/
+
+            GenerateAmountDataGridFromText();
+            //GenerateAmountDataGrid();
+
+
             SetGridColorAndFont();
             SetColorofInputCells();
+
+
+            //Add ---> Procurement category 
+            string[] ProcCategoryList = System.IO.File.ReadAllLines(@".\ComboBoxList\ProcurementCategory.txt");
+            foreach (var line in ProcCategoryList)
+            {
+                ComboBoxProCategory.Items.Add(line);
+            }
+
+
 
             //Add ---> Fiscal year 
             string[] FiscalYearList = System.IO.File.ReadAllLines(@".\ComboBoxList\FiscalYear.txt");
@@ -109,6 +141,63 @@ namespace CSAY_ContractManagementSoftware
             }
 
         }
+
+        public void LoadTxtToDatagridview(DataGridView Dgv, string FileName, int TxtStartRow, int no_of_Col)
+        {
+            string[] ReadingText = new string[100];
+            //string RWYCoordFilenName;
+            int i;
+            StreamReader sr;
+            string line;
+
+
+            line = "";
+            //FileName = @".\InputFolder\" + TxtAirportCode.Text + "\\" + "Strip_RL.txt";
+            //Pass the file path and file name to the StreamReader constructor
+            sr = new StreamReader(FileName);
+            //Read the first line of text
+            line = sr.ReadLine();
+            ReadingText[0] = line;
+            //Continue to read until you reach end of file
+            i = 1;
+            while (line != null)
+            {
+                //Read the next line
+                line = sr.ReadLine();
+                ReadingText[i] = line;
+                i++;
+            }
+            //close the file
+            sr.Close();
+
+            //load RL data of strip
+            Dgv.Rows.Clear();
+            int startrow = TxtStartRow;
+            int sn = 1;
+            for (int row = startrow; row < (i - startrow); row++)
+            {
+                Dgv.Rows.Add();
+                //Dgv.Rows[row - startrow].Cells[0].Value = sn.ToString();
+                sn++;
+            }
+
+            for (int row = startrow; row < (i - startrow); row++)
+            {
+                string[] splittedtext = ReadingText[row].Split('\t');
+                for (int col = 0; col < no_of_Col; col++)
+                {
+                    Dgv.Rows[row - startrow].Cells[col].Value = splittedtext[col];
+                }
+            }
+
+        }
+
+        private void GenerateAmountDataGridFromText()
+        {
+            string filename = Environment.CurrentDirectory + "\\ComboBoxList\\BillFormat\\" + TxtFormatBill.Text;
+            LoadTxtToDatagridview(dataGridView1, filename, 1, 8);
+        }
+
         public void GenerateAmountDataGrid() //Function to generate Amount Data grid
         {
             //initialize and declared variables
@@ -165,7 +254,7 @@ namespace CSAY_ContractManagementSoftware
             }
 
             //Entering % data like VAT, Contingencies, etc.
-            for (int i = 0; i < n_of_calc_Col-2; i++) //Column Index 5no.
+            for (int i = 0; i < n_of_calc_Col - 2; i++) //Column Index 5no.
             {
                 for (int j = 0; j < n_of_calc_Row; j++) //Row Index and Percentage data index 4no.
                 {
@@ -211,7 +300,7 @@ namespace CSAY_ContractManagementSoftware
             TxtProjectType.Text = ComboBoxProjectType.Text;
         }
 
-        private void BtnAnalyseDate_Click(object sender, EventArgs e)
+        private void Fun_AnalyseDate()
         {
             try
             {
@@ -237,21 +326,21 @@ namespace CSAY_ContractManagementSoftware
 
                 //determine Minimum APG Date,Insurance, PB date
                 int APGDay = Convert.ToInt32(ContractDays * 0.8 + 1);
-                TxtAPG1MinDL.Text = NewDateAFterAddingDays_and_Months(APGDay,0,TxtWorkPermit.Text);
+                TxtAPG1MinDL.Text = NewDateAFterAddingDays_and_Months(APGDay, 0, TxtWorkPermit.Text);
                 TxtAPG2MinDL.Text = TxtAPG1MinDL.Text;
                 TxtInsMinDL.Text = TxtWorkComplete.Text;
-                TxtPBMinDL.Text = NewDateAFterAddingDays_and_Months(365,1, TxtWorkComplete.Text);
+                TxtPBMinDL.Text = NewDateAFterAddingDays_and_Months(365, 1, TxtWorkComplete.Text);
 
                 //check if APG, PB, Ins document deadline is equal or more than Min valid date
                 int tempdays;
                 //APG1
                 tempdays = DifferenceInDate(TxtAPG1MinDL.Text, TxtAPG1DL.Text);
-                if(tempdays >=0)
+                if (tempdays >= 0)
                 {
                     TxtAPG1Remark.Text = "Valid";
                     TxtAPG1Remark.ForeColor = Color.ForestGreen;
                 }
-                else if(tempdays < 0)
+                else if (tempdays < 0)
                 {
                     TxtAPG1Remark.Text = "Review";
                     TxtAPG1Remark.ForeColor = Color.Red;
@@ -293,7 +382,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtInsRemark.ForeColor = Color.Red;
                 }
 
-                
+
                 //checking APG,PB,Ins date from Today
                 //APG1
                 tempdays = DifferenceInDate(TxtToday.Text, TxtAPG1DL.Text);
@@ -319,7 +408,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtAPG2DaysRem.Text = tempdays.ToString();
                     TxtAPG2DaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if(tempdays <=7 || tempdays > 0)
+                else if (tempdays <= 7 || tempdays > 0)
                 {
                     TxtAPG2DaysRem.Text = tempdays.ToString();
                     TxtAPG2DaysRem.ForeColor = Color.Violet;
@@ -368,7 +457,6 @@ namespace CSAY_ContractManagementSoftware
             {
 
             }
-            
         }
 
         private int DifferenceInDate(string StartDate, string EndDate)
@@ -399,14 +487,14 @@ namespace CSAY_ContractManagementSoftware
                 TimeSpan difference = end - start; //create TimeSpan object
 
                 return difference.Days;
-               
-                   
+
+
             }
             catch
             {
                 return 0;
             }
-            
+
         }
 
         private string NewDateAFterAddingDays_and_Months(int DaysToAdd, int MonthsToAdd, string OldDate)
@@ -439,94 +527,61 @@ namespace CSAY_ContractManagementSoftware
             }
         }
 
-        private void BtnExit_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void RadioAdd_CheckedChanged(object sender, EventArgs e)
-        {
-            TxtProjectID.Enabled = false;
-            TxtProjectID.Text = "";
-            BtnModify.Enabled = false;
-            BtnDisplay.Enabled = false;
-            BtnDelete.Enabled = false;
-            BtnAdd.Enabled = true;
-
-            DeleteTextFields();
-            BtnResetBill_Click(sender,  e);
-            Initial_State_of_Label();
-        }
-
-        private void RadioMDD_CheckedChanged(object sender, EventArgs e)
-        {
-            TxtProjectID.Enabled = true;
-            TxtProjectID.Text = "";
-            BtnModify.Enabled = true;
-            BtnDisplay.Enabled = true;
-            BtnDelete.Enabled = true;
-            BtnAdd.Enabled = false;
-
-            DeleteTextFields();
-            BtnResetBill_Click(sender, e);
-            Initial_State_of_Label();
-        }
-
         private void DeleteTextFields()
         {
-            TxtFY.Text="";
-            TxtContractID.Text="";
-            TxtContractName.Text="";
-            TxtContractBudget.Text="";
-            TxtWard.Text="";
-            TxtProjectType.Text="";
-            TxtBudgetType.Text="";
-            TxtLocation.Text="";
+            TxtFY.Text = "";
+            TxtContractID.Text = "";
+            TxtContractName.Text = "";
+            TxtContractBudget.Text = "";
+            TxtWard.Text = "";
+            TxtProjectType.Text = "";
+            TxtBudgetType.Text = "";
+            TxtLocation.Text = "";
 
-            TxtAPG1RefNo.Text="";
-            TxtAPG1DL.Text="";
-            TxtAPG1Amount.Text="";
-            TxtAPG1MinDL.Text="";
-            TxtAPG1Remark.Text="";
+            TxtAPG1RefNo.Text = "";
+            TxtAPG1DL.Text = "";
+            TxtAPG1Amount.Text = "";
+            TxtAPG1MinDL.Text = "";
+            TxtAPG1Remark.Text = "";
 
-            TxtAPG2RefNo.Text="";
-            TxtAPG2DL.Text="";
-            TxtAPG2Amount.Text="";
-            TxtAPG2MinDL.Text="";
-            TxtAPG2Remark.Text="";
+            TxtAPG2RefNo.Text = "";
+            TxtAPG2DL.Text = "";
+            TxtAPG2Amount.Text = "";
+            TxtAPG2MinDL.Text = "";
+            TxtAPG2Remark.Text = "";
 
-            TxtPBRefNo.Text="";
-            TxtPBDL.Text="";
-            TxtPBAmount.Text="";
-            TxtPBMinDL.Text="";
-            TxtPBRemark.Text="";
+            TxtPBRefNo.Text = "";
+            TxtPBDL.Text = "";
+            TxtPBAmount.Text = "";
+            TxtPBMinDL.Text = "";
+            TxtPBRemark.Text = "";
 
-            TxtInsRefNo.Text="";
-            TxtInsDL.Text="";
-            TxtInsAmount.Text="";
-            TxtInsMinDL.Text="";
-            TxtInsRemark.Text="";
+            TxtInsRefNo.Text = "";
+            TxtInsDL.Text = "";
+            TxtInsAmount.Text = "";
+            TxtInsMinDL.Text = "";
+            TxtInsRemark.Text = "";
 
-            TxtCurrentStatus.Text="";
-            TxtNoticeIssued.Text="";
-            TxtLOI.Text="";
-            TxtLOA.Text="";
-            TxtContractAgreement.Text="";
-            TxtWorkPermit.Text="";
-            TxtWorkComplete.Text="";
-            TxtRunningBill.Text="";
-            TxtFinalBill.Text="";
-            TxtDaysRem.Text="";
+            TxtCurrentStatus.Text = "";
+            TxtNoticeIssued.Text = "";
+            TxtLOI.Text = "";
+            TxtLOA.Text = "";
+            TxtContractAgreement.Text = "";
+            TxtWorkPermit.Text = "";
+            TxtWorkComplete.Text = "";
+            TxtRunningBill.Text = "";
+            TxtFinalBill.Text = "";
+            TxtDaysRem.Text = "";
 
-            TxtContractorName.Text="";
-            TxtAddressOfContractor.Text="";
-            TxtEmail1.Text="";
-            TxtContractorOther.Text="";
+            TxtContractorName.Text = "";
+            TxtAddressOfContractor.Text = "";
+            TxtEmail1.Text = "";
+            TxtContractorOther.Text = "";
 
-            TxtProjectDescription.Text="";
-            TxtLength.Text="";
-            TxtBreadth.Text="";
-            TxtHeight.Text="";
+            TxtProjectDescription.Text = "";
+            TxtLength.Text = "";
+            TxtBreadth.Text = "";
+            TxtHeight.Text = "";
 
             TxtContractorNameDev.Text = "";
             TxtContractorAddressDev.Text = "";
@@ -538,7 +593,7 @@ namespace CSAY_ContractManagementSoftware
             TxtInsDaysRem.Text = "";
 
             TxtAPG1DaysRem.Text = "";
-            TxtAPG2DaysRem.Text = ""; 
+            TxtAPG2DaysRem.Text = "";
             TxtPBDaysRem.Text = "";
             TxtInsDaysRem.Text = "";
 
@@ -552,6 +607,12 @@ namespace CSAY_ContractManagementSoftware
             TxtBankAddressPB.Text = "";
             TxtBankAddressIns.Text = "";
 
+            TxtProcurementcategory.Text = "";
+            TxtProcurementMethod.Text = "";
+            TxtTotalEstimatedAmount.Text = "";
+            TxtTotalContractAmount.Text = "";
+            TxtTotalFinalBillAmount.Text = "";
+            //TxtPE.Text = "";
 
             ComboBoxFY.SelectedIndex = -1;
             ComboBoxBudgetType.SelectedIndex = -1;
@@ -563,7 +624,7 @@ namespace CSAY_ContractManagementSoftware
             ComboBoxInsBankName.SelectedIndex = -1;
         }
 
-        private void BtnAdd_Click(object sender, EventArgs e)
+        private void Fun_Add(object sender, EventArgs e)
         {
             string FiscalYear = TxtFY.Text;
             string ContractID = TxtContractID.Text;
@@ -637,7 +698,14 @@ namespace CSAY_ContractManagementSoftware
             string PBBankAddress = TxtBankAddressPB.Text;
             string InsBankAddress = TxtBankAddressIns.Text;
 
-            if(TxtFY.Text == "" || TxtContractID.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "")
+            string ProcurementCategory = TxtProcurementcategory.Text;
+            string ProcurementMethod = TxtProcurementMethod.Text;
+            string TotalEstimatedAmount = TxtTotalEstimatedAmount.Text;
+            string TotalContractAmount = TxtTotalContractAmount.Text;
+            string TotalFinalBillAmount = TxtTotalFinalBillAmount.Text;
+            string PublicEntity = TxtPE.Text;
+
+            if (TxtFY.Text == "" || TxtContractID.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "")
             {
                 TxtLog.Text += "Either Fiscal Year or Contract ID or Ward or Project Type is Empty. Please fill to continue.";
                 TxtLog.Text += Environment.NewLine;
@@ -657,7 +725,8 @@ namespace CSAY_ContractManagementSoftware
                         "InsDocRefNo,InsDeadline, InsAmount,InsMinDL,InsRemark," +
                         "CurrentStatus,NoticeIssued,LOI,LOA,ContractAgreement,WorkPermit,WorkComplete,RunningBill,FinalBill,DaysRemaining," +
                         "NameOfContractor,AddressOfContractor,Email1,ContractorOther,ProjectDescription,Length,Breadth,Height,ContractorNameDev,ContractorAddressDev," +
-                        "APG1DaysRem,APG2DaysRem,PBDaysRem,InsDaysRem,APG1BankName,APG2BankName ,PBBankName ,InsBankName,APG1BankAddress,APG2BankAddress,PBBankAddress,InsBankAddress) " +
+                        "APG1DaysRem,APG2DaysRem,PBDaysRem,InsDaysRem,APG1BankName,APG2BankName ,PBBankName ,InsBankName,APG1BankAddress,APG2BankAddress,PBBankAddress,InsBankAddress," +
+                        "ProcurementCategory, ProcurementMethod, TotalEstimatedAmount, TotalContractAmount, TotalFinalBillAmount, PublicEntity) " +
                         "VALUES('" + FiscalYear + "','" + ContractID + "','" + ContractName + "','" + ContractBudget + "'," +
                         "'" + Ward + "','" + ProjectType + "','" + BudgetType + "','" + Location + "'" +
                         ",'" + APG1DocRefNo + "','" + APG1Deadline + "','" + APG1Amount + "','" + APG1MinDL + "','" + APG1Remark + "'" +
@@ -670,14 +739,16 @@ namespace CSAY_ContractManagementSoftware
                         ",'" + ProjectDescription + "','" + Length + "','" + Breadth + "','" + Height + "','" + ContractorNameDev + "','" + ContractorAddressDev + "'" +
                         ",'" + APG1DaysRem + "','" + APG2DaysRem + "','" + PBDaysRem + "','" + InsDaysRem + "'" +
                         ",'" + APG1BankName + "','" + APG2BankName + "','" + PBBankName + "','" + InsBankName + "'" +
-                        ",'" + APG1BankAddress + "','" + APG2BankAddress + "','" + PBBankAddress + "','" + InsBankAddress + "')";// one data format  = '" + Height + "'
+                        ",'" + APG1BankAddress + "','" + APG2BankAddress + "','" + PBBankAddress + "','" + InsBankAddress + "'" +
+                        ",'" + ProcurementCategory + "','" + ProcurementMethod + "','" + TotalEstimatedAmount + "', '" + TotalContractAmount + "', '" + TotalFinalBillAmount + "', '" + PublicEntity + "' )";// one data format  = '" + Height + "'
 
                     SQLiteCommand Cmd = new SQLiteCommand(query, ConnectDb);
                     Cmd.ExecuteNonQuery();
 
                     ConnectDb.Close();
 
-                    BtnCreateProjectFolder_Click(sender, e);
+                    //BtnCreateProjectFolder_Click(sender, e);
+                    Fun_CreateProjectFolder();
                     BtnSave2Txt_Click(sender, e);
                     BtnResetBill_Click(sender, e);
 
@@ -696,6 +767,8 @@ namespace CSAY_ContractManagementSoftware
                     ComboBoxBudgetType.SelectedIndex = -1;
                     ComboBoxProjectType.SelectedIndex = -1;
                     ComboBoxCurrentStatus.SelectedIndex = -1;
+                    ComboBoxProCategory.SelectedIndex = -1;
+                    ComboBoxProMethod.SelectedIndex = -1;
 
                     Initial_State_of_Label();
 
@@ -713,9 +786,8 @@ namespace CSAY_ContractManagementSoftware
                     //Nothing to do
                 }
             }
-    
-            
         }
+
         private void Initial_State_of_Label()
         {
             TxtWorkComplete.BackColor = Color.White;
@@ -731,436 +803,6 @@ namespace CSAY_ContractManagementSoftware
             TxtAPG2DaysRem.ForeColor = Color.Black;
             TxtPBDaysRem.ForeColor = Color.Black;
             TxtInsDaysRem.ForeColor = Color.Black;
-        }
-
-        private void BtnModify_Click(object sender, EventArgs e)
-        {
-            string ProjectID = TxtProjectID.Text;
-            string FiscalYear = TxtFY.Text;
-            string ContractID = TxtContractID.Text;
-            string ContractName = TxtContractName.Text;
-            string ContractBudget = TxtContractBudget.Text;
-            string Ward = TxtWard.Text;
-            string ProjectType = TxtProjectType.Text;
-            string BudgetType = TxtBudgetType.Text;
-            string Location = TxtLocation.Text;
-
-            string APG1DocRefNo = TxtAPG1RefNo.Text;
-            string APG1Deadline = TxtAPG1DL.Text;
-            string APG1Amount = TxtAPG1Amount.Text;
-            string APG1MinDL = TxtAPG1MinDL.Text;
-            string APG1Remark = TxtAPG1Remark.Text;
-
-            string APG2DocRefNo = TxtAPG2RefNo.Text;
-            string APG2Deadline = TxtAPG2DL.Text;
-            string APG2Amount = TxtAPG2Amount.Text;
-            string APG2MinDL = TxtAPG2MinDL.Text;
-            string APG2Remark = TxtAPG2Remark.Text;
-
-            string PBDocRefNo = TxtPBRefNo.Text;
-            string PBDeadline = TxtPBDL.Text;
-            string PBAmount = TxtPBAmount.Text;
-            string PBMinDL = TxtPBMinDL.Text;
-            string PBRemark = TxtPBRemark.Text;
-
-            string InsDocRefNo = TxtInsRefNo.Text;
-            string InsDeadline = TxtInsDL.Text;
-            string InsAmount = TxtInsAmount.Text;
-            string InsMinDL = TxtInsMinDL.Text;
-            string InsRemark = TxtInsRemark.Text;
-
-            string CurrentStatus = TxtCurrentStatus.Text;
-            string NoticeIssued = TxtNoticeIssued.Text;
-            string LOI = TxtLOI.Text;
-            string LOA = TxtLOA.Text;
-            string ContractAgreement = TxtContractAgreement.Text;
-            string WorkPermit = TxtWorkPermit.Text;
-            string WorkComplete = TxtWorkComplete.Text;
-            string RunningBill = TxtRunningBill.Text;
-            string FinalBill = TxtFinalBill.Text;
-            string DaysRemaining = TxtDaysRem.Text;
-
-            string NameOfContractor = TxtContractorName.Text;
-            string AddressOfContractor = TxtAddressOfContractor.Text;
-            string Email1 = TxtEmail1.Text;
-            string ContractorOther = TxtContractorOther.Text;
-
-            string ProjectDescription = TxtProjectDescription.Text;
-            string Length = TxtLength.Text;
-            string Breadth = TxtBreadth.Text;
-            string Height = TxtHeight.Text;
-
-            string ContractorNameDev = TxtContractorNameDev.Text;
-            string ContractorAddressDev = TxtContractorAddressDev.Text;
-
-            string APG1DaysRem = TxtAPG1DaysRem.Text;
-            string APG2DaysRem = TxtAPG2DaysRem.Text;
-            string PBDaysRem = TxtPBDaysRem.Text;
-            string InsDaysRem = TxtInsDaysRem.Text;
-
-            string APG1BankName = TxtBankNameAPG1.Text;
-            string APG2BankName = TxtBankNameAPG2.Text;
-            string PBBankName = TxtBankNamePB.Text;
-            string InsBankName = TxtBankNameIns.Text;
-
-            string APG1BankAddress = TxtBankAddressAPG1.Text;
-            string APG2BankAddress = TxtBankAddressAPG2.Text;
-            string PBBankAddress = TxtBankAddressPB.Text;
-            string InsBankAddress = TxtBankAddressIns.Text;
-
-            DialogResult dr = MessageBox.Show("Are you sure, you want to Modify?", "Modify", MessageBoxButtons.YesNo);
-            if (dr == DialogResult.Yes)
-            {
-                //Modify
-                SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
-                ConnectDb.Open();
-                                
-                string query = "REPLACE INTO ContractTable(ProjectID,FiscalYear,ContractID,ContractName,ContractBudget,Ward," +
-                    "ProjectType,BudgetType,Location,APG1DocRefNo,APG1Deadline, APG1Amount,APG1MinDL,APG1Remark," +
-                    "APG2DocRefNo,APG2Deadline, APG2Amount,APG2MinDL,APG2Remark," +
-                    "PBDocRefNo,PBDeadline, PBAmount,PBMinDL,PBRemark," +
-                    "InsDocRefNo,InsDeadline, InsAmount,InsMinDL,InsRemark," +
-                    "CurrentStatus,NoticeIssued,LOI,LOA,ContractAgreement,WorkPermit,WorkComplete,RunningBill,FinalBill,DaysRemaining," +
-                    "NameOfContractor,AddressOfContractor,Email1,ContractorOther,ProjectDescription,Length,Breadth,Height,ContractorNameDev,ContractorAddressDev," +
-                    "APG1DaysRem,APG2DaysRem,PBDaysRem,InsDaysRem,APG1BankName,APG2BankName ,PBBankName ,InsBankName,APG1BankAddress,APG2BankAddress,PBBankAddress,InsBankAddress) " +
-                    "VALUES('" + ProjectID + "', '" + FiscalYear + "','" + ContractID + "','" + ContractName + "','" + ContractBudget + "'," +
-                    "'" + Ward + "','" + ProjectType + "','" + BudgetType + "','" + Location + "'" +
-                    ",'" + APG1DocRefNo + "','" + APG1Deadline + "','" + APG1Amount + "','" + APG1MinDL + "','" + APG1Remark + "'" +
-                    ",'" + APG2DocRefNo + "','" + APG2Deadline + "','" + APG2Amount + "','" + APG2MinDL + "','" + APG2Remark + "'" +
-                    ",'" + PBDocRefNo + "','" + PBDeadline + "','" + PBAmount + "','" + PBMinDL + "','" + PBRemark + "'" +
-                    ",'" + InsDocRefNo + "','" + InsDeadline + "','" + InsAmount + "','" + InsMinDL + "','" + InsRemark + "'" +
-                    ",'" + CurrentStatus + "','" + NoticeIssued + "','" + LOI + "','" + LOA + "','" + ContractAgreement + "','" + WorkPermit + "'" +
-                    ",'" + WorkComplete + "','" + RunningBill + "','" + FinalBill + "','" + DaysRemaining + "'" +
-                    ",'" + NameOfContractor + "','" + AddressOfContractor + "','" + Email1 + "','" + ContractorOther + "'" +
-                    ",'" + ProjectDescription + "','" + Length + "','" + Breadth + "','" + Height + "','" + ContractorNameDev + "','" + ContractorAddressDev + "'" +
-                    ",'" + APG1DaysRem + "','" + APG2DaysRem + "','" + PBDaysRem + "','" + InsDaysRem + "'" +
-                    ",'" + APG1BankName + "','" + APG2BankName + "','" + PBBankName + "','" + InsBankName + "'" +
-                    ",'" + APG1BankAddress + "','" + APG2BankAddress + "','" + PBBankAddress + "','" + InsBankAddress + "')";// one data format  = '" + Height + "'
-
-                SQLiteCommand Cmd = new SQLiteCommand(query, ConnectDb);
-                Cmd.ExecuteNonQuery();
-
-                ConnectDb.Close();
-
-                BtnCreateProjectFolder_Click(sender, e);
-
-                TxtLog.AppendText("Activity: Successfully Modified Record: " + "Project ID: " + ProjectID + "  " + ContractID + " of " + Ward + " at " + Location);
-                TxtLog.AppendText(Environment.NewLine);
-
-                /*using (System.IO.StreamWriter sw = System.IO.File.AppendText(@".\Log\Log.txt"))
-                {
-                    Text2Write = "[" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss") + "]" + "  --->  " + "MODIFY" + " ---> " + "Project ID: " + ProjectID + "  " + ProjectName + " of " + Ward + " at " + Location;
-                    sw.WriteLine(Text2Write);
-                }*/
-                
-            }
-            else if (dr == DialogResult.No)
-            {
-                //Nothing to do
-            }
-        }
-
-        private void BtnDelete_Click(object sender, EventArgs e)
-        {
-            string ProjectID = TxtProjectID.Text;
-
-            if (TxtProjectID.Text == "")
-            {
-                TxtLog.Text = "Enter Project ID to Delete";
-            }
-            else
-            {
-                DialogResult dr = MessageBox.Show("Are You Sure, you want to delete?", "Delete", MessageBoxButtons.YesNo);
-                if (dr == DialogResult.Yes)
-                {
-                    //delete
-                    SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
-                    ConnectDb.Open();
-
-                    string query = "DELETE FROM  ContractTable WHERE ProjectID ='" + TxtProjectID.Text + "' ";
-                    SQLiteCommand Cmd = new SQLiteCommand(query, ConnectDb);
-                    Cmd.ExecuteNonQuery();
-
-                    ConnectDb.Close();
-
-                    TxtProjectID.Text = "";
-
-                    string ContractID = TxtContractID.Text;
-                    string Ward = TxtWard.Text;
-                    string Location = TxtLocation.Text;
-                    TxtLog.AppendText("Deleted Projedt ID: " + ProjectID + " => " + ContractID + " of " + Ward + " at " + Location);
-                    TxtLog.AppendText(Environment.NewLine);
-
-                    /*using (System.IO.StreamWriter sw = System.IO.File.AppendText(@".\Log\Log.txt"))
-                    {
-                        Text2Write = "[" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss") + "]" + "  --->  " + "DELETE" + " ---> " + "Project ID: " + ProjectID + "  " + ProjectName + " of " + Ward + " at " + Location;
-                        sw.WriteLine(Text2Write);
-                    }*/
-
-                    Initial_State_of_Label();
-                }
-                else if (dr == DialogResult.No)
-                {
-                    //Nothing to do
-                }
-
-            }
-        }
-
-        private void BtnDisplay_Click(object sender, EventArgs e)
-        {
-            if (TxtProjectID.Text == "")
-            {
-                TxtLog.AppendText("Enter Project ID to Display");
-                TxtLog.AppendText(Environment.NewLine);
-            }
-            else
-            {
-                SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
-                ConnectDb.Open();
-
-                string query = "SELECT * FROM ContractTable where ProjectID = '" + TxtProjectID.Text + "'";
-
-                SQLiteDataAdapter DataAdptr = new SQLiteDataAdapter(query, ConnectDb);
-
-                DataTable Dt = new DataTable();
-                DataAdptr.Fill(Dt);
-                //string value;
-                foreach (DataRow row in Dt.Rows) //there is only one row here
-                {
-                    TxtFY.Text = row[1].ToString();
-                    TxtContractID.Text = row[2].ToString();
-                    TxtContractName.Text = row[3].ToString();
-                    TxtContractBudget.Text = row[4].ToString();
-                    TxtWard.Text = row[5].ToString();
-                    TxtProjectType.Text = row[6].ToString();
-                    TxtBudgetType.Text = row[7].ToString();
-                    TxtLocation.Text = row[8].ToString();
-
-                    TxtAPG1RefNo.Text = row[9].ToString();
-                    TxtAPG1DL.Text = row[10].ToString();
-                    TxtAPG1Amount.Text = row[11].ToString();
-                    TxtAPG1MinDL.Text = row[12].ToString();
-                    TxtAPG1Remark.Text = row[13].ToString();
-
-                    TxtAPG2RefNo.Text = row[14].ToString();
-                    TxtAPG2DL.Text = row[15].ToString();
-                    TxtAPG2Amount.Text = row[16].ToString();
-                    TxtAPG2MinDL.Text = row[17].ToString();
-                    TxtAPG2Remark.Text = row[18].ToString();
-
-                    TxtPBRefNo.Text = row[19].ToString();
-                    TxtPBDL.Text = row[20].ToString();
-                    TxtPBAmount.Text = row[21].ToString();
-                    TxtPBMinDL.Text = row[22].ToString();
-                    TxtPBRemark.Text = row[23].ToString();
-
-                    TxtInsRefNo.Text = row[24].ToString();
-                    TxtInsDL.Text = row[25].ToString();
-                    TxtInsAmount.Text = row[26].ToString();
-                    TxtInsMinDL.Text = row[27].ToString();
-                    TxtInsRemark.Text = row[28].ToString();
-
-                    TxtCurrentStatus.Text = row[29].ToString();
-                    TxtNoticeIssued.Text = row[30].ToString();
-                    TxtLOI.Text = row[31].ToString();
-                    TxtLOA.Text = row[32].ToString();
-                    TxtContractAgreement.Text = row[33].ToString();
-                    TxtWorkPermit.Text = row[34].ToString();
-                    TxtWorkComplete.Text = row[35].ToString();
-                    TxtRunningBill.Text = row[36].ToString();
-                    TxtFinalBill.Text = row[37].ToString();
-                    TxtDaysRem.Text = row[38].ToString();
-
-                    TxtContractorName.Text = row[39].ToString();
-                    TxtAddressOfContractor.Text = row[40].ToString();
-                    TxtEmail1.Text = row[41].ToString();
-                    TxtContractorOther.Text = row[42].ToString();
-
-                    TxtProjectDescription.Text = row[43].ToString();
-                    TxtLength.Text = row[44].ToString();
-                    TxtBreadth.Text = row[45].ToString();
-                    TxtHeight.Text = row[46].ToString();
-
-                    TxtContractorNameDev.Text = row[47].ToString();
-                    TxtContractorAddressDev.Text = row[48].ToString();
-
-                    TxtAPG1DaysRem.Text = row[49].ToString();
-                    TxtAPG2DaysRem.Text = row[50].ToString();
-                    TxtPBDaysRem.Text = row[51].ToString();
-                    TxtInsDaysRem.Text = row[52].ToString();
-
-                    TxtBankNameAPG1.Text = row[53].ToString();
-                    TxtBankNameAPG2.Text = row[54].ToString();
-                    TxtBankNamePB.Text = row[55].ToString();
-                    TxtBankNameIns.Text = row[56].ToString();
-
-                    TxtBankAddressAPG1.Text = row[57].ToString();
-                    TxtBankAddressAPG2.Text = row[58].ToString();
-                    TxtBankAddressPB.Text = row[59].ToString();
-                    TxtBankAddressIns.Text = row[60].ToString();
-
-                }
-                ConnectDb.Close();
-
-                BtnReadfromTxt_Click(sender, e);
-
-                //days remaining from today
-                int rem_days;
-                if (TxtDaysRem.Text == "")
-                {
-                    TxtDaysRem.Text = 0.ToString();
-                }
-                rem_days = Convert.ToInt32(TxtDaysRem.Text);
-
-                if (rem_days > 0)
-                {
-                    TxtWorkComplete.BackColor = Color.LightGreen;
-                    TxtDateAnalysis.ForeColor = Color.ForestGreen;
-                    TxtDaysRem.ForeColor = Color.ForestGreen;
-                    TxtDateAnalysis.Text = "OK." + rem_days + " days remaining for completion.";
-                }
-                else if (rem_days <= 0)
-                {
-                    TxtWorkComplete.BackColor = Color.LightCoral;
-                    TxtDateAnalysis.ForeColor = Color.Red;
-                    TxtDaysRem.ForeColor = Color.Red;
-                    TxtDateAnalysis.Text = "REVIEW. " + rem_days + " days past Deadline.";
-                }
-
-                //Guarantee
-                if (TxtAPG1Remark.Text == "Valid")
-                {
-                    TxtAPG1Remark.ForeColor = Color.ForestGreen;
-                }
-                else if (TxtAPG1Remark.Text == "Review")
-                {
-                    TxtAPG1Remark.ForeColor = Color.Red;
-                }
-
-                if (TxtAPG2Remark.Text == "Valid")
-                {
-                    TxtAPG2Remark.ForeColor = Color.ForestGreen;
-                }
-                else if(TxtAPG2Remark.Text == "Review")
-                {
-                    TxtAPG2Remark.ForeColor = Color.Red;
-                }
-
-                if (TxtPBRemark.Text == "Valid")
-                {
-                    TxtPBRemark.ForeColor = Color.ForestGreen;
-                }
-                else if (TxtPBRemark.Text == "Review")
-                {
-                    TxtPBRemark.ForeColor = Color.Red;
-                }
-
-                if (TxtInsRemark.Text == "Valid")
-                {
-                    TxtInsRemark.ForeColor = Color.ForestGreen;
-                }
-                else if (TxtInsRemark.Text == "Review")
-                {
-                    TxtInsRemark.ForeColor = Color.Red;
-                }
-
-                //checking APG,PB,Ins date from Today
-                //APG1
-                float tempdays;
-                if (TxtAPG1DaysRem.Text == "")
-                {
-                    TxtAPG1DaysRem.Text = 0.ToString();
-                }
-                tempdays = Convert.ToSingle(TxtAPG1DaysRem.Text);
-                if (tempdays > 7)
-                {
-                    //TxtAPG1DaysRem.Text = tempdays.ToString();
-                    TxtAPG1DaysRem.ForeColor = Color.ForestGreen;
-                }
-                else if (tempdays <= 7 || tempdays > 0)
-                {
-                    //TxtAPG1DaysRem.Text = tempdays.ToString();
-                    TxtAPG1DaysRem.ForeColor = Color.Violet;
-                }
-                else if (tempdays <= 0)
-                {
-                    //TxtAPG1DaysRem.Text = tempdays.ToString();
-                    TxtAPG1DaysRem.ForeColor = Color.Red;
-                }
-                //APG2
-                if (TxtAPG2DaysRem.Text == "")
-                {
-                    TxtAPG2DaysRem.Text = 0.ToString();
-                }
-                tempdays = Convert.ToSingle(TxtAPG2DaysRem.Text);
-                if (tempdays > 7)
-                {
-                    //TxtAPG2DaysRem.Text = tempdays.ToString();
-                    TxtAPG2DaysRem.ForeColor = Color.ForestGreen;
-                }
-                else if (tempdays <= 7 || tempdays > 0)
-                {
-                    //TxtAPG2DaysRem.Text = tempdays.ToString();
-                    TxtAPG2DaysRem.ForeColor = Color.Violet;
-                }
-                else if (tempdays <= 0)
-                {
-                    //TxtAPG2DaysRem.Text = tempdays.ToString();
-                    TxtAPG2DaysRem.ForeColor = Color.Red;
-                }
-                //PB
-                if (TxtPBDaysRem.Text == "")
-                {
-                    TxtPBDaysRem.Text = 0.ToString();
-                }
-                tempdays = Convert.ToSingle(TxtPBDaysRem.Text);
-                if (tempdays > 7)
-                {
-                    //TxtPBDaysRem.Text = tempdays.ToString();
-                    TxtPBDaysRem.ForeColor = Color.ForestGreen;
-                }
-                else if (tempdays <= 7 || tempdays > 0)
-                {
-                    //TxtPBDaysRem.Text = tempdays.ToString();
-                    TxtPBDaysRem.ForeColor = Color.Violet;
-                }
-                else if (tempdays <= 0)
-                {
-                    //TxtPBDaysRem.Text = tempdays.ToString();
-                    TxtPBDaysRem.ForeColor = Color.Red;
-                }
-                //Insurance
-                if (TxtInsDaysRem.Text == "")
-                {
-                    TxtInsDaysRem.Text = 0.ToString();
-                }
-                tempdays = Convert.ToSingle(TxtInsDaysRem.Text);
-                if (tempdays > 7)
-                {
-                    //TxtInsDaysRem.Text = tempdays.ToString();
-                    TxtInsDaysRem.ForeColor = Color.ForestGreen;
-                }
-                else if (tempdays <= 7 || tempdays > 0)
-                {
-                    //TxtInsDaysRem.Text = tempdays.ToString();
-                    TxtInsDaysRem.ForeColor = Color.Violet;
-                }
-                else if (tempdays <= 0)
-                {
-                    //TxtInsDaysRem.Text = tempdays.ToString();
-                    TxtInsDaysRem.ForeColor = Color.Red;
-                }
-
-                string ProjectID = TxtProjectID.Text;
-
-                string ContractID = TxtContractID.Text;
-                string Ward = TxtWard.Text;
-                string Location = TxtLocation.Text;
-
-                TxtLog.AppendText("Displayed Projedt ID: " + ProjectID + " => " + Contract_ID + " of " + Ward + " at " + Location);
-                TxtLog.AppendText(Environment.NewLine);
-            }
         }
 
         private void BtnLoadAllRecord_Click(object sender, EventArgs e)
@@ -1182,11 +824,6 @@ namespace CSAY_ContractManagementSoftware
             LblRecordNo.Text = "Total No. of Record loaded:  " + rcount.ToString();
         }
 
-        private void BtnAbout_Click(object sender, EventArgs e)
-        {
-            FrmAbout fabout = new FrmAbout();
-            fabout.Show();
-        }
 
         private void BtnToday_Click(object sender, EventArgs e)
         {
@@ -1270,7 +907,7 @@ namespace CSAY_ContractManagementSoftware
         }
 
         private void BtnLessThan_Click(object sender, EventArgs e)
-        {            
+        {
             RichTxtFilter.SelectionColor = Color.Red;
             RichTxtFilter.SelectedText += "<";
 
@@ -1353,142 +990,7 @@ namespace CSAY_ContractManagementSoftware
 
         }
 
-        private void BtnCreatePdf_Click(object sender, EventArgs e)
-        {
-            //BillFileName = EventHistoryFolder + "\\Bill.txt";
-            string ThisDir = Environment.CurrentDirectory;
-            //string FontDir = ThisDir + "\\Font\\Mangal Regular.otf";
-            string FontDir = ThisDir + "\\Font\\Krishna Normal.ttf";
-            // Must have write permissions to the path folder
-            PdfWriter writer = new PdfWriter("E:\\demo.pdf");
-            PdfDocument pdf = new PdfDocument(writer);
-            Document document = new Document(pdf);
-
-            PdfFont KalimatiFont = PdfFontFactory.CreateFont(FontDir, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED);
-
-            Paragraph header = new Paragraph();
-            header.Add(TxtHeader.Text)
-                .SetTextAlignment(TextAlignment.CENTER)
-                .SetFontSize(16)
-                .SetFont(KalimatiFont);
-            document.Add(header);
-
-            Paragraph Patra = new Paragraph();
-            Patra.Add(TxtPatra.Text)
-                .SetTextAlignment(TextAlignment.LEFT)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(Patra);
-
-            Paragraph Miti= new Paragraph();
-            Miti.Add(TxtMiti.Text)
-                .SetTextAlignment(TextAlignment.RIGHT)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(Miti);
-
-            Paragraph Chalani = new Paragraph();
-            Chalani.Add(TxtChalani.Text)
-                .SetTextAlignment(TextAlignment.LEFT)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(Chalani);
-
-            // Line separator
-            LineSeparator ls = new LineSeparator(new SolidLine());
-            document.Add(ls);
-
-            Paragraph ToBank = new Paragraph();
-            ToBank.Add(TxtToBank.Text)
-                .SetTextAlignment(TextAlignment.LEFT)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(ToBank);
-
-            Paragraph Subject = new Paragraph();
-            Subject.Add(TxtSubject.Text)
-                .SetTextAlignment(TextAlignment.CENTER)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(Subject);
-
-            string Body = TxtBody1.Text + " " + TxtBody2.Text + " " + TxtBody3.Text + " " + TxtBody4.Text + " " +
-                TxtBody5.Text + " " + TxtBody6.Text + " " + TxtBody7.Text + " " + TxtBody8.Text + " " +
-                TxtBody9.Text;
-
-            Paragraph BodyPara = new Paragraph();
-            BodyPara.Add(Body)
-                .SetTextAlignment(TextAlignment.JUSTIFIED)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(BodyPara);
-
-            Paragraph Bodharth = new Paragraph();
-            Bodharth.Add(TxtBodharth.Text)
-                .SetTextAlignment(TextAlignment.LEFT)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(Bodharth);
-
-            Paragraph Nibedak = new Paragraph();
-            Nibedak.Add(TxtNibedak.Text)
-                .SetTextAlignment(TextAlignment.RIGHT)
-                .SetFontSize(12)
-                .SetFont(KalimatiFont);
-            document.Add(Nibedak);
-
-            //subheader
-            /* Paragraph subheader = new Paragraph(TxtPatra.Text)
-                 .SetTextAlignment(TextAlignment.LEFT)
-                 .SetFontSize(15);
-             document.Add(subheader);*/
-
-            // Table
-            iText.Layout.Element.Table table = new iText.Layout.Element.Table(2, false);
-            Cell cell11 = new Cell(1, 1)
-               //.SetBackgroundColor(Color.Green)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("क्र. सं."));
-            Cell cell12 = new Cell(1, 1)
-               //.SetBackgroundColor(Color.GRAY)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("Capital"));
-
-            Cell cell21 = new Cell(1, 1)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("New York"));
-            Cell cell22 = new Cell(1, 1)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("Albany"));
-
-            Cell cell31 = new Cell(1, 1)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("New Jersey"));
-            Cell cell32 = new Cell(1, 1)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("Trenton"));
-
-            Cell cell41 = new Cell(1, 1)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("California"));
-            Cell cell42 = new Cell(1, 1)
-               .SetTextAlignment(TextAlignment.CENTER)
-               .Add(new Paragraph("Sacramento"));
-
-            table.AddCell(cell11);
-            table.AddCell(cell12);
-            table.AddCell(cell21);
-            table.AddCell(cell22);
-            table.AddCell(cell31);
-            table.AddCell(cell32);
-            table.AddCell(cell41);
-            table.AddCell(cell42);
-            document.Add(table);
-
-            document.Close();
-        }
-
-        private void BtnCreateAllPdf_Click(object sender, EventArgs e)
+        private void Fun_CreateAllPdf()
         {
             //BillFileName = EventHistoryFolder + "\\Bill.txt";
             string ThisDir = Environment.CurrentDirectory;
@@ -1509,7 +1011,7 @@ namespace CSAY_ContractManagementSoftware
             header.Add(TxtPE.Text + "\n" + "Record of Contract ID: " + TxtContractID.Text + " at " + TxtCurrentStatus.Text)
                 .SetTextAlignment(TextAlignment.CENTER)
                 .SetFontSize(14);
-                //.SetFont(KalimatiFont);
+            //.SetFont(KalimatiFont);
             document.Add(header);
 
             Paragraph generated = new Paragraph();
@@ -1533,8 +1035,8 @@ namespace CSAY_ContractManagementSoftware
 
             Paragraph generated2 = new Paragraph();
             generated2.Add("\n");
-                //.SetTextAlignment(TextAlignment.RIGHT)
-                //.SetFontSize(12);
+            //.SetTextAlignment(TextAlignment.RIGHT)
+            //.SetFontSize(12);
             //.SetFont(KalimatiFont);
             document.Add(generated2);
 
@@ -1636,7 +1138,7 @@ namespace CSAY_ContractManagementSoftware
             Cell cell63 = new Cell(1, 1)
                //.SetBackgroundColor(Color.GRAY)
                .SetTextAlignment(TextAlignment.LEFT)
-               .Add(new Paragraph(TxtPE.Text + " - " +TxtWard.Text + ", " + TxtLocation.Text));
+               .Add(new Paragraph(TxtPE.Text + " - " + TxtWard.Text + ", " + TxtLocation.Text));
 
             //Row7------------------------------------------------------
             Cell cell71 = new Cell(1, 1)
@@ -1762,7 +1264,7 @@ namespace CSAY_ContractManagementSoftware
             Cell cell143 = new Cell(1, 1)
                //.SetBackgroundColor(Color.GRAY)
                .SetTextAlignment(TextAlignment.LEFT)
-               .Add(new Paragraph(TxtWorkPermit .Text));
+               .Add(new Paragraph(TxtWorkPermit.Text));
 
             //Row15------------------------------------------------------
             Cell cell151 = new Cell(1, 1)
@@ -1959,7 +1461,7 @@ namespace CSAY_ContractManagementSoftware
                .SetTextAlignment(TextAlignment.LEFT)
                .Add(new Paragraph(TxtAPG2DL.Text));
 
-            
+
             //Row27------------------------------------------------------
             Cell cell271 = new Cell(1, 1)
                //.SetBackgroundColor(Color.Green)
@@ -2117,7 +1619,7 @@ namespace CSAY_ContractManagementSoftware
                //.SetBackgroundColor(Color.GRAY)
                .SetTextAlignment(TextAlignment.LEFT)
                .Add(new Paragraph(TxtBankNamePB.Text + ", " + TxtBankAddressPB.Text));
-               //.Add(new Paragraph(TxtBankNamePB.Text + ", " + TxtBankAddressPB.Text).SetFont(KalimatiFont));
+            //.Add(new Paragraph(TxtBankNamePB.Text + ", " + TxtBankAddressPB.Text).SetFont(KalimatiFont));
 
             //Row05------------------------------------------------------
             Cell cell05 = new Cell(1, 3)
@@ -2628,16 +2130,20 @@ namespace CSAY_ContractManagementSoftware
                 .SetTextAlignment(TextAlignment.CENTER)
                 //.SetFontColor(iText.Kernel.Colors.ColorConstants.RED)
                 .SetFontSize(14);
-               //.SetFont(KalimatiFont);
+            //.SetFont(KalimatiFont);
             document.Add(header2);
 
-            float[] colwidth = new float[] {15f, 15f, 15f, 15f ,15f, 15f, 15f, 15f};
-            
+            float[] colwidth = new float[] { 15f, 15f, 15f, 15f, 15f, 15f, 15f, 15f };
+
             iText.Layout.Element.Table table1 = PDFTableFromDGV(dataGridView1, colwidth);
             document.Add(table1);
 
             document.Close();
             MessageBox.Show("Pdf Created Successfully.", "Create Pdf");
+        }
+
+        private void BtnCreateAllPdf_Click(object sender, EventArgs e)
+        {
 
         }
         private iText.Layout.Element.Table PDFTableFromDGV(DataGridView dgv, float[] cloumnwidth)
@@ -2646,7 +2152,7 @@ namespace CSAY_ContractManagementSoftware
             int dgvrowcount = dgv.Rows.Count - 1;//12
             int dgvcolumncount = dgv.Columns.Count;//8
             //MessageBox.Show(dgvrowcount + " and " + dgvcolumncount, "row and ocl");
-            string[,] datagridcontent = new string[15,10];
+            string[,] datagridcontent = new string[15, 10];
 
             // Set The Table like new float [] {15f, 15f, 15f, 15f, 15f }
             iText.Layout.Element.Table table = new iText.Layout.Element.Table(cloumnwidth);
@@ -2670,9 +2176,9 @@ namespace CSAY_ContractManagementSoftware
                 for (int c = 0; c < 8; c++) //dgvcolumncount
                 {
                     datagridcontent[i, c] = dataGridView1.Rows[i].Cells[c].Value.ToString();
-                    
+
                     Cell gteCell = new Cell(1, 1)
-                 //.SetBackgroundColor(Color.Green)
+                       //.SetBackgroundColor(Color.Green)
                        .SetTextAlignment(TextAlignment.LEFT)
                        .Add(new Paragraph(datagridcontent[i, c]));
                     table.AddCell(gteCell);
@@ -2768,142 +2274,7 @@ namespace CSAY_ContractManagementSoftware
 
         private void BtnCreateDocx_Click(object sender, EventArgs e)
         {
-            try
-            {
-                //Create an instance for word app  
-                Microsoft.Office.Interop.Word.Application winword = new Microsoft.Office.Interop.Word.Application();
 
-                //Set animation status for word application  
-                winword.ShowAnimation = false;
-
-                //Set status for word application is to be visible or not.  
-                winword.Visible = false;
-
-                //Create a missing variable for missing value  
-                object missing = System.Reflection.Missing.Value;
-
-                //Create a new document  
-                Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-
-                //Add header into the document  
-                foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
-                {
-                    //Get the header range and add the header details.  
-                    Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
-                    headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdRed;
-                    headerRange.Font.Size = 12;
-                    headerRange.Text = TxtHeader.Text + Environment.NewLine;
-                    //headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
-                    headerRange.Text += TxtPatra.Text + "\t\t" + TxtMiti.Text + Environment.NewLine + TxtChalani.Text;
-
-                   /* Object name = new Object();
-                    name =   TxtHeader.Text;
-                    Microsoft.Office.Interop.Word.Range range =  Word.Bookmarks.get_Item(ref name).Range;
-
-                    //BOOK MARK FOR START OF SELECTION
-                    Object oBookmarkStart = "BookMark1_Start";
-                    Object oRngoBookMarkStart = Word.Bookmarks.get_Item(ref oBookmarkDesignInfoStart).Range.Start;
-                    //BOOK MARK FOR END OF SELECTION
-                    Object oBookmarkEnd = "BookMark1_End";
-                    Object oRngoBookMarkEnd = Word.Bookmarks.get_Item(ref oBookmarkDesignInfoEnd).Range.Start;
-                    //SETTING THE RANGE ON THE BOOKMARK BETWEEN TWO BOOKMARKS
-                    Word.Range rngBKMarkSelection = Word.Range(ref oRngoBookMarkStart, ref oRngoBookMarkEnd);
-                    //SELECTING THE TEXT
-                    rngBKMarkSelection.Select();*/
-                }
-
-                //Add the footers into the document  
-                foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
-                {
-                    //Get the footer range and add the footer details.  
-                    Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
-                    footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
-                    footerRange.Font.Size = 10;
-                    footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    footerRange.Text = "Footer text goes here";
-                }
-
-                //adding text to document  
-                document.Content.SetRange(0, 0);
-                document.Content.Text = TxtToBank.Text + Environment.NewLine;
-
-                //Add paragraph with Heading 1 style  
-                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading1 = "Heading 1";
-                para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Text = TxtSubject.Text;
-                para1.Range.InsertParagraphAfter();
-
-                //Add paragraph with Heading 2 style  
-                Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading2 = "Heading 2";
-                para2.Range.set_Style(ref styleHeading2);
-                para2.Range.Text = TxtBody1.Text + TxtBody2.Text+ TxtBody3.Text + TxtBody4.Text+ TxtBody5.Text + TxtBody6.Text + TxtBody7.Text + TxtBody8.Text + TxtBody9.Text;
-                para2.Range.InsertParagraphAfter();
-
-                //Create a 5X5 table and insert some dummy record  
-                Word.Table firstTable = document.Tables.Add(para1.Range, 2, 2, ref missing, ref missing);
-
-                firstTable.Borders.Enable = 1;
-                foreach (Word.Row row in firstTable.Rows)
-                {
-                    foreach (Word.Cell cell in row.Cells)
-                    {
-                        //Header row  
-                        if (cell.RowIndex == 1)
-                        {
-                            cell.Range.Text = "Column " + cell.ColumnIndex.ToString();
-                            cell.Range.Font.Bold = 1;
-                            //other format properties goes here  
-                            cell.Range.Font.Name = "verdana";
-                            cell.Range.Font.Size = 10;
-                            //cell.Range.Font.ColorIndex = WdColorIndex.wdGray25;                              
-                            cell.Shading.BackgroundPatternColor = Word.WdColor.wdColorGray25;
-                            //Center alignment for the Header cells  
-                            cell.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
-                            cell.Range.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-
-                        }
-                        //Data row  
-                        else
-                        {
-                            //cell.Range.Text = (cell.RowIndex - 2 + cell.ColumnIndex).ToString();
-                            cell.Range.Text = TxtHeader.Text;
-                        }
-                    }
-                }
-
-                //Add paragraph with Heading 2 style  
-                Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
-                //object styleHeading3 = "Heading 2";
-                //para3.Range.set_Style(ref styleHeading3);
-                para3.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
-                para3.Range.Text = TxtNibedak.Text + Environment.NewLine;
-                para3.Range.InsertParagraphAfter();
-
-                //Add paragraph with Heading 2 style  
-                Microsoft.Office.Interop.Word.Paragraph para4 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading4 = "Heading 2";
-                para4.Range.set_Style(ref styleHeading4);
-                para4.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphLeft;
-                para4.Range.Text = TxtBodharth.Text;
-                para4.Range.InsertParagraphAfter();
-
-                //Save the document  
-                object filename = @"F:\temp2.docx";
-                document.SaveAs2(ref filename);
-                document.Close(ref missing, ref missing, ref missing);
-                document = null;
-                winword.Quit(ref missing, ref missing, ref missing);
-                winword = null;
-                MessageBox.Show("Document created successfully !");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
 
         }
 
@@ -2951,7 +2322,7 @@ namespace CSAY_ContractManagementSoftware
                     //MessageBox.Show("Data is Converted!");
                     //}
 
-                    
+
                     //DataTable table = (DataTable)JsonConvert.DeserializeObject(JsonConvert.SerializeObject(persons), (typeof(DataTable)));
                     var memoryStream = new MemoryStream();
                     //string filename = "Result.xlsx";
@@ -2989,7 +2360,7 @@ namespace CSAY_ContractManagementSoftware
                     }
                     MessageBox.Show("Contract and Bill saved to Excel", "Save to Excel");
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -3073,10 +2444,10 @@ namespace CSAY_ContractManagementSoftware
             dataGridView1.Rows[0].Cells[6].Style.BackColor = Color.Yellow; //PS Up2ThisBill
             dataGridView1.Rows[1].Cells[6].Style.BackColor = Color.Yellow; //Subtotal Up2ThisBill
             dataGridView1.Rows[9].Cells[6].Style.BackColor = Color.Yellow; //Deduct AP Up2ThisBill
-            
+
         }
 
-        
+
 
         private void BtnThis2Previous_Click(object sender, EventArgs e)
         {
@@ -3090,11 +2461,12 @@ namespace CSAY_ContractManagementSoftware
                     7, //Tota (A+B+D)
                     8, //Toal incl. Contingencies
                     9,  //AP Deduction %
-                    11 //Net payable
+                    12, //All Deduction amount
+                    13  //Net payable
                 };
 
                 //Input data from grid
-                for (int j = 0; j < (rowsAmtGrid); j++) //rowsAmtGrid = 12 i.e. j = 0 to 11
+                for (int j = 0; j < (rowsAmtGridBill); j++) //rowsAmtGrid = 114 i.e. j = 0 to 13 for bill
                 {
                     dataGridView1.Rows[j].Cells[5].Value = dataGridView1.Rows[j].Cells[6].Value;
                 }
@@ -3154,7 +2526,7 @@ namespace CSAY_ContractManagementSoftware
                         SaveBillintextFile += "--------------------------------------";
                         SaveBillintextFile += Environment.NewLine;
 
-                        for (int i = 0; i < rowsAmtGrid; i++)
+                        for (int i = 0; i < rowsAmtGridBill; i++)
                         {
                             for (int j = 0; j < colsAmtGrid; j++)
                             {
@@ -3194,7 +2566,7 @@ namespace CSAY_ContractManagementSoftware
                         TxtBillLog.Text = "Recent: Save to Text cancelled !";
                     }
                 }
-                
+
             }
             catch
             {
@@ -3231,10 +2603,10 @@ namespace CSAY_ContractManagementSoftware
                 sr.Close();
 
                 //load data to datagridview by splitting by tab character
-                for(int row =0; row<12; row++)
+                for (int row = 0; row < 12; row++)
                 {
                     string[] splittedtext = ReadingText[row].Split("\t");
-                    for(int col = 0; col < 8; col++)
+                    for (int col = 0; col < 8; col++)
                     {
                         dataGridView1.Rows[row].Cells[col].Value = splittedtext[col];
                     }
@@ -3246,11 +2618,10 @@ namespace CSAY_ContractManagementSoftware
 
             }
         }
-       
 
-        private void BtnCreateProjectFolder_Click(object sender, EventArgs e)
+        private void Fun_CreateProjectFolder()
         {
-           try
+            try
             {
                 if (TxtFY.Text == "" || TxtContractID.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "")
                 {
@@ -3400,6 +2771,55 @@ namespace CSAY_ContractManagementSoftware
                     SaveBillintextFile += "\t";
                     SaveBillintextFile += TxtDaysRem.Text;
                     SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "-----------------------------------------------------------";
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "Procurement Info";
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "-----------------------------------------------------------";
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "20. Procurement Category\t:";
+                    SaveBillintextFile += "\t";
+                    SaveBillintextFile += TxtProcurementcategory.Text;
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "21. Procurement Method\t:";
+                    SaveBillintextFile += "\t";
+                    SaveBillintextFile += TxtProcurementMethod.Text;
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "22. Public Entity\t:";
+                    SaveBillintextFile += "\t";
+                    SaveBillintextFile += TxtPE.Text;
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "-----------------------------------------------------------";
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "Amount Summary Info";
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "-----------------------------------------------------------";
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "23. Total Estimated Amount\t:";
+                    SaveBillintextFile += "\t";
+                    SaveBillintextFile += TxtTotalEstimatedAmount.Text;
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "24. Total Contract Amount\t:";
+                    SaveBillintextFile += "\t";
+                    SaveBillintextFile += TxtTotalContractAmount.Text;
+                    SaveBillintextFile += Environment.NewLine;
+
+                    SaveBillintextFile += "25. Total Final Bill Amount\t:";
+                    SaveBillintextFile += "\t";
+                    SaveBillintextFile += TxtTotalFinalBillAmount.Text;
+                    SaveBillintextFile += Environment.NewLine;
+
 
                     BillFileName = EventHistoryFolder + "\\General_Info.txt";
                     using (StreamWriter swl = new StreamWriter(BillFileName))
@@ -3612,13 +3032,12 @@ namespace CSAY_ContractManagementSoftware
                         sw.WriteLine(SaveBillintextFile);
                     }
                 }
-                
+
             }
             catch
             {
 
             }
-
         }
 
         private void CreateAccessProjectFolders()
@@ -3627,24 +3046,24 @@ namespace CSAY_ContractManagementSoftware
             FYFolder = TxtFY.Text;
 
             Ward = TxtWard.Text;
-            
-            if(Ward == "")
+
+            if (Ward == "")
             {
                 Ward = "0";
             }
             Contract_ID = TxtContractID.Text;
-            if(Contract_ID == "")
+            if (Contract_ID == "")
             {
                 Contract_ID = "Other_Contract";
             }
             Contract_ID = Contract_ID.Replace("/", "-");
             Contract_ID = Contract_ID.Replace("\\", "-");
             Project_Type = TxtProjectType.Text;
-            if(Project_Type == "")
+            if (Project_Type == "")
             {
                 Project_Type = "Other_Project";
             }
-            Project_Folders = Cur_Dir + "\\ProjectFolders\\" + FYFolder +  "\\" + Project_Type;
+            Project_Folders = Cur_Dir + "\\ProjectFolders\\" + FYFolder + "\\" + Project_Type;
             ThisContractFolder = Project_Folders + "\\" + Ward + " " + Contract_ID;
             EventHistoryFolder = ThisContractFolder + "\\EventHistory";
             LastEventFolder = ThisContractFolder + "\\LastEvent";
@@ -3653,7 +3072,8 @@ namespace CSAY_ContractManagementSoftware
         private void BtnResetBill_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
-            GenerateAmountDataGrid();
+            GenerateAmountDataGridFromText();
+            //GenerateAmountDataGrid();
             SetColorofInputCells();
 
             dataGridView1.Rows[0].Cells[6].Style.ForeColor = Color.Black;
@@ -3671,133 +3091,92 @@ namespace CSAY_ContractManagementSoftware
         {
             try
             {
-                //Col2 = Estimate, Col3 = Contract 
-                //Col5 = AmountUp2Previous, Col6 = AmountUp2Thisbil, Col7 = AmountofThisBillOnly
+                dataGridView1.Rows[0].Cells[3].Value = dataGridView1.Rows[0].Cells[2].Value.ToString();
 
-                //2 = VAT % Row,  4 = Contingency % Row 5 = Physical contingency % Row
-                //Price contingency % Row
+                double PS1, ST1, VAT_Per, Contingencies, VAT_Amount, GT_exclCont, GT_inclCont;
+                double AP1, AP2, AP_Total, Ap_ded_amount;
+                double AP_deduction_Per, Deduction_Per, Net_Pay;
 
-                float[,] AmountsofAmountDataGrid = new float[rowsAmtGrid, colsAmtGrid]; //[12,8]
-                int[] ColIndex = new int[]
-                {
+                int[] CalcColIndex = new int[]
+               {
                     2, //Estimate Column
                     3, //Contract Column
-                    //5, //Amount up2 previous column
-                    6,  //Amount up2 this bill column
-                        //7  //Amount of This bill only column
-                };
-                int[] InRowIndex = new int[] //Total inrows = 8, except row 3,7,8,11
-                {
-                    0, //PS
-                    1, //Subtotal
-                    2, //VAT % Row
-                    4, //Contingency % Row
-                    5, //Physical contingency % Row
-                    6,  //Price contingency % Row
-                    9,  //AP1 and AP Deduction %
-                    10  //AP2 and Retention Deduction %
-                };
-                int[] OutRowIndex = new int[] //output row 3,7,8,11
-                {
-                    3, //VAT Amount
-                    7, //Tota (A+B+D)
-                    8, //Toal incl. Contingencies
-                    11, //Total AP or Net payable
-                };
+                    6  //Amount up2 this bill column
+               };
 
-                //Input data from grid
-                for (int i = 0; i < n_of_calc_Col - 2; i++) //n_of_calc_Col = 5 i.e. i = 0 to 2
+                for (int k = 0; k < 3; k++)
                 {
-                    for (int j = 0; j < (rowsAmtGrid - n_of_calc_Row); j++) //rowsAmtGrid = 12 n_of_calc_Row=4 i.e. j = 0 to 7
+                    int idx = CalcColIndex[k];
+
+                    PS1 = Convert.ToDouble(dataGridView1.Rows[0].Cells[idx].Value);
+                    ST1 = Convert.ToDouble(dataGridView1.Rows[1].Cells[idx].Value);
+                    VAT_Per = Convert.ToDouble(dataGridView1.Rows[2].Cells[idx].Value);
+                    VAT_Amount = (Math.Round(ST1 * VAT_Per / 100.0, 2));
+
+                    dataGridView1.Rows[3].Cells[idx].Value = VAT_Amount.ToString();
+                    GT_exclCont = Math.Round(PS1 + ST1 + VAT_Amount, 2);
+                    dataGridView1.Rows[7].Cells[idx].Value = GT_exclCont.ToString();
+
+                    Contingencies = 0;
+                    for (int i = 4; i <= 5; i++)
                     {
-                        AmountsofAmountDataGrid[InRowIndex[j], ColIndex[i]] = Convert.ToSingle(dataGridView1.Rows[InRowIndex[j]].Cells[ColIndex[i]].Value);
+                        Contingencies += Convert.ToDouble(dataGridView1.Rows[i].Cells[idx].Value);
                     }
-                }
+                    GT_inclCont = Math.Round(Contingencies / 100.0 * ST1 + GT_exclCont, 2);
+                    dataGridView1.Rows[8].Cells[idx].Value = GT_inclCont.ToString();
 
-                //Equalling PS, AP1 and AP2 of estimate and contract
-                dataGridView1.Rows[0].Cells[3].Value = dataGridView1.Rows[0].Cells[2].Value;
-                //dataGridView1.Rows[9].Cells[3].Value = dataGridView1.Rows[9].Cells[2].Value;
-                //dataGridView1.Rows[10].Cells[3].Value = dataGridView1.Rows[10].Cells[2].Value;
-
-                AmountsofAmountDataGrid[0, 3] = Convert.ToSingle(dataGridView1.Rows[0].Cells[3].Value);//PS
-                AmountsofAmountDataGrid[9, 3] = Convert.ToSingle(dataGridView1.Rows[9].Cells[3].Value);//AP1
-                AmountsofAmountDataGrid[10, 3] = Convert.ToSingle(dataGridView1.Rows[10].Cells[3].Value);//AP2
-
-                //Calculate:  
-                //cols = 2,3,5,6,7
-                //row3 = VAT Amount, row7 = Tota (A+B+D)
-                //row8 = Toal incl. Contingencies, row11 = Total AP or Net payable
-
-                //Calculation for all amount columns
-                for (int i = 0; i < n_of_calc_Col - 2; i++) //n_of_calc_Col = 5 i.e. i = 0 to 2
-                {
-                    int p = ColIndex[i];
-
-                    //row3 = VAT Amount
-                    AmountsofAmountDataGrid[3, p] = AmountsofAmountDataGrid[2, p] / 100 * AmountsofAmountDataGrid[1, p];
-                    //row7 = Tota (A+B+D)
-                    AmountsofAmountDataGrid[7, p] = AmountsofAmountDataGrid[0, p] + AmountsofAmountDataGrid[1, p] + AmountsofAmountDataGrid[3, p];
-                    //row8 = Toal incl. Contingencies
-                    float SumofContingenciesFrac = (AmountsofAmountDataGrid[4, p] + AmountsofAmountDataGrid[5, p] + AmountsofAmountDataGrid[6, p]) / 100;
-                    AmountsofAmountDataGrid[8, p] = AmountsofAmountDataGrid[7, p] + AmountsofAmountDataGrid[1, p] * SumofContingenciesFrac;
-
-                    if (p == 2 || p == 3)
+                    if (idx == 3)
                     {
-                        //row11 = Total AP
-                        AmountsofAmountDataGrid[11, p] = AmountsofAmountDataGrid[9, p] + AmountsofAmountDataGrid[10, p];
+                        AP1 = Convert.ToDouble(dataGridView1.Rows[9].Cells[3].Value);
+                        AP2 = Convert.ToDouble(dataGridView1.Rows[10].Cells[3].Value);
+                        AP_Total = AP1 + AP2;
+                        dataGridView1.Rows[11].Cells[3].Value = AP_Total.ToString();
                     }
-                    if (p == 6)
-                    {
-                        //row11 = Net Payable to contractor
-                        float SumofPS_Subtotal = AmountsofAmountDataGrid[0, p] + AmountsofAmountDataGrid[1, p];
-                        //Deduct AP %
-                        AmountsofAmountDataGrid[11, p] = AmountsofAmountDataGrid[7, p] - AmountsofAmountDataGrid[9, p] / 100 * AmountsofAmountDataGrid[11, 3];
-                        //Deduct Retention %
-                        AmountsofAmountDataGrid[11, p] -= AmountsofAmountDataGrid[10, p] / 100 * SumofPS_Subtotal;
-                    }
-                }
 
-                //Output or write data to grid
-                for (int i = 0; i < n_of_calc_Col - 2; i++) //n_of_calc_Col = 5 i.e. i = 0 to 2
-                {
-                    for (int j = 0; j < (n_of_calc_Row); j++) //rowsAmtGrid = 12, n_of_calc_Row = 4 i.e. j = 0 to 3
+                    if (idx == 6)
                     {
-                        dataGridView1.Rows[OutRowIndex[j]].Cells[ColIndex[i]].Value = AmountsofAmountDataGrid[OutRowIndex[j], ColIndex[i]].ToString("0.000");
+                        AP_deduction_Per = Convert.ToDouble(dataGridView1.Rows[9].Cells[6].Value);
+                        Deduction_Per = Convert.ToDouble(dataGridView1.Rows[10].Cells[6].Value);
+
+                        AP_Total = Convert.ToDouble(dataGridView1.Rows[11].Cells[3].Value);
+                        Ap_ded_amount = AP_Total * AP_deduction_Per / 100.0;
+                        Net_Pay = Math.Round(GT_exclCont - (Deduction_Per / 100.0 * ST1) - Ap_ded_amount, 2);
+                        dataGridView1.Rows[11].Cells[6].Value = Net_Pay.ToString();
                     }
+
                 }
 
                 //calculate for ThisBillOnly
-
-                for(int j = 0; j < rowsAmtGrid; j++)
+                for (int j = 0; j < rowsAmtGrid; j++)
                 {
-                    if(j==2 || j==4 || j==5 || j==6 || j==10)
+                    if (j == 2 || j == 4 || j == 5 || j == 6 || j == 10)
                     {
                         dataGridView1.Rows[j].Cells[7].Value = dataGridView1.Rows[j].Cells[6].Value;
                     }
                     else
                     {
-                        dataGridView1.Rows[j].Cells[7].Value = (Convert.ToSingle(dataGridView1.Rows[j].Cells[6].Value) - Convert.ToSingle(dataGridView1.Rows[j].Cells[5].Value)).ToString("0.000");
+                        double num1, num2;
+                        num1 = Convert.ToDouble(dataGridView1.Rows[j].Cells[6].Value);
+                        num2 = Convert.ToDouble(dataGridView1.Rows[j].Cells[5].Value);
+                        dataGridView1.Rows[j].Cells[7].Value = Math.Round(num1 - num2, 2).ToString();
                     }
                 }
-                /*dataGridView1.Rows[10].Cells[7].Value = 5.ToString("0.00"); //Retention Deduciton %
-                dataGridView1.Rows[10].Cells[7].Value = 5.ToString("0.00"); //Retention Deduciton %
-                dataGridView1.Rows[10].Cells[7].Value = 5.ToString("0.00"); //Retention Deduciton %*/
 
                 //checking if evaluated amount is greater than contract amount
-                float PS_CA, ST_CA, PS_E, ST_E;
-                PS_CA = Convert.ToSingle(dataGridView1.Rows[0].Cells[3].Value);
-                ST_CA = Convert.ToSingle(dataGridView1.Rows[1].Cells[3].Value);
+                double PS_CA, ST_CA, PS_E, ST_E;
+                PS_CA = Convert.ToDouble(dataGridView1.Rows[0].Cells[3].Value);
+                ST_CA = Convert.ToDouble(dataGridView1.Rows[1].Cells[3].Value);
                 //T_CA = Convert.ToSingle(dataGridView1.Rows[0].Cells[3].Value);
 
-                PS_E = Convert.ToSingle(dataGridView1.Rows[0].Cells[6].Value);
-                ST_E = Convert.ToSingle(dataGridView1.Rows[1].Cells[6].Value);
+                PS_E = Convert.ToDouble(dataGridView1.Rows[0].Cells[6].Value);
+                ST_E = Convert.ToDouble(dataGridView1.Rows[1].Cells[6].Value);
                 //T_E = Convert.ToSingle(dataGridView1.Rows[0].Cells[3].Value);
-                if(PS_CA < PS_E)
+                if (PS_CA < PS_E)
                 {
                     dataGridView1.Rows[0].Cells[6].Style.ForeColor = Color.DarkRed;
                     //dataGridView1.Rows[7].Cells[6].Style.BackColor = Color.Violet;
                 }
-                else if(PS_CA >= PS_E)
+                else if (PS_CA >= PS_E)
                 {
                     dataGridView1.Rows[0].Cells[6].Style.ForeColor = Color.ForestGreen;
                     //dataGridView1.Rows[7].Cells[6].Style.BackColor = Color.LightGreen;
@@ -3807,22 +3186,22 @@ namespace CSAY_ContractManagementSoftware
                     dataGridView1.Rows[1].Cells[6].Style.ForeColor = Color.DarkRed;
                     //dataGridView1.Rows[7].Cells[6].Style.BackColor = Color.LightSalmon;
 
-                   
+
                 }
-                else if(ST_CA >= ST_E)
+                else if (ST_CA >= ST_E)
                 {
                     dataGridView1.Rows[1].Cells[6].Style.ForeColor = Color.ForestGreen;
                     //dataGridView1.Rows[7].Cells[6].Style.BackColor = Color.LightGreen;
                 }
 
-                if(PS_CA < PS_E || ST_CA < ST_E)
+                if (PS_CA < PS_E || ST_CA < ST_E)
                 {
                     LblAmountValidity.Text = "Review: PS/Sub-total of bill is greater than that of Contract!";
                     LblAmountValidity.ForeColor = Color.Red;
 
                     dataGridView1.Rows[7].Cells[6].Style.BackColor = Color.LightSalmon;
                 }
-                else if(PS_CA >= PS_E || ST_CA >= ST_E)
+                else if (PS_CA >= PS_E || ST_CA >= ST_E)
                 {
                     LblAmountValidity.Text = "OK: PS/Sub-total of bill is less than that of Contract!";
                     LblAmountValidity.ForeColor = Color.ForestGreen;
@@ -3838,6 +3217,559 @@ namespace CSAY_ContractManagementSoftware
 
             }
 
+        }
+
+        private void aboutToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            FrmAbout fabout = new FrmAbout();
+            fabout.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            Close();
+        }
+
+        private void addToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            Fun_Add(sender, e);
+        }
+
+        private void displayToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            if (TxtProjectID.Text == "")
+            {
+                TxtLog.AppendText("Enter Project ID to Display");
+                TxtLog.AppendText(Environment.NewLine);
+            }
+            else
+            {
+                SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
+                ConnectDb.Open();
+
+                string query = "SELECT * FROM ContractTable where ProjectID = '" + TxtProjectID.Text + "'";
+
+                SQLiteDataAdapter DataAdptr = new SQLiteDataAdapter(query, ConnectDb);
+
+                DataTable Dt = new DataTable();
+                DataAdptr.Fill(Dt);
+                //string value;
+                foreach (DataRow row in Dt.Rows) //there is only one row here
+                {
+                    TxtFY.Text = row[1].ToString();
+                    TxtContractID.Text = row[2].ToString();
+                    TxtContractName.Text = row[3].ToString();
+                    TxtContractBudget.Text = row[4].ToString();
+                    TxtWard.Text = row[5].ToString();
+                    TxtProjectType.Text = row[6].ToString();
+                    TxtBudgetType.Text = row[7].ToString();
+                    TxtLocation.Text = row[8].ToString();
+
+                    TxtAPG1RefNo.Text = row[9].ToString();
+                    TxtAPG1DL.Text = row[10].ToString();
+                    TxtAPG1Amount.Text = row[11].ToString();
+                    TxtAPG1MinDL.Text = row[12].ToString();
+                    TxtAPG1Remark.Text = row[13].ToString();
+
+                    TxtAPG2RefNo.Text = row[14].ToString();
+                    TxtAPG2DL.Text = row[15].ToString();
+                    TxtAPG2Amount.Text = row[16].ToString();
+                    TxtAPG2MinDL.Text = row[17].ToString();
+                    TxtAPG2Remark.Text = row[18].ToString();
+
+                    TxtPBRefNo.Text = row[19].ToString();
+                    TxtPBDL.Text = row[20].ToString();
+                    TxtPBAmount.Text = row[21].ToString();
+                    TxtPBMinDL.Text = row[22].ToString();
+                    TxtPBRemark.Text = row[23].ToString();
+
+                    TxtInsRefNo.Text = row[24].ToString();
+                    TxtInsDL.Text = row[25].ToString();
+                    TxtInsAmount.Text = row[26].ToString();
+                    TxtInsMinDL.Text = row[27].ToString();
+                    TxtInsRemark.Text = row[28].ToString();
+
+                    TxtCurrentStatus.Text = row[29].ToString();
+                    TxtNoticeIssued.Text = row[30].ToString();
+                    TxtLOI.Text = row[31].ToString();
+                    TxtLOA.Text = row[32].ToString();
+                    TxtContractAgreement.Text = row[33].ToString();
+                    TxtWorkPermit.Text = row[34].ToString();
+                    TxtWorkComplete.Text = row[35].ToString();
+                    TxtRunningBill.Text = row[36].ToString();
+                    TxtFinalBill.Text = row[37].ToString();
+                    TxtDaysRem.Text = row[38].ToString();
+
+                    TxtContractorName.Text = row[39].ToString();
+                    TxtAddressOfContractor.Text = row[40].ToString();
+                    TxtEmail1.Text = row[41].ToString();
+                    TxtContractorOther.Text = row[42].ToString();
+
+                    TxtProjectDescription.Text = row[43].ToString();
+                    TxtLength.Text = row[44].ToString();
+                    TxtBreadth.Text = row[45].ToString();
+                    TxtHeight.Text = row[46].ToString();
+
+                    TxtContractorNameDev.Text = row[47].ToString();
+                    TxtContractorAddressDev.Text = row[48].ToString();
+
+                    TxtAPG1DaysRem.Text = row[49].ToString();
+                    TxtAPG2DaysRem.Text = row[50].ToString();
+                    TxtPBDaysRem.Text = row[51].ToString();
+                    TxtInsDaysRem.Text = row[52].ToString();
+
+                    TxtBankNameAPG1.Text = row[53].ToString();
+                    TxtBankNameAPG2.Text = row[54].ToString();
+                    TxtBankNamePB.Text = row[55].ToString();
+                    TxtBankNameIns.Text = row[56].ToString();
+
+                    TxtBankAddressAPG1.Text = row[57].ToString();
+                    TxtBankAddressAPG2.Text = row[58].ToString();
+                    TxtBankAddressPB.Text = row[59].ToString();
+                    TxtBankAddressIns.Text = row[60].ToString();
+
+                    TxtProcurementcategory.Text = row[61].ToString();
+                    TxtProcurementMethod.Text = row[62].ToString();
+                    TxtTotalEstimatedAmount.Text = row[63].ToString();
+                    TxtTotalContractAmount.Text = row[64].ToString();
+                    TxtTotalFinalBillAmount.Text = row[65].ToString();
+                    TxtPE.Text = row[66].ToString();
+
+                }
+                ConnectDb.Close();
+
+                BtnReadfromTxt_Click(sender, e);
+
+                //days remaining from today
+                int rem_days;
+                if (TxtDaysRem.Text == "")
+                {
+                    TxtDaysRem.Text = 0.ToString();
+                }
+                rem_days = Convert.ToInt32(TxtDaysRem.Text);
+
+                if (rem_days > 0)
+                {
+                    TxtWorkComplete.BackColor = Color.LightGreen;
+                    TxtDateAnalysis.ForeColor = Color.ForestGreen;
+                    TxtDaysRem.ForeColor = Color.ForestGreen;
+                    TxtDateAnalysis.Text = "OK." + rem_days + " days remaining for completion.";
+                }
+                else if (rem_days <= 0)
+                {
+                    TxtWorkComplete.BackColor = Color.LightCoral;
+                    TxtDateAnalysis.ForeColor = Color.Red;
+                    TxtDaysRem.ForeColor = Color.Red;
+                    TxtDateAnalysis.Text = "REVIEW. " + rem_days + " days past Deadline.";
+                }
+
+                //Guarantee
+                if (TxtAPG1Remark.Text == "Valid")
+                {
+                    TxtAPG1Remark.ForeColor = Color.ForestGreen;
+                }
+                else if (TxtAPG1Remark.Text == "Review")
+                {
+                    TxtAPG1Remark.ForeColor = Color.Red;
+                }
+
+                if (TxtAPG2Remark.Text == "Valid")
+                {
+                    TxtAPG2Remark.ForeColor = Color.ForestGreen;
+                }
+                else if (TxtAPG2Remark.Text == "Review")
+                {
+                    TxtAPG2Remark.ForeColor = Color.Red;
+                }
+
+                if (TxtPBRemark.Text == "Valid")
+                {
+                    TxtPBRemark.ForeColor = Color.ForestGreen;
+                }
+                else if (TxtPBRemark.Text == "Review")
+                {
+                    TxtPBRemark.ForeColor = Color.Red;
+                }
+
+                if (TxtInsRemark.Text == "Valid")
+                {
+                    TxtInsRemark.ForeColor = Color.ForestGreen;
+                }
+                else if (TxtInsRemark.Text == "Review")
+                {
+                    TxtInsRemark.ForeColor = Color.Red;
+                }
+
+                //checking APG,PB,Ins date from Today
+                //APG1
+                float tempdays;
+                if (TxtAPG1DaysRem.Text == "")
+                {
+                    TxtAPG1DaysRem.Text = 0.ToString();
+                }
+                tempdays = Convert.ToSingle(TxtAPG1DaysRem.Text);
+                if (tempdays > 7)
+                {
+                    //TxtAPG1DaysRem.Text = tempdays.ToString();
+                    TxtAPG1DaysRem.ForeColor = Color.ForestGreen;
+                }
+                else if (tempdays <= 7 || tempdays > 0)
+                {
+                    //TxtAPG1DaysRem.Text = tempdays.ToString();
+                    TxtAPG1DaysRem.ForeColor = Color.Violet;
+                }
+                else if (tempdays <= 0)
+                {
+                    //TxtAPG1DaysRem.Text = tempdays.ToString();
+                    TxtAPG1DaysRem.ForeColor = Color.Red;
+                }
+                //APG2
+                if (TxtAPG2DaysRem.Text == "")
+                {
+                    TxtAPG2DaysRem.Text = 0.ToString();
+                }
+                tempdays = Convert.ToSingle(TxtAPG2DaysRem.Text);
+                if (tempdays > 7)
+                {
+                    //TxtAPG2DaysRem.Text = tempdays.ToString();
+                    TxtAPG2DaysRem.ForeColor = Color.ForestGreen;
+                }
+                else if (tempdays <= 7 || tempdays > 0)
+                {
+                    //TxtAPG2DaysRem.Text = tempdays.ToString();
+                    TxtAPG2DaysRem.ForeColor = Color.Violet;
+                }
+                else if (tempdays <= 0)
+                {
+                    //TxtAPG2DaysRem.Text = tempdays.ToString();
+                    TxtAPG2DaysRem.ForeColor = Color.Red;
+                }
+                //PB
+                if (TxtPBDaysRem.Text == "")
+                {
+                    TxtPBDaysRem.Text = 0.ToString();
+                }
+                tempdays = Convert.ToSingle(TxtPBDaysRem.Text);
+                if (tempdays > 7)
+                {
+                    //TxtPBDaysRem.Text = tempdays.ToString();
+                    TxtPBDaysRem.ForeColor = Color.ForestGreen;
+                }
+                else if (tempdays <= 7 || tempdays > 0)
+                {
+                    //TxtPBDaysRem.Text = tempdays.ToString();
+                    TxtPBDaysRem.ForeColor = Color.Violet;
+                }
+                else if (tempdays <= 0)
+                {
+                    //TxtPBDaysRem.Text = tempdays.ToString();
+                    TxtPBDaysRem.ForeColor = Color.Red;
+                }
+                //Insurance
+                if (TxtInsDaysRem.Text == "")
+                {
+                    TxtInsDaysRem.Text = 0.ToString();
+                }
+                tempdays = Convert.ToSingle(TxtInsDaysRem.Text);
+                if (tempdays > 7)
+                {
+                    //TxtInsDaysRem.Text = tempdays.ToString();
+                    TxtInsDaysRem.ForeColor = Color.ForestGreen;
+                }
+                else if (tempdays <= 7 || tempdays > 0)
+                {
+                    //TxtInsDaysRem.Text = tempdays.ToString();
+                    TxtInsDaysRem.ForeColor = Color.Violet;
+                }
+                else if (tempdays <= 0)
+                {
+                    //TxtInsDaysRem.Text = tempdays.ToString();
+                    TxtInsDaysRem.ForeColor = Color.Red;
+                }
+
+                string ProjectID = TxtProjectID.Text;
+
+                string ContractID = TxtContractID.Text;
+                string Ward = TxtWard.Text;
+                string Location = TxtLocation.Text;
+
+                TxtLog.AppendText("Displayed Projedt ID: " + ProjectID + " => " + Contract_ID + " of " + Ward + " at " + Location);
+                TxtLog.AppendText(Environment.NewLine);
+            }
+        }
+
+        private void modifyToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            string ProjectID = TxtProjectID.Text;
+            string FiscalYear = TxtFY.Text;
+            string ContractID = TxtContractID.Text;
+            string ContractName = TxtContractName.Text;
+            string ContractBudget = TxtContractBudget.Text;
+            string Ward = TxtWard.Text;
+            string ProjectType = TxtProjectType.Text;
+            string BudgetType = TxtBudgetType.Text;
+            string Location = TxtLocation.Text;
+
+            string APG1DocRefNo = TxtAPG1RefNo.Text;
+            string APG1Deadline = TxtAPG1DL.Text;
+            string APG1Amount = TxtAPG1Amount.Text;
+            string APG1MinDL = TxtAPG1MinDL.Text;
+            string APG1Remark = TxtAPG1Remark.Text;
+
+            string APG2DocRefNo = TxtAPG2RefNo.Text;
+            string APG2Deadline = TxtAPG2DL.Text;
+            string APG2Amount = TxtAPG2Amount.Text;
+            string APG2MinDL = TxtAPG2MinDL.Text;
+            string APG2Remark = TxtAPG2Remark.Text;
+
+            string PBDocRefNo = TxtPBRefNo.Text;
+            string PBDeadline = TxtPBDL.Text;
+            string PBAmount = TxtPBAmount.Text;
+            string PBMinDL = TxtPBMinDL.Text;
+            string PBRemark = TxtPBRemark.Text;
+
+            string InsDocRefNo = TxtInsRefNo.Text;
+            string InsDeadline = TxtInsDL.Text;
+            string InsAmount = TxtInsAmount.Text;
+            string InsMinDL = TxtInsMinDL.Text;
+            string InsRemark = TxtInsRemark.Text;
+
+            string CurrentStatus = TxtCurrentStatus.Text;
+            string NoticeIssued = TxtNoticeIssued.Text;
+            string LOI = TxtLOI.Text;
+            string LOA = TxtLOA.Text;
+            string ContractAgreement = TxtContractAgreement.Text;
+            string WorkPermit = TxtWorkPermit.Text;
+            string WorkComplete = TxtWorkComplete.Text;
+            string RunningBill = TxtRunningBill.Text;
+            string FinalBill = TxtFinalBill.Text;
+            string DaysRemaining = TxtDaysRem.Text;
+
+            string NameOfContractor = TxtContractorName.Text;
+            string AddressOfContractor = TxtAddressOfContractor.Text;
+            string Email1 = TxtEmail1.Text;
+            string ContractorOther = TxtContractorOther.Text;
+
+            string ProjectDescription = TxtProjectDescription.Text;
+            string Length = TxtLength.Text;
+            string Breadth = TxtBreadth.Text;
+            string Height = TxtHeight.Text;
+
+            string ContractorNameDev = TxtContractorNameDev.Text;
+            string ContractorAddressDev = TxtContractorAddressDev.Text;
+
+            string APG1DaysRem = TxtAPG1DaysRem.Text;
+            string APG2DaysRem = TxtAPG2DaysRem.Text;
+            string PBDaysRem = TxtPBDaysRem.Text;
+            string InsDaysRem = TxtInsDaysRem.Text;
+
+            string APG1BankName = TxtBankNameAPG1.Text;
+            string APG2BankName = TxtBankNameAPG2.Text;
+            string PBBankName = TxtBankNamePB.Text;
+            string InsBankName = TxtBankNameIns.Text;
+
+            string APG1BankAddress = TxtBankAddressAPG1.Text;
+            string APG2BankAddress = TxtBankAddressAPG2.Text;
+            string PBBankAddress = TxtBankAddressPB.Text;
+            string InsBankAddress = TxtBankAddressIns.Text;
+
+            string ProcurementCategory = TxtProcurementcategory.Text;
+            string ProcurementMethod = TxtProcurementMethod.Text;
+            string TotalEstimatedAmount = TxtTotalEstimatedAmount.Text;
+            string TotalContractAmount = TxtTotalContractAmount.Text;
+            string TotalFinalBillAmount = TxtTotalFinalBillAmount.Text;
+            string PublicEntity = TxtPE.Text;
+
+            DialogResult dr = MessageBox.Show("Are you sure, you want to Modify?", "Modify", MessageBoxButtons.YesNo);
+            if (dr == DialogResult.Yes)
+            {
+                //Modify
+                SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
+                ConnectDb.Open();
+
+                string query = "REPLACE INTO ContractTable(ProjectID,FiscalYear,ContractID,ContractName,ContractBudget,Ward," +
+                    "ProjectType,BudgetType,Location,APG1DocRefNo,APG1Deadline, APG1Amount,APG1MinDL,APG1Remark," +
+                    "APG2DocRefNo,APG2Deadline, APG2Amount,APG2MinDL,APG2Remark," +
+                    "PBDocRefNo,PBDeadline, PBAmount,PBMinDL,PBRemark," +
+                    "InsDocRefNo,InsDeadline, InsAmount,InsMinDL,InsRemark," +
+                    "CurrentStatus,NoticeIssued,LOI,LOA,ContractAgreement,WorkPermit,WorkComplete,RunningBill,FinalBill,DaysRemaining," +
+                    "NameOfContractor,AddressOfContractor,Email1,ContractorOther,ProjectDescription,Length,Breadth,Height,ContractorNameDev,ContractorAddressDev," +
+                    "APG1DaysRem,APG2DaysRem,PBDaysRem,InsDaysRem,APG1BankName,APG2BankName ,PBBankName ,InsBankName,APG1BankAddress,APG2BankAddress,PBBankAddress,InsBankAddress," +
+                    "ProcurementCategory, ProcurementMethod, TotalEstimatedAmount, TotalContractAmount, TotalFinalBillAmount, PublicEntity) " +
+                    "VALUES('" + ProjectID + "', '" + FiscalYear + "','" + ContractID + "','" + ContractName + "','" + ContractBudget + "'," +
+                    "'" + Ward + "','" + ProjectType + "','" + BudgetType + "','" + Location + "'" +
+                    ",'" + APG1DocRefNo + "','" + APG1Deadline + "','" + APG1Amount + "','" + APG1MinDL + "','" + APG1Remark + "'" +
+                    ",'" + APG2DocRefNo + "','" + APG2Deadline + "','" + APG2Amount + "','" + APG2MinDL + "','" + APG2Remark + "'" +
+                    ",'" + PBDocRefNo + "','" + PBDeadline + "','" + PBAmount + "','" + PBMinDL + "','" + PBRemark + "'" +
+                    ",'" + InsDocRefNo + "','" + InsDeadline + "','" + InsAmount + "','" + InsMinDL + "','" + InsRemark + "'" +
+                    ",'" + CurrentStatus + "','" + NoticeIssued + "','" + LOI + "','" + LOA + "','" + ContractAgreement + "','" + WorkPermit + "'" +
+                    ",'" + WorkComplete + "','" + RunningBill + "','" + FinalBill + "','" + DaysRemaining + "'" +
+                    ",'" + NameOfContractor + "','" + AddressOfContractor + "','" + Email1 + "','" + ContractorOther + "'" +
+                    ",'" + ProjectDescription + "','" + Length + "','" + Breadth + "','" + Height + "','" + ContractorNameDev + "','" + ContractorAddressDev + "'" +
+                    ",'" + APG1DaysRem + "','" + APG2DaysRem + "','" + PBDaysRem + "','" + InsDaysRem + "'" +
+                    ",'" + APG1BankName + "','" + APG2BankName + "','" + PBBankName + "','" + InsBankName + "'" +
+                    ",'" + APG1BankAddress + "','" + APG2BankAddress + "','" + PBBankAddress + "','" + InsBankAddress + "'" +
+                    ",'" + ProcurementCategory + "','" + ProcurementMethod + "','" + TotalEstimatedAmount + "', '" + TotalContractAmount + "', '" + TotalFinalBillAmount + "', '" + PublicEntity + "' )";// one data format  = '" + Height + "'
+
+                SQLiteCommand Cmd = new SQLiteCommand(query, ConnectDb);
+                Cmd.ExecuteNonQuery();
+
+                ConnectDb.Close();
+
+                //BtnCreateProjectFolder_Click(sender, e);
+                createProjectFolderToolStripMenuItem_Click(sender, e);
+                BtnSave2Txt_Click(sender, e);
+
+                TxtLog.AppendText("Activity: Successfully Modified Record: " + "Project ID: " + ProjectID + "  " + ContractID + " of " + Ward + " at " + Location);
+                TxtLog.AppendText(Environment.NewLine);
+
+                /*using (System.IO.StreamWriter sw = System.IO.File.AppendText(@".\Log\Log.txt"))
+                {
+                    Text2Write = "[" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss") + "]" + "  --->  " + "MODIFY" + " ---> " + "Project ID: " + ProjectID + "  " + ProjectName + " of " + Ward + " at " + Location;
+                    sw.WriteLine(Text2Write);
+                }*/
+
+            }
+            else if (dr == DialogResult.No)
+            {
+                //Nothing to do
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            string ProjectID = TxtProjectID.Text;
+
+            if (TxtProjectID.Text == "")
+            {
+                TxtLog.Text = "Enter Project ID to Delete";
+            }
+            else
+            {
+                DialogResult dr = MessageBox.Show("Are You Sure, you want to delete?", "Delete", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
+                {
+                    //delete
+                    SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
+                    ConnectDb.Open();
+
+                    string query = "DELETE FROM  ContractTable WHERE ProjectID ='" + TxtProjectID.Text + "' ";
+                    SQLiteCommand Cmd = new SQLiteCommand(query, ConnectDb);
+                    Cmd.ExecuteNonQuery();
+
+                    ConnectDb.Close();
+
+                    TxtProjectID.Text = "";
+
+                    string ContractID = TxtContractID.Text;
+                    string Ward = TxtWard.Text;
+                    string Location = TxtLocation.Text;
+                    TxtLog.AppendText("Deleted Projedt ID: " + ProjectID + " => " + ContractID + " of " + Ward + " at " + Location);
+                    TxtLog.AppendText(Environment.NewLine);
+
+                    /*using (System.IO.StreamWriter sw = System.IO.File.AppendText(@".\Log\Log.txt"))
+                    {
+                        Text2Write = "[" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss") + "]" + "  --->  " + "DELETE" + " ---> " + "Project ID: " + ProjectID + "  " + ProjectName + " of " + Ward + " at " + Location;
+                        sw.WriteLine(Text2Write);
+                    }*/
+
+                    Initial_State_of_Label();
+                }
+                else if (dr == DialogResult.No)
+                {
+                    //Nothing to do
+                }
+
+            }
+        }
+
+        private void createProjectFolderToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            Fun_CreateProjectFolder();
+        }
+
+        private void analyseDateToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            Fun_AnalyseDate();
+        }
+
+        private void createPdfToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            Fun_CreateAllPdf();
+        }
+
+        private void addToolStripMenuItem1_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            TxtProjectID.Enabled = false;
+            TxtProjectID.Text = "";
+
+            modifyToolStripMenuItem.Enabled = false;
+            displayToolStripMenuItem.Enabled = false;
+            deleteToolStripMenuItem.Enabled = false;
+            addToolStripMenuItem.Enabled = true;
+            //BtnModify.Enabled = false;
+            //BtnDisplay.Enabled = false;
+            //BtnDelete.Enabled = false;
+            //BtnAdd.Enabled = true;
+
+            addToolStripMenuItem1.Checked = true;
+            displayModifyDeleteToolStripMenuItem.Checked = false;
+
+            DeleteTextFields();
+            BtnResetBill_Click(sender, e);
+            Initial_State_of_Label();
+        }
+
+        private void displayModifyDeleteToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            TxtProjectID.Enabled = true;
+            TxtProjectID.Text = "";
+
+            modifyToolStripMenuItem.Enabled = true;
+            displayToolStripMenuItem.Enabled = true;
+            deleteToolStripMenuItem.Enabled = true;
+            addToolStripMenuItem.Enabled = false;
+
+            addToolStripMenuItem1.Checked = false;
+            displayModifyDeleteToolStripMenuItem.Checked = true;
+
+            DeleteTextFields();
+            BtnResetBill_Click(sender, e);
+            Initial_State_of_Label();
+        }
+
+        private void ComboBoxFormatBill_SelectedIndexChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            TxtFormatBill.Text = ComboBoxFormatBill.Text;
+        }
+
+        private void TxtProcurementcategory_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                //Add ---> Procurement Method
+                ComboBoxProMethod.Items.Clear();
+                string[] ProcMethodList = System.IO.File.ReadAllLines(@".\ComboBoxList\ProcurementMethod\" + TxtProcurementcategory.Text + ".txt");
+                foreach (var line in ProcMethodList)
+                {
+                    ComboBoxProMethod.Items.Add(line);
+                }
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        private void ComboBoxProCategory_SelectedIndexChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            TxtProcurementcategory.Text = ComboBoxProCategory.Text;
+        }
+
+        private void ComboBoxProMethod_SelectedIndexChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            TxtProcurementMethod.Text = ComboBoxProMethod.Text;
         }
     }
 }

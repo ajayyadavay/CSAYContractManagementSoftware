@@ -1,0 +1,4 @@
+QCBS
+QBS
+FBS
+Least Cost Selection

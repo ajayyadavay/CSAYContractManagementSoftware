@@ -1,27 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "F:\\AY\\VS_2017\\C#\\CSAY OneCivil1\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj": {}
+    "F:\\VBStudio\\CSAYContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj": {}
   },
   "projects": {
-    "F:\\AY\\VS_2017\\C#\\CSAY OneCivil1\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj": {
+    "F:\\VBStudio\\CSAYContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\AY\\VS_2017\\C#\\CSAY OneCivil1\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj",
+        "projectUniqueName": "F:\\VBStudio\\CSAYContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj",
         "projectName": "CSAY ContractManagementSoftware",
-        "projectPath": "F:\\AY\\VS_2017\\C#\\CSAY OneCivil1\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj",
-        "packagesPath": "C:\\Users\\ajay_\\.nuget\\packages\\",
-        "outputPath": "F:\\AY\\VS_2017\\C#\\CSAY OneCivil1\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\obj\\",
+        "projectPath": "F:\\VBStudio\\CSAYContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj",
+        "packagesPath": "C:\\Users\\GBIA CED\\.nuget\\packages\\",
+        "outputPath": "F:\\VBStudio\\CSAYContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ajay_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\GBIA CED\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0-windows7.0"
+          "net6.0-windows"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
@@ -74,7 +71,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -86,7 +84,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

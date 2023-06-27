@@ -50,3 +50,9 @@ APG1DaysRem
 APG2DaysRem
 PBDaysRem
 InsDaysRem
+ProcurementCategory
+ProcurementMethod
+TotalEstimatedAmount
+TotalContractAmount
+TotalFinalBillAmount
+PublicEntity

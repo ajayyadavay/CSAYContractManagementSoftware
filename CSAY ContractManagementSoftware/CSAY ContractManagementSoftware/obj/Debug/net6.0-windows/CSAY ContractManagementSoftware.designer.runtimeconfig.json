@@ -12,9 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\ajay_\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\ajay_\\.nuget\\packages",
-      "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      "C:\\Users\\GBIA CED\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\GBIA CED\\.nuget\\packages"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true
