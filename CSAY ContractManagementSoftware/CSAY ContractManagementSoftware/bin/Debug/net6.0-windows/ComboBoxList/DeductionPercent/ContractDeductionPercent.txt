@@ -1,0 +1,5 @@
+SN	Description	Percent
+1	Retention	5
+2	TDS	1.5
+3	Contract tax	0.1
+4	VAT Deduct	3.9

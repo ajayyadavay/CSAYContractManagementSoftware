@@ -3789,5 +3789,11 @@ namespace CSAY_ContractManagementSoftware
         {
             TxtProcurementMethod.Text = ComboBoxProMethod.Text;
         }
+
+        private void BtnCalcDeduction_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            FrmCalcDeduction fcalcded = new FrmCalcDeduction();
+            fcalcded.Show();
+        }
     }
 }

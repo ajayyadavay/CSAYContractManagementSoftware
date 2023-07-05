@@ -1,0 +1,4 @@
+SN	Description	Percent
+1	TDS	1.5
+2	Contract tax	0.1
+3	VAT Deduct	3.9

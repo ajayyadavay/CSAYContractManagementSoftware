@@ -196,6 +196,7 @@
             LblAmountValidity = new Label();
             TxtBillLog = new TextBox();
             groupBox1 = new GroupBox();
+            BtnCalcDeduction = new Button();
             label66 = new Label();
             TxtFormatBill = new TextBox();
             ComboBoxFormatBill = new ComboBox();
@@ -1976,6 +1977,7 @@
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(BtnCalcDeduction);
             groupBox1.Controls.Add(label66);
             groupBox1.Controls.Add(TxtFormatBill);
             groupBox1.Controls.Add(ComboBoxFormatBill);
@@ -1988,10 +1990,26 @@
             groupBox1.ForeColor = Color.DodgerBlue;
             groupBox1.Location = new Point(1117, 17);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(212, 390);
+            groupBox1.Size = new Size(212, 433);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Menu";
+            // 
+            // BtnCalcDeduction
+            // 
+            BtnCalcDeduction.FlatAppearance.BorderColor = Color.FromArgb(255, 128, 0);
+            BtnCalcDeduction.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 128, 128);
+            BtnCalcDeduction.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 224, 192);
+            BtnCalcDeduction.FlatStyle = FlatStyle.Flat;
+            BtnCalcDeduction.Font = new Font("Comic Sans MS", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnCalcDeduction.ForeColor = Color.Black;
+            BtnCalcDeduction.Location = new Point(10, 373);
+            BtnCalcDeduction.Name = "BtnCalcDeduction";
+            BtnCalcDeduction.Size = new Size(197, 39);
+            BtnCalcDeduction.TabIndex = 16;
+            BtnCalcDeduction.Text = "Calculate Deduction";
+            BtnCalcDeduction.UseVisualStyleBackColor = true;
+            BtnCalcDeduction.Click += BtnCalcDeduction_Click;
             // 
             // label66
             // 
@@ -2162,21 +2180,21 @@
             // 
             // ColAmountUp2Previous
             // 
-            ColAmountUp2Previous.HeaderText = "Amount Up2 Previous";
+            ColAmountUp2Previous.HeaderText = "Amount Upto Previous";
             ColAmountUp2Previous.Name = "ColAmountUp2Previous";
             ColAmountUp2Previous.SortMode = DataGridViewColumnSortMode.NotSortable;
             ColAmountUp2Previous.Width = 125;
             // 
             // ColAmountUp2Thisbill
             // 
-            ColAmountUp2Thisbill.HeaderText = "Amount Up2 Thisbill";
+            ColAmountUp2Thisbill.HeaderText = "Amount Upto This Bill";
             ColAmountUp2Thisbill.Name = "ColAmountUp2Thisbill";
             ColAmountUp2Thisbill.SortMode = DataGridViewColumnSortMode.NotSortable;
             ColAmountUp2Thisbill.Width = 130;
             // 
             // ColAmountThisbillOnly
             // 
-            ColAmountThisbillOnly.HeaderText = "Amount This bill Only";
+            ColAmountThisbillOnly.HeaderText = "Amount This Bill Only";
             ColAmountThisbillOnly.Name = "ColAmountThisbillOnly";
             ColAmountThisbillOnly.SortMode = DataGridViewColumnSortMode.NotSortable;
             ColAmountThisbillOnly.Width = 130;
@@ -2504,46 +2522,46 @@
             // addToolStripMenuItem
             // 
             addToolStripMenuItem.Name = "addToolStripMenuItem";
-            addToolStripMenuItem.Size = new Size(180, 24);
+            addToolStripMenuItem.Size = new Size(127, 24);
             addToolStripMenuItem.Text = "Add";
             addToolStripMenuItem.Click += addToolStripMenuItem_Click;
             // 
             // toolStripMenuItem5
             // 
             toolStripMenuItem5.Name = "toolStripMenuItem5";
-            toolStripMenuItem5.Size = new Size(177, 6);
+            toolStripMenuItem5.Size = new Size(124, 6);
             // 
             // displayToolStripMenuItem
             // 
             displayToolStripMenuItem.Enabled = false;
             displayToolStripMenuItem.Name = "displayToolStripMenuItem";
-            displayToolStripMenuItem.Size = new Size(180, 24);
+            displayToolStripMenuItem.Size = new Size(127, 24);
             displayToolStripMenuItem.Text = "Display";
             displayToolStripMenuItem.Click += displayToolStripMenuItem_Click;
             // 
             // toolStripMenuItem4
             // 
             toolStripMenuItem4.Name = "toolStripMenuItem4";
-            toolStripMenuItem4.Size = new Size(177, 6);
+            toolStripMenuItem4.Size = new Size(124, 6);
             // 
             // modifyToolStripMenuItem
             // 
             modifyToolStripMenuItem.Enabled = false;
             modifyToolStripMenuItem.Name = "modifyToolStripMenuItem";
-            modifyToolStripMenuItem.Size = new Size(180, 24);
+            modifyToolStripMenuItem.Size = new Size(127, 24);
             modifyToolStripMenuItem.Text = "Modify";
             modifyToolStripMenuItem.Click += modifyToolStripMenuItem_Click;
             // 
             // toolStripMenuItem6
             // 
             toolStripMenuItem6.Name = "toolStripMenuItem6";
-            toolStripMenuItem6.Size = new Size(177, 6);
+            toolStripMenuItem6.Size = new Size(124, 6);
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Enabled = false;
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(180, 24);
+            deleteToolStripMenuItem.Size = new Size(127, 24);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
@@ -2558,7 +2576,7 @@
             // 
             modeToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addToolStripMenuItem1, displayModifyDeleteToolStripMenuItem });
             modeToolStripMenuItem.Name = "modeToolStripMenuItem";
-            modeToolStripMenuItem.Size = new Size(180, 24);
+            modeToolStripMenuItem.Size = new Size(117, 24);
             modeToolStripMenuItem.Text = "Mode";
             // 
             // addToolStripMenuItem1
@@ -2641,21 +2659,12 @@
         private TabPage TabGeneral;
         private TabPage TabGuarantee;
         private TabPage TabContractBill;
-        private DataGridView dataGridView1;
         private GroupBox groupBox1;
         private Button BtnResetBill;
         private Button BtnCalcBill;
         private Button BtnThis2Previous;
         private Button BtnSave2Txt;
         private Button BtnReadfromTxt;
-        private DataGridViewTextBoxColumn ColSN_E;
-        private DataGridViewTextBoxColumn ColDescriptionE;
-        private DataGridViewTextBoxColumn ColAmountE;
-        private DataGridViewTextBoxColumn ColAmountC;
-        private DataGridViewTextBoxColumn ColDescriptionB;
-        private DataGridViewTextBoxColumn ColAmountUp2Previous;
-        private DataGridViewTextBoxColumn ColAmountUp2Thisbill;
-        private DataGridViewTextBoxColumn ColAmountThisbillOnly;
         private GroupBox groupBox2;
         private ComboBox ComboBoxProjectType;
         private TextBox TxtProjectType;
@@ -2868,5 +2877,15 @@
         private Label label69;
         private TextBox TxtTotalFinalBillAmount;
         private Label label71;
+        private Button BtnCalcDeduction;
+        private DataGridViewTextBoxColumn ColSN_E;
+        private DataGridViewTextBoxColumn ColDescriptionE;
+        private DataGridViewTextBoxColumn ColAmountE;
+        private DataGridViewTextBoxColumn ColAmountC;
+        private DataGridViewTextBoxColumn ColDescriptionB;
+        private DataGridViewTextBoxColumn ColAmountUp2Previous;
+        private DataGridViewTextBoxColumn ColAmountUp2Thisbill;
+        private DataGridViewTextBoxColumn ColAmountThisbillOnly;
+        public DataGridView dataGridView1;
     }
 }
