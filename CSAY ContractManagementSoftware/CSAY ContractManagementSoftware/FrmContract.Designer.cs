@@ -85,6 +85,8 @@
             TxtNoticeIssued = new TextBox();
             label30 = new Label();
             groupBox2 = new GroupBox();
+            LblBill_Contract = new Label();
+            LblEst_Contract = new Label();
             TxtTotalFinalBillAmount = new TextBox();
             label71 = new Label();
             TxtTotalContractAmount = new TextBox();
@@ -914,6 +916,8 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(LblBill_Contract);
+            groupBox2.Controls.Add(LblEst_Contract);
             groupBox2.Controls.Add(TxtTotalFinalBillAmount);
             groupBox2.Controls.Add(label71);
             groupBox2.Controls.Add(TxtTotalContractAmount);
@@ -957,12 +961,31 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "General Information of Project";
             // 
+            // LblBill_Contract
+            // 
+            LblBill_Contract.AutoSize = true;
+            LblBill_Contract.Location = new Point(829, 320);
+            LblBill_Contract.Name = "LblBill_Contract";
+            LblBill_Contract.Size = new Size(154, 20);
+            LblBill_Contract.TabIndex = 36;
+            LblBill_Contract.Text = "Bill/Contract ratio = ";
+            // 
+            // LblEst_Contract
+            // 
+            LblEst_Contract.AutoSize = true;
+            LblEst_Contract.Location = new Point(529, 320);
+            LblEst_Contract.Name = "LblEst_Contract";
+            LblEst_Contract.Size = new Size(194, 20);
+            LblEst_Contract.TabIndex = 35;
+            LblEst_Contract.Text = "Contract/Estimate ratio = ";
+            // 
             // TxtTotalFinalBillAmount
             // 
             TxtTotalFinalBillAmount.Location = new Point(215, 317);
             TxtTotalFinalBillAmount.Name = "TxtTotalFinalBillAmount";
             TxtTotalFinalBillAmount.Size = new Size(286, 28);
             TxtTotalFinalBillAmount.TabIndex = 34;
+            TxtTotalFinalBillAmount.TextChanged += TxtTotalFinalBillAmount_TextChanged;
             // 
             // label71
             // 
@@ -979,6 +1002,7 @@
             TxtTotalContractAmount.Name = "TxtTotalContractAmount";
             TxtTotalContractAmount.Size = new Size(286, 28);
             TxtTotalContractAmount.TabIndex = 32;
+            TxtTotalContractAmount.TextChanged += TxtTotalContractAmount_TextChanged;
             // 
             // label70
             // 
@@ -995,6 +1019,7 @@
             TxtTotalEstimatedAmount.Name = "TxtTotalEstimatedAmount";
             TxtTotalEstimatedAmount.Size = new Size(286, 28);
             TxtTotalEstimatedAmount.TabIndex = 30;
+            TxtTotalEstimatedAmount.TextChanged += TxtTotalEstimatedAmount_TextChanged;
             // 
             // label69
             // 
@@ -2887,5 +2912,7 @@
         private DataGridViewTextBoxColumn ColAmountUp2Thisbill;
         private DataGridViewTextBoxColumn ColAmountThisbillOnly;
         public DataGridView dataGridView1;
+        private Label LblEst_Contract;
+        private Label LblBill_Contract;
     }
 }

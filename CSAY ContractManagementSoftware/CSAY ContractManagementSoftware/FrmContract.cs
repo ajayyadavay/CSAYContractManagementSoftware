@@ -3227,6 +3227,10 @@ namespace CSAY_ContractManagementSoftware
                     dataGridView1.Rows[7].Cells[6].Style.BackColor = Color.LightGreen;
                 }
 
+                //sending est, contract, bill amount to textboxes
+                TxtTotalEstimatedAmount.Text = dataGridView1.Rows[7].Cells[2].Value.ToString();
+                TxtTotalContractAmount.Text = dataGridView1.Rows[7].Cells[3].Value.ToString();
+                TxtTotalFinalBillAmount.Text = dataGridView1.Rows[7].Cells[6].Value.ToString();
 
                 TxtBillLog.Text = "Recent: Calculated Successfully !";
             }
@@ -3794,6 +3798,95 @@ namespace CSAY_ContractManagementSoftware
         {
             FrmCalcDeduction fcalcded = new FrmCalcDeduction();
             fcalcded.Show();
+        }
+
+        private void Est_Contract_Ratio()
+        {
+            try
+            {
+                double est, cont, ratio;
+                est = Convert.ToDouble(TxtTotalEstimatedAmount.Text);
+                cont = Convert.ToDouble(TxtTotalContractAmount.Text);
+
+                ratio = Math.Round(cont / est * 100.0, 2);
+                LblEst_Contract.Text = "Contract/Estimate ratio = " + ratio.ToString() + "%";
+
+                if (ratio <= 100.0)
+                {
+                    LblEst_Contract.ForeColor = Color.ForestGreen;
+                }
+                else if (ratio > 100.0)
+                {
+                    LblEst_Contract.ForeColor = Color.Red;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void Contract_Bill_Ratio()
+        {
+            try
+            {
+                double bill, cont, ratio;
+                bill = Convert.ToDouble(TxtTotalFinalBillAmount.Text);
+                cont = Convert.ToDouble(TxtTotalContractAmount.Text);
+
+                ratio = Math.Round(bill / cont * 100.0, 2);
+                LblBill_Contract.Text = "Bill/Contract ratio =  " + ratio.ToString() + "%";
+
+                if (ratio <= 100.0)
+                {
+                    LblBill_Contract.ForeColor = Color.ForestGreen;
+                }
+                else if (ratio > 100.0)
+                {
+                    LblBill_Contract.ForeColor = Color.Red;
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TxtTotalEstimatedAmount_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                Est_Contract_Ratio();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TxtTotalContractAmount_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                Est_Contract_Ratio();
+                Contract_Bill_Ratio();
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TxtTotalFinalBillAmount_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                Contract_Bill_Ratio();
+            }
+            catch
+            {
+
+            }
         }
     }
 }
