@@ -192,6 +192,7 @@ namespace CSAY_ContractManagementSoftware
 
         }
 
+
         private void GenerateAmountDataGridFromText()
         {
             string filename = Environment.CurrentDirectory + "\\ComboBoxList\\BillFormat\\" + TxtFormatBill.Text;
@@ -330,6 +331,7 @@ namespace CSAY_ContractManagementSoftware
                 TxtAPG2MinDL.Text = TxtAPG1MinDL.Text;
                 TxtInsMinDL.Text = TxtWorkComplete.Text;
                 TxtPBMinDL.Text = NewDateAFterAddingDays_and_Months(365, 1, TxtWorkComplete.Text);
+                TxtFL_PBMinDL.Text = TxtWorkComplete.Text;
 
                 //check if APG, PB, Ins document deadline is equal or more than Min valid date
                 int tempdays;
@@ -381,7 +383,18 @@ namespace CSAY_ContractManagementSoftware
                     TxtInsRemark.Text = "Review";
                     TxtInsRemark.ForeColor = Color.Red;
                 }
-
+                //PB_FL
+                tempdays = DifferenceInDate(TxtFL_PBMinDL.Text, TxtFL_PBDeadline.Text);
+                if (tempdays >= 0)
+                {
+                    TxtFL_PBRemark.Text = "Valid";
+                    TxtFL_PBRemark.ForeColor = Color.ForestGreen;
+                }
+                else if (tempdays < 0)
+                {
+                    TxtFL_PBRemark.Text = "Review";
+                    TxtFL_PBRemark.ForeColor = Color.Red;
+                }
 
                 //checking APG,PB,Ins date from Today
                 //APG1
@@ -451,6 +464,24 @@ namespace CSAY_ContractManagementSoftware
                 {
                     TxtInsDaysRem.Text = tempdays.ToString();
                     TxtInsDaysRem.ForeColor = Color.Red;
+                }
+
+                //PB_FL
+                tempdays = DifferenceInDate(TxtToday.Text, TxtFL_PBDeadline.Text);
+                if (tempdays > 7)
+                {
+                    TxtPBFLDaysRem.Text = tempdays.ToString();
+                    TxtPBFLDaysRem.ForeColor = Color.ForestGreen;
+                }
+                else if (tempdays <= 7 || tempdays > 0)
+                {
+                    TxtPBFLDaysRem.Text = tempdays.ToString();
+                    TxtPBFLDaysRem.ForeColor = Color.Violet;
+                }
+                else if (tempdays <= 0)
+                {
+                    TxtPBFLDaysRem.Text = tempdays.ToString();
+                    TxtPBFLDaysRem.ForeColor = Color.Red;
                 }
             }
             catch
@@ -3887,6 +3918,12 @@ namespace CSAY_ContractManagementSoftware
             {
 
             }
+        }
+
+        private void BtnCheckPB_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            FrmPBAmount fpb = new FrmPBAmount();
+            fpb.Show();
         }
     }
 }

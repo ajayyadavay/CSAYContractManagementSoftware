@@ -13,5 +13,8 @@
     <Compile Update="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FrmPBAmount.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>
