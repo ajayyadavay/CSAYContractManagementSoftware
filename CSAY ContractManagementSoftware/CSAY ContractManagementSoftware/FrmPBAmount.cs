@@ -59,11 +59,15 @@ namespace CSAY_ContractManagementSoftware
             }
             dataGridViewPB.Rows[1].Cells[2].Value = temp85.ToString();
 
+            //APG
+            dataGridViewPB.Rows[4].Cells[2].Value = TxtContractPrice.Text;
+            dataGridViewPB.Rows[5].Cells[2].Value = TxtContractPrice.Text;
+
         }
 
         private void GeneratePBAmountDataGridFromText()
         {
-            string filename = Environment.CurrentDirectory + "\\ComboBoxList\\" + "PBAmountCalc.txt";
+            string filename = Environment.CurrentDirectory + "\\ComboBoxList\\" + "PB_APG_Percent.txt";
             LoadTxtToDatagridview(dataGridViewPB, filename, 1, 2);
         }
 
@@ -179,6 +183,21 @@ namespace CSAY_ContractManagementSoftware
                         dataGridViewPB.Rows[i].Cells[3].Value = total.ToString();
                     }
                 }
+                total = 0;
+                double per_sum = 0;
+                for (int i = 4; i <= 5; i++)
+                {
+                    num1 = Convert.ToDouble(dataGridViewPB.Rows[i].Cells[2].Value);
+                    per = Convert.ToDouble(dataGridViewPB.Rows[i].Cells[1].Value);
+                    sum = Math.Round(num1 * per / 100.0, 2);
+                    dataGridViewPB.Rows[i].Cells[3].Value = sum.ToString();
+                    total += sum;
+                    per_sum += per;
+                }
+                total = Math.Round(total, 2);
+                per_sum = Math.Round(per_sum, 2);
+                dataGridViewPB.Rows[6].Cells[1].Value = per_sum.ToString();
+                dataGridViewPB.Rows[6].Cells[3].Value = total.ToString();
 
             }
             catch

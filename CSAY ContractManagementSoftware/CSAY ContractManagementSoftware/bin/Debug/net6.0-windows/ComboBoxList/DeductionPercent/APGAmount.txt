@@ -1,3 +1,0 @@
-SN	Description	Percent
-1	APG1	5
-2	APG2	5

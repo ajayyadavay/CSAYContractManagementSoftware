@@ -307,7 +307,8 @@ namespace CSAY_ContractManagementSoftware
             {
                 int rem_days = DifferenceInDate(TxtToday.Text, TxtWorkComplete.Text);
                 TxtDaysRem.Text = rem_days.ToString();
-                int ContractDays = DifferenceInDate(TxtWorkPermit.Text, TxtWorkComplete.Text);
+                //int ContractDays = DifferenceInDate(TxtWorkPermit.Text, TxtWorkComplete.Text);
+                int ContractDays = DifferenceInDate(TxtContractAgreement.Text, TxtWorkComplete.Text);
 
                 //days remaining from today
                 if (rem_days > 0)
@@ -327,7 +328,7 @@ namespace CSAY_ContractManagementSoftware
 
                 //determine Minimum APG Date,Insurance, PB date
                 int APGDay = Convert.ToInt32(ContractDays * 0.8 + 1);
-                TxtAPG1MinDL.Text = NewDateAFterAddingDays_and_Months(APGDay, 0, TxtWorkPermit.Text);
+                TxtAPG1MinDL.Text = NewDateAFterAddingDays_and_Months(APGDay, 0, TxtContractAgreement.Text);//txtworkpermit.text
                 TxtAPG2MinDL.Text = TxtAPG1MinDL.Text;
                 TxtInsMinDL.Text = TxtWorkComplete.Text;
                 TxtPBMinDL.Text = NewDateAFterAddingDays_and_Months(365, 1, TxtWorkComplete.Text);

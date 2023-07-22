@@ -32,10 +32,6 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             dataGridViewPB = new DataGridView();
-            ColDescription = new DataGridViewTextBoxColumn();
-            ColPBPercent = new DataGridViewTextBoxColumn();
-            ColTotalAmount = new DataGridViewTextBoxColumn();
-            ColPBAmount = new DataGridViewTextBoxColumn();
             label1 = new Label();
             TxtCostEstimate = new TextBox();
             TxtContractPrice = new TextBox();
@@ -45,12 +41,16 @@
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             importAmountToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripSeparator();
             calculateToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripSeparator();
             exitToolStripMenuItem = new ToolStripMenuItem();
             RadioInclPS = new RadioButton();
             RadioExcludePS = new RadioButton();
-            toolStripMenuItem2 = new ToolStripSeparator();
+            ColDescription = new DataGridViewTextBoxColumn();
+            ColPBPercent = new DataGridViewTextBoxColumn();
+            ColTotalAmount = new DataGridViewTextBoxColumn();
+            ColPBAmount = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPB).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -83,35 +83,8 @@
             dataGridViewPB.Name = "dataGridViewPB";
             dataGridViewPB.RowHeadersVisible = false;
             dataGridViewPB.RowTemplate.Height = 25;
-            dataGridViewPB.Size = new Size(618, 187);
+            dataGridViewPB.Size = new Size(618, 277);
             dataGridViewPB.TabIndex = 24;
-            // 
-            // ColDescription
-            // 
-            ColDescription.HeaderText = "Description";
-            ColDescription.Name = "ColDescription";
-            ColDescription.SortMode = DataGridViewColumnSortMode.NotSortable;
-            ColDescription.Width = 200;
-            // 
-            // ColPBPercent
-            // 
-            ColPBPercent.HeaderText = "Percent";
-            ColPBPercent.Name = "ColPBPercent";
-            ColPBPercent.SortMode = DataGridViewColumnSortMode.NotSortable;
-            // 
-            // ColTotalAmount
-            // 
-            ColTotalAmount.HeaderText = "Total Amount to Calculate PB";
-            ColTotalAmount.Name = "ColTotalAmount";
-            ColTotalAmount.SortMode = DataGridViewColumnSortMode.NotSortable;
-            ColTotalAmount.Width = 150;
-            // 
-            // ColPBAmount
-            // 
-            ColPBAmount.HeaderText = "Calculated PB Amount";
-            ColPBAmount.Name = "ColPBAmount";
-            ColPBAmount.SortMode = DataGridViewColumnSortMode.NotSortable;
-            ColPBAmount.Width = 150;
             // 
             // label1
             // 
@@ -194,6 +167,11 @@
             importAmountToolStripMenuItem.Text = "Import Amount";
             importAmountToolStripMenuItem.Click += importAmountToolStripMenuItem_Click;
             // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(177, 6);
+            // 
             // calculateToolStripMenuItem
             // 
             calculateToolStripMenuItem.Name = "calculateToolStripMenuItem";
@@ -237,17 +215,39 @@
             RadioExcludePS.Text = "Exclude Provisional Sum";
             RadioExcludePS.UseVisualStyleBackColor = true;
             // 
-            // toolStripMenuItem2
+            // ColDescription
             // 
-            toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(177, 6);
+            ColDescription.HeaderText = "Description";
+            ColDescription.Name = "ColDescription";
+            ColDescription.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ColDescription.Width = 200;
+            // 
+            // ColPBPercent
+            // 
+            ColPBPercent.HeaderText = "Percent";
+            ColPBPercent.Name = "ColPBPercent";
+            ColPBPercent.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ColTotalAmount
+            // 
+            ColTotalAmount.HeaderText = "Total Amount to Calculate PB/APG";
+            ColTotalAmount.Name = "ColTotalAmount";
+            ColTotalAmount.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ColTotalAmount.Width = 150;
+            // 
+            // ColPBAmount
+            // 
+            ColPBAmount.HeaderText = "Calculated PB/APG Amount";
+            ColPBAmount.Name = "ColPBAmount";
+            ColPBAmount.SortMode = DataGridViewColumnSortMode.NotSortable;
+            ColPBAmount.Width = 150;
             // 
             // FrmPBAmount
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(658, 343);
+            ClientSize = new Size(658, 433);
             Controls.Add(RadioExcludePS);
             Controls.Add(RadioInclPS);
             Controls.Add(TxtPercentbelow);
@@ -262,7 +262,7 @@
             MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "FrmPBAmount";
-            Text = "PB Amount";
+            Text = "PB and APG Amount";
             Load += FrmPBAmount_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewPB).EndInit();
             menuStrip1.ResumeLayout(false);
@@ -280,10 +280,6 @@
         private Label label2;
         private TextBox TxtPercentbelow;
         private Label label3;
-        private DataGridViewTextBoxColumn ColDescription;
-        private DataGridViewTextBoxColumn ColPBPercent;
-        private DataGridViewTextBoxColumn ColTotalAmount;
-        private DataGridViewTextBoxColumn ColPBAmount;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
@@ -293,5 +289,9 @@
         private RadioButton RadioExcludePS;
         private ToolStripMenuItem calculateToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem2;
+        private DataGridViewTextBoxColumn ColDescription;
+        private DataGridViewTextBoxColumn ColPBPercent;
+        private DataGridViewTextBoxColumn ColTotalAmount;
+        private DataGridViewTextBoxColumn ColPBAmount;
     }
 }
