@@ -405,7 +405,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtAPG1DaysRem.Text = tempdays.ToString();
                     TxtAPG1DaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     TxtAPG1DaysRem.Text = tempdays.ToString();
                     TxtAPG1DaysRem.ForeColor = Color.Violet;
@@ -422,7 +422,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtAPG2DaysRem.Text = tempdays.ToString();
                     TxtAPG2DaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     TxtAPG2DaysRem.Text = tempdays.ToString();
                     TxtAPG2DaysRem.ForeColor = Color.Violet;
@@ -439,7 +439,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtPBDaysRem.Text = tempdays.ToString();
                     TxtPBDaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     TxtPBDaysRem.Text = tempdays.ToString();
                     TxtPBDaysRem.ForeColor = Color.Violet;
@@ -456,7 +456,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtInsDaysRem.Text = tempdays.ToString();
                     TxtInsDaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     TxtInsDaysRem.Text = tempdays.ToString();
                     TxtInsDaysRem.ForeColor = Color.Violet;
@@ -474,7 +474,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtPBFLDaysRem.Text = tempdays.ToString();
                     TxtPBFLDaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     TxtPBFLDaysRem.Text = tempdays.ToString();
                     TxtPBFLDaysRem.ForeColor = Color.Violet;
@@ -624,11 +624,6 @@ namespace CSAY_ContractManagementSoftware
             TxtPBDaysRem.Text = "";
             TxtInsDaysRem.Text = "";
 
-            TxtAPG1DaysRem.Text = "";
-            TxtAPG2DaysRem.Text = "";
-            TxtPBDaysRem.Text = "";
-            TxtInsDaysRem.Text = "";
-
             TxtBankNameAPG1.Text = "";
             TxtBankNameAPG2.Text = "";
             TxtBankNamePB.Text = "";
@@ -645,6 +640,15 @@ namespace CSAY_ContractManagementSoftware
             TxtTotalContractAmount.Text = "";
             TxtTotalFinalBillAmount.Text = "";
             //TxtPE.Text = "";
+
+            TxtFL_PBRef.Text = "";
+            TxtFL_PBDeadline.Text = "";
+            TxtFL_PBAmount.Text = "";
+            TxtFL_PBMinDL.Text = "";
+            TxtFL_PBRemark.Text = "";
+            TxtFL_BankNamePB.Text = "";
+            TxtFL_BankAddressPB.Text = "";
+            TxtPBFLDaysRem.Text = "";
 
             ComboBoxFY.SelectedIndex = -1;
             ComboBoxBudgetType.SelectedIndex = -1;
@@ -737,6 +741,16 @@ namespace CSAY_ContractManagementSoftware
             string TotalFinalBillAmount = TxtTotalFinalBillAmount.Text;
             string PublicEntity = TxtPE.Text;
 
+            string PB2DocRefNo = TxtFL_PBRef.Text;
+            string PB2Deadline = TxtFL_PBDeadline.Text;
+            string PB2Amount = TxtFL_PBAmount.Text;
+            string PB2MinDL = TxtFL_PBMinDL.Text;
+            string PB2Remark = TxtFL_PBRemark.Text;
+            string PB2BankName = TxtFL_BankNamePB.Text;
+            string PB2BankAddress = TxtFL_BankAddressPB.Text;
+            string PB2DaysRem = TxtPBFLDaysRem.Text;
+
+
             if (TxtFY.Text == "" || TxtContractID.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "")
             {
                 TxtLog.Text += "Either Fiscal Year or Contract ID or Ward or Project Type is Empty. Please fill to continue.";
@@ -758,7 +772,8 @@ namespace CSAY_ContractManagementSoftware
                         "CurrentStatus,NoticeIssued,LOI,LOA,ContractAgreement,WorkPermit,WorkComplete,RunningBill,FinalBill,DaysRemaining," +
                         "NameOfContractor,AddressOfContractor,Email1,ContractorOther,ProjectDescription,Length,Breadth,Height,ContractorNameDev,ContractorAddressDev," +
                         "APG1DaysRem,APG2DaysRem,PBDaysRem,InsDaysRem,APG1BankName,APG2BankName ,PBBankName ,InsBankName,APG1BankAddress,APG2BankAddress,PBBankAddress,InsBankAddress," +
-                        "ProcurementCategory, ProcurementMethod, TotalEstimatedAmount, TotalContractAmount, TotalFinalBillAmount, PublicEntity) " +
+                        "ProcurementCategory, ProcurementMethod, TotalEstimatedAmount, TotalContractAmount, TotalFinalBillAmount, PublicEntity," +
+                        "PB2DocRefNo,PB2Deadline, PB2Amount,PB2MinDL,PB2Remark,PB2BankName,PB2BankAddress,PB2DaysRem) " +
                         "VALUES('" + FiscalYear + "','" + ContractID + "','" + ContractName + "','" + ContractBudget + "'," +
                         "'" + Ward + "','" + ProjectType + "','" + BudgetType + "','" + Location + "'" +
                         ",'" + APG1DocRefNo + "','" + APG1Deadline + "','" + APG1Amount + "','" + APG1MinDL + "','" + APG1Remark + "'" +
@@ -772,7 +787,8 @@ namespace CSAY_ContractManagementSoftware
                         ",'" + APG1DaysRem + "','" + APG2DaysRem + "','" + PBDaysRem + "','" + InsDaysRem + "'" +
                         ",'" + APG1BankName + "','" + APG2BankName + "','" + PBBankName + "','" + InsBankName + "'" +
                         ",'" + APG1BankAddress + "','" + APG2BankAddress + "','" + PBBankAddress + "','" + InsBankAddress + "'" +
-                        ",'" + ProcurementCategory + "','" + ProcurementMethod + "','" + TotalEstimatedAmount + "', '" + TotalContractAmount + "', '" + TotalFinalBillAmount + "', '" + PublicEntity + "' )";// one data format  = '" + Height + "'
+                        ",'" + ProcurementCategory + "','" + ProcurementMethod + "','" + TotalEstimatedAmount + "', '" + TotalContractAmount + "', '" + TotalFinalBillAmount + "', '" + PublicEntity + "' " +
+                        ",'" + PB2DocRefNo + "','" + PB2Deadline + "','" + PB2Amount + "','" + PB2MinDL + "','" + PB2Remark + "','" + PB2BankName + "','" + PB2BankAddress + "','" + PB2DaysRem + "' )";// one data format  = '" + Height + "'
 
                     SQLiteCommand Cmd = new SQLiteCommand(query, ConnectDb);
                     Cmd.ExecuteNonQuery();
@@ -794,6 +810,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtAPG2DaysRem.Text = "";
                     TxtPBDaysRem.Text = "";
                     TxtInsDaysRem.Text = "";
+                    TxtPBFLDaysRem.Text = "";
 
                     ComboBoxFY.SelectedIndex = -1;
                     ComboBoxBudgetType.SelectedIndex = -1;
@@ -835,6 +852,7 @@ namespace CSAY_ContractManagementSoftware
             TxtAPG2DaysRem.ForeColor = Color.Black;
             TxtPBDaysRem.ForeColor = Color.Black;
             TxtInsDaysRem.ForeColor = Color.Black;
+            TxtPBFLDaysRem.ForeColor = Color.Black;
         }
 
         private void BtnLoadAllRecord_Click(object sender, EventArgs e)
@@ -3389,6 +3407,15 @@ namespace CSAY_ContractManagementSoftware
                     TxtTotalFinalBillAmount.Text = row[65].ToString();
                     TxtPE.Text = row[66].ToString();
 
+                    TxtFL_PBRef.Text = row[67].ToString();
+                    TxtFL_PBDeadline.Text = row[68].ToString();
+                    TxtFL_PBAmount.Text = row[69].ToString();
+                    TxtFL_PBMinDL.Text = row[70].ToString();
+                    TxtFL_PBRemark.Text = row[71].ToString();
+                    TxtFL_BankNamePB.Text = row[72].ToString();
+                    TxtFL_BankAddressPB.Text = row[73].ToString();
+                    TxtPBFLDaysRem.Text = row[74].ToString();
+
                 }
                 ConnectDb.Close();
 
@@ -3454,6 +3481,14 @@ namespace CSAY_ContractManagementSoftware
                     TxtInsRemark.ForeColor = Color.Red;
                 }
 
+                if (TxtFL_PBRemark.Text == "Valid")
+                {
+                    TxtFL_PBRemark.ForeColor = Color.ForestGreen;
+                }
+                else if (TxtFL_PBRemark.Text == "Review")
+                {
+                    TxtFL_PBRemark.ForeColor = Color.Red;
+                }
                 //checking APG,PB,Ins date from Today
                 //APG1
                 float tempdays;
@@ -3467,7 +3502,7 @@ namespace CSAY_ContractManagementSoftware
                     //TxtAPG1DaysRem.Text = tempdays.ToString();
                     TxtAPG1DaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     //TxtAPG1DaysRem.Text = tempdays.ToString();
                     TxtAPG1DaysRem.ForeColor = Color.Violet;
@@ -3488,7 +3523,7 @@ namespace CSAY_ContractManagementSoftware
                     //TxtAPG2DaysRem.Text = tempdays.ToString();
                     TxtAPG2DaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     //TxtAPG2DaysRem.Text = tempdays.ToString();
                     TxtAPG2DaysRem.ForeColor = Color.Violet;
@@ -3509,7 +3544,7 @@ namespace CSAY_ContractManagementSoftware
                     //TxtPBDaysRem.Text = tempdays.ToString();
                     TxtPBDaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     //TxtPBDaysRem.Text = tempdays.ToString();
                     TxtPBDaysRem.ForeColor = Color.Violet;
@@ -3530,7 +3565,7 @@ namespace CSAY_ContractManagementSoftware
                     //TxtInsDaysRem.Text = tempdays.ToString();
                     TxtInsDaysRem.ForeColor = Color.ForestGreen;
                 }
-                else if (tempdays <= 7 || tempdays > 0)
+                else if (tempdays <= 7 && tempdays > 0)
                 {
                     //TxtInsDaysRem.Text = tempdays.ToString();
                     TxtInsDaysRem.ForeColor = Color.Violet;
@@ -3539,6 +3574,27 @@ namespace CSAY_ContractManagementSoftware
                 {
                     //TxtInsDaysRem.Text = tempdays.ToString();
                     TxtInsDaysRem.ForeColor = Color.Red;
+                }
+                //PB_FL
+                if (TxtPBFLDaysRem.Text == "")
+                {
+                    TxtPBFLDaysRem.Text = 0.ToString();
+                }
+                tempdays = Convert.ToSingle(TxtPBFLDaysRem.Text);
+                if (tempdays > 7)
+                {
+                    //TxtPBDaysRem.Text = tempdays.ToString();
+                    TxtPBFLDaysRem.ForeColor = Color.ForestGreen;
+                }
+                else if (tempdays <= 7 && tempdays > 0)
+                {
+                    //TxtPBDaysRem.Text = tempdays.ToString();
+                    TxtPBFLDaysRem.ForeColor = Color.Violet;
+                }
+                else if (tempdays <= 0)
+                {
+                    //TxtPBDaysRem.Text = tempdays.ToString();
+                    TxtPBFLDaysRem.ForeColor = Color.Red;
                 }
 
                 string ProjectID = TxtProjectID.Text;
@@ -3634,6 +3690,15 @@ namespace CSAY_ContractManagementSoftware
             string TotalFinalBillAmount = TxtTotalFinalBillAmount.Text;
             string PublicEntity = TxtPE.Text;
 
+            string PB2DocRefNo = TxtFL_PBRef.Text;
+            string PB2Deadline = TxtFL_PBDeadline.Text;
+            string PB2Amount = TxtFL_PBAmount.Text;
+            string PB2MinDL = TxtFL_PBMinDL.Text;
+            string PB2Remark = TxtFL_PBRemark.Text;
+            string PB2BankName = TxtFL_BankNamePB.Text;
+            string PB2BankAddress = TxtFL_BankAddressPB.Text;
+            string PB2DaysRem = TxtPBFLDaysRem.Text;
+
             DialogResult dr = MessageBox.Show("Are you sure, you want to Modify?", "Modify", MessageBoxButtons.YesNo);
             if (dr == DialogResult.Yes)
             {
@@ -3649,7 +3714,8 @@ namespace CSAY_ContractManagementSoftware
                     "CurrentStatus,NoticeIssued,LOI,LOA,ContractAgreement,WorkPermit,WorkComplete,RunningBill,FinalBill,DaysRemaining," +
                     "NameOfContractor,AddressOfContractor,Email1,ContractorOther,ProjectDescription,Length,Breadth,Height,ContractorNameDev,ContractorAddressDev," +
                     "APG1DaysRem,APG2DaysRem,PBDaysRem,InsDaysRem,APG1BankName,APG2BankName ,PBBankName ,InsBankName,APG1BankAddress,APG2BankAddress,PBBankAddress,InsBankAddress," +
-                    "ProcurementCategory, ProcurementMethod, TotalEstimatedAmount, TotalContractAmount, TotalFinalBillAmount, PublicEntity) " +
+                    "ProcurementCategory, ProcurementMethod, TotalEstimatedAmount, TotalContractAmount, TotalFinalBillAmount, PublicEntity," +
+                    "PB2DocRefNo,PB2Deadline, PB2Amount,PB2MinDL,PB2Remark,PB2BankName,PB2BankAddress,PB2DaysRem) " +
                     "VALUES('" + ProjectID + "', '" + FiscalYear + "','" + ContractID + "','" + ContractName + "','" + ContractBudget + "'," +
                     "'" + Ward + "','" + ProjectType + "','" + BudgetType + "','" + Location + "'" +
                     ",'" + APG1DocRefNo + "','" + APG1Deadline + "','" + APG1Amount + "','" + APG1MinDL + "','" + APG1Remark + "'" +
@@ -3663,7 +3729,8 @@ namespace CSAY_ContractManagementSoftware
                     ",'" + APG1DaysRem + "','" + APG2DaysRem + "','" + PBDaysRem + "','" + InsDaysRem + "'" +
                     ",'" + APG1BankName + "','" + APG2BankName + "','" + PBBankName + "','" + InsBankName + "'" +
                     ",'" + APG1BankAddress + "','" + APG2BankAddress + "','" + PBBankAddress + "','" + InsBankAddress + "'" +
-                    ",'" + ProcurementCategory + "','" + ProcurementMethod + "','" + TotalEstimatedAmount + "', '" + TotalContractAmount + "', '" + TotalFinalBillAmount + "', '" + PublicEntity + "' )";// one data format  = '" + Height + "'
+                    ",'" + ProcurementCategory + "','" + ProcurementMethod + "','" + TotalEstimatedAmount + "', '" + TotalContractAmount + "', '" + TotalFinalBillAmount + "', '" + PublicEntity + "' " +
+                    ", '" + PB2DocRefNo + "','" + PB2Deadline + "','" + PB2Amount + "','" + PB2MinDL + "','" + PB2Remark + "','" + PB2BankName + "','" + PB2BankAddress + "','" + PB2DaysRem + "')";// one data format  = '" + Height + "'
 
                 SQLiteCommand Cmd = new SQLiteCommand(query, ConnectDb);
                 Cmd.ExecuteNonQuery();
@@ -3726,7 +3793,7 @@ namespace CSAY_ContractManagementSoftware
                         Text2Write = "[" + DateTime.Now.ToString("dddd, dd MMMM yyyy HH:mm:ss") + "]" + "  --->  " + "DELETE" + " ---> " + "Project ID: " + ProjectID + "  " + ProjectName + " of " + Ward + " at " + Location;
                         sw.WriteLine(Text2Write);
                     }*/
-
+                    DeleteTextFields();
                     Initial_State_of_Label();
                 }
                 else if (dr == DialogResult.No)

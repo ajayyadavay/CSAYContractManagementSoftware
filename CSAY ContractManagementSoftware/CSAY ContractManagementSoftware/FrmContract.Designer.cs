@@ -123,6 +123,9 @@
             this.TxtProjectID = (new global::System.Windows.Forms.TextBox());
             this.label1 = (new global::System.Windows.Forms.Label());
             this.TabGuarantee = (new global::System.Windows.Forms.TabPage());
+            this.label81 = (new global::System.Windows.Forms.Label());
+            this.label80 = (new global::System.Windows.Forms.Label());
+            this.label79 = (new global::System.Windows.Forms.Label());
             this.BtnCheckPB = (new global::System.Windows.Forms.Button());
             this.groupBox13 = (new global::System.Windows.Forms.GroupBox());
             this.TxtFL_BankAddressPB = (new global::System.Windows.Forms.TextBox());
@@ -1301,6 +1304,9 @@
             // 
             // TabGuarantee
             // 
+            this.TabGuarantee.Controls.Add(this.label81);
+            this.TabGuarantee.Controls.Add(this.label80);
+            this.TabGuarantee.Controls.Add(this.label79);
             this.TabGuarantee.Controls.Add(this.BtnCheckPB);
             this.TabGuarantee.Controls.Add(this.groupBox13);
             this.TabGuarantee.Controls.Add(this.label63);
@@ -1318,6 +1324,39 @@
             this.TabGuarantee.Text = ("Gurantee");
             this.TabGuarantee.UseVisualStyleBackColor = (true);
             // 
+            // label81
+            // 
+            this.label81.AutoSize = (true);
+            this.label81.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.label81.ForeColor = (global::System.Drawing.Color.Red);
+            this.label81.Location = (new global::System.Drawing.Point(1065, 432));
+            this.label81.Name = ("label81");
+            this.label81.Size = (new global::System.Drawing.Size(239, 20));
+            this.label81.TabIndex = (25);
+            this.label81.Text = ("Days Remaining color = Red if <=0\r\n");
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = (true);
+            this.label80.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.label80.ForeColor = (global::System.Drawing.Color.MediumOrchid);
+            this.label80.Location = (new global::System.Drawing.Point(1065, 410));
+            this.label80.Name = ("label80");
+            this.label80.Size = (new global::System.Drawing.Size(251, 20));
+            this.label80.TabIndex = (24);
+            this.label80.Text = ("Days Remaining color = voilet if <=7\r\n");
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = (true);
+            this.label79.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.label79.ForeColor = (global::System.Drawing.Color.Green);
+            this.label79.Location = (new global::System.Drawing.Point(1065, 388));
+            this.label79.Name = ("label79");
+            this.label79.Size = (new global::System.Drawing.Size(244, 20));
+            this.label79.TabIndex = (23);
+            this.label79.Text = ("Days Remaining color = green if >7");
+            // 
             // BtnCheckPB
             // 
             this.BtnCheckPB.FlatAppearance.BorderColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(128)), (global::System.Int32)((global::System.Byte)(0))));
@@ -1326,9 +1365,9 @@
             this.BtnCheckPB.FlatStyle = (global::System.Windows.Forms.FlatStyle.Flat);
             this.BtnCheckPB.Font = (new global::System.Drawing.Font("Comic Sans MS", 11F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.BtnCheckPB.ForeColor = (global::System.Drawing.Color.Black);
-            this.BtnCheckPB.Location = (new global::System.Drawing.Point(1072, 363));
+            this.BtnCheckPB.Location = (new global::System.Drawing.Point(1065, 462));
             this.BtnCheckPB.Name = ("BtnCheckPB");
-            this.BtnCheckPB.Size = (new global::System.Drawing.Size(234, 39));
+            this.BtnCheckPB.Size = (new global::System.Drawing.Size(259, 39));
             this.BtnCheckPB.TabIndex = (17);
             this.BtnCheckPB.Text = ("Calculate PB amount");
             this.BtnCheckPB.UseVisualStyleBackColor = (true);
@@ -1356,7 +1395,7 @@
             this.groupBox13.Size = (new global::System.Drawing.Size(910, 140));
             this.groupBox13.TabIndex = (22);
             this.groupBox13.TabStop = (false);
-            this.groupBox13.Text = ("Performance Bond (PB) [Front Loading]");
+            this.groupBox13.Text = ("Performance Bond (PB2) [Front Loading]");
             // 
             // TxtFL_BankAddressPB
             // 
@@ -3129,5 +3168,8 @@
         private global::System.Windows.Forms.TextBox TxtPBFLDaysRem;
         private global::System.Windows.Forms.Label label78;
         private global::System.Windows.Forms.Button BtnCheckPB;
+        private global::System.Windows.Forms.Label label79;
+        private global::System.Windows.Forms.Label label81;
+        private global::System.Windows.Forms.Label label80;
     }
 }
