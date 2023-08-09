@@ -660,6 +660,42 @@ namespace CSAY_ContractManagementSoftware
             ComboBoxInsBankName.SelectedIndex = -1;
         }
 
+        private bool IsContractIDUnique()
+        {
+            bool C_ID=false;
+
+            string value;
+            SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
+            ConnectDb.Open();
+
+            //for unique value
+            string query = "SELECT DISTINCT " + "ContractID" + " FROM ContractTable";
+            SQLiteDataAdapter DataAdptr = new SQLiteDataAdapter(query, ConnectDb);
+
+            DataTable Dt = new DataTable();
+            DataAdptr.Fill(Dt);
+
+            //ComboBoxDistinctVal1.Items.Clear();
+            string thisID = TxtContractID.Text;
+            foreach (DataRow row in Dt.Rows)
+            {
+                value = row[0].ToString();
+                if (thisID == value)
+                {
+                    C_ID = true;
+                    break;
+                }
+                else
+                {
+                    C_ID = false;
+                }
+                //ComboBoxDistinctVal1.Items.Add(value);
+            }
+            ConnectDb.Close();
+
+            return C_ID;
+        }
+
         private void Fun_Add(object sender, EventArgs e)
         {
             string FiscalYear = TxtFY.Text;
@@ -3992,6 +4028,37 @@ namespace CSAY_ContractManagementSoftware
         {
             FrmPBAmount fpb = new FrmPBAmount();
             fpb.Show();
+        }
+
+        private void TxtContractID_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                bool DoIDExists = IsContractIDUnique();
+                if(DoIDExists == true)
+                {
+                    LblUniqueID.Text = "Already in Use";
+                    LblUniqueID.ForeColor = Color.Red;
+                    TxtContractID.BackColor = Color.LightSalmon;
+                }
+                else
+                {
+                    LblUniqueID.Text = "Available";
+                    LblUniqueID.ForeColor = Color.ForestGreen;
+                    TxtContractID.BackColor = Color.LightGreen;
+                }
+
+                if(TxtContractID.Text == "")
+                {
+                    LblUniqueID.Text = "Available/Already in Use";
+                    LblUniqueID.ForeColor = Color.Black;
+                    TxtContractID.BackColor = Color.White;
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

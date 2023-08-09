@@ -55,6 +55,8 @@
             this.BtnLoadAllRecord = (new global::System.Windows.Forms.Button());
             this.dataGridView2 = (new global::System.Windows.Forms.DataGridView());
             this.TabGeneral = (new global::System.Windows.Forms.TabPage());
+            this.LblUniqueID = (new global::System.Windows.Forms.Label());
+            this.label82 = (new global::System.Windows.Forms.Label());
             this.ComboBoxPE = (new global::System.Windows.Forms.ComboBox());
             this.TxtPE = (new global::System.Windows.Forms.TextBox());
             this.label65 = (new global::System.Windows.Forms.Label());
@@ -639,6 +641,8 @@
             // 
             // TabGeneral
             // 
+            this.TabGeneral.Controls.Add(this.LblUniqueID);
+            this.TabGeneral.Controls.Add(this.label82);
             this.TabGeneral.Controls.Add(this.ComboBoxPE);
             this.TabGeneral.Controls.Add(this.TxtPE);
             this.TabGeneral.Controls.Add(this.label65);
@@ -654,12 +658,34 @@
             this.TabGeneral.Text = ("General");
             this.TabGeneral.UseVisualStyleBackColor = (true);
             // 
+            // LblUniqueID
+            // 
+            this.LblUniqueID.AutoSize = (true);
+            this.LblUniqueID.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.LblUniqueID.ForeColor = (global::System.Drawing.Color.Black);
+            this.LblUniqueID.Location = (new global::System.Drawing.Point(1113, 60));
+            this.LblUniqueID.Name = ("LblUniqueID");
+            this.LblUniqueID.Size = (new global::System.Drawing.Size(181, 20));
+            this.LblUniqueID.TabIndex = (26);
+            this.LblUniqueID.Text = ("Available/Already in Use");
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = (true);
+            this.label82.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.label82.ForeColor = (global::System.Drawing.Color.Black);
+            this.label82.Location = (new global::System.Drawing.Point(1113, 34));
+            this.label82.Name = ("label82");
+            this.label82.Size = (new global::System.Drawing.Size(149, 20));
+            this.label82.TabIndex = (25);
+            this.label82.Text = ("Contract ID Status:");
+            // 
             // ComboBoxPE
             // 
             this.ComboBoxPE.DropDownStyle = (global::System.Windows.Forms.ComboBoxStyle.DropDownList);
             this.ComboBoxPE.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.ComboBoxPE.FormattingEnabled = (true);
-            this.ComboBoxPE.Location = (new global::System.Drawing.Point(1121, 279));
+            this.ComboBoxPE.Location = (new global::System.Drawing.Point(1121, 358));
             this.ComboBoxPE.Name = ("ComboBoxPE");
             this.ComboBoxPE.Size = (new global::System.Drawing.Size(202, 28));
             this.ComboBoxPE.TabIndex = (23);
@@ -668,7 +694,7 @@
             // TxtPE
             // 
             this.TxtPE.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
-            this.TxtPE.Location = (new global::System.Drawing.Point(1121, 313));
+            this.TxtPE.Location = (new global::System.Drawing.Point(1121, 392));
             this.TxtPE.Name = ("TxtPE");
             this.TxtPE.Size = (new global::System.Drawing.Size(205, 28));
             this.TxtPE.TabIndex = (24);
@@ -678,7 +704,7 @@
             this.label65.AutoSize = (true);
             this.label65.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.label65.ForeColor = (global::System.Drawing.Color.Black);
-            this.label65.Location = (new global::System.Drawing.Point(1121, 256));
+            this.label65.Location = (new global::System.Drawing.Point(1121, 335));
             this.label65.Name = ("label65");
             this.label65.Size = (new global::System.Drawing.Size(122, 20));
             this.label65.TabIndex = (23);
@@ -689,7 +715,7 @@
             this.label64.AutoSize = (true);
             this.label64.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.label64.ForeColor = (global::System.Drawing.Color.OrangeRed);
-            this.label64.Location = (new global::System.Drawing.Point(1121, 162));
+            this.label64.Location = (new global::System.Drawing.Point(1121, 241));
             this.label64.Name = ("label64");
             this.label64.Size = (new global::System.Drawing.Size(187, 60));
             this.label64.TabIndex = (23);
@@ -699,7 +725,7 @@
             // 
             this.groupBox8.Controls.Add(this.BtnToday);
             this.groupBox8.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
-            this.groupBox8.Location = (new global::System.Drawing.Point(1113, 27));
+            this.groupBox8.Location = (new global::System.Drawing.Point(1113, 106));
             this.groupBox8.Name = ("groupBox8");
             this.groupBox8.Size = (new global::System.Drawing.Size(213, 106));
             this.groupBox8.TabIndex = (3);
@@ -1274,6 +1300,7 @@
             this.TxtContractID.Name = ("TxtContractID");
             this.TxtContractID.Size = (new global::System.Drawing.Size(301, 28));
             this.TxtContractID.TabIndex = (3);
+            this.TxtContractID.TextChanged += (this.TxtContractID_TextChanged);
             // 
             // label2
             // 
@@ -3171,5 +3198,7 @@
         private global::System.Windows.Forms.Label label79;
         private global::System.Windows.Forms.Label label81;
         private global::System.Windows.Forms.Label label80;
+        private global::System.Windows.Forms.Label label82;
+        private global::System.Windows.Forms.Label LblUniqueID;
     }
 }
