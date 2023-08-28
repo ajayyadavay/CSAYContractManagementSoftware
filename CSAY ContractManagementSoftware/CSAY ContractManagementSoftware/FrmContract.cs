@@ -140,6 +140,23 @@ namespace CSAY_ContractManagementSoftware
                 ComboBoxPE.Items.Add(line);
             }
 
+            GenerateUnicodeDateTable();
+
+        }
+
+        private void GenerateUnicodeDateTable()
+        {
+            dataGridView3.Rows.Clear();
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[0].Cells[0].Value = "Contract Date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[1].Cells[0].Value = "Work Permit Date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[2].Cells[0].Value = "New Work Complete Date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[3].Cells[0].Value = "Old Work Complete Date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[4].Cells[0].Value = "EOT Date";
         }
 
         public void LoadTxtToDatagridview(DataGridView Dgv, string FileName, int TxtStartRow, int no_of_Col)
@@ -662,7 +679,7 @@ namespace CSAY_ContractManagementSoftware
 
         private bool IsContractIDUnique()
         {
-            bool C_ID=false;
+            bool C_ID = false;
 
             string value;
             SQLiteConnection ConnectDb = new SQLiteConnection("Data Source = Contract.sqlite3");
@@ -4035,7 +4052,7 @@ namespace CSAY_ContractManagementSoftware
             try
             {
                 bool DoIDExists = IsContractIDUnique();
-                if(DoIDExists == true)
+                if (DoIDExists == true)
                 {
                     LblUniqueID.Text = "Already in Use";
                     LblUniqueID.ForeColor = Color.Red;
@@ -4048,7 +4065,7 @@ namespace CSAY_ContractManagementSoftware
                     TxtContractID.BackColor = Color.LightGreen;
                 }
 
-                if(TxtContractID.Text == "")
+                if (TxtContractID.Text == "")
                 {
                     LblUniqueID.Text = "Available/Already in Use";
                     LblUniqueID.ForeColor = Color.Black;
@@ -4059,6 +4076,251 @@ namespace CSAY_ContractManagementSoftware
             {
 
             }
+        }
+
+        private void TxtWorkPermit_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                dataGridView3.Rows[1].Cells[1].Value = TxtWorkPermit.Text;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TxtContractAgreement_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                dataGridView3.Rows[0].Cells[1].Value = TxtContractAgreement.Text;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TxtWorkComplete_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                dataGridView3.Rows[2].Cells[1].Value = TxtWorkComplete.Text;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void BtnWCToOld_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                dataGridView3.Rows[3].Cells[1].Value = TxtWorkComplete.Text;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void workPermitLetterToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            if (TxtFY.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "" || TxtContractID.Text == "")
+            {
+                TxtLog.Text = "Please fill mandator fields to continue !!!";
+                //TxtLog.Text += Environment.NewLine;
+            }
+            else
+            {
+                string ThisDir = Environment.CurrentDirectory;
+                //string FontDir1 = ThisDir + "\\Font\\Preeti Normal.otf";
+                // path folder
+                CreateAccessProjectFolders();
+                string filename_docx = EventHistoryFolder + "\\WorkPermitLetter.docx";
+
+                //CreateAccessProjectFolders();
+
+                //Start Word and create a new document.
+                Word._Application oWord;
+                Word._Document oDoc;
+                oWord = new Word.Application();
+                oWord.Visible = false;
+
+                object oMissing = System.Reflection.Missing.Value;
+                object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+
+                Cur_Dir = Environment.CurrentDirectory;
+                string filename_template = Cur_Dir + "\\ComboBoxList\\LetterFormat\\WorkPermit_Template.dotx";
+                object oTemplate = filename_template;
+                //object oTemplate = "E:\\Tippani_Template.dotx";
+
+                oDoc = oWord.Documents.Add(ref oTemplate, ref oMissing, ref oMissing, ref oMissing);
+
+                //Bookmarks and Data
+                object oBookMark;
+                oBookMark = "WorkPermitDate_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[1].Cells[2].Value.ToString();
+
+                oBookMark = "ContractorName_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorNameDev.Text;
+
+                oBookMark = "ContractorAddress_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorAddressDev.Text;
+
+                oBookMark = "ContractDateBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[0].Cells[2].Value.ToString();
+
+                oBookMark = "ContractDateAD_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[0].Cells[1].Value.ToString();
+
+                oBookMark = "ContractName_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractName.Text;
+
+                oBookMark = "ContractID_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractID.Text;
+
+                oBookMark = "WorkCompletionDateBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[2].Cells[2].Value.ToString();
+
+                oBookMark = "WorkCompletionDateAD_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[2].Cells[1].Value.ToString();
+
+                //string filename_docx = Cur_Dir + "\\InputFolder\\NewLetter.docx"; 
+                //string filename_docx = Project_Folders + "\\" + TxtFirstName.Text + "_" + TxtPlotNo.Text + "_Letter.docx";
+
+                oDoc.SaveAs2(filename_docx);
+
+                oDoc.Close();
+                oWord.Quit();
+
+
+                //TxtRecentFolderLocation.Text = Project_Folders;
+                TxtLog.Text = "Work Permit letter Saved.";
+            }
+        }
+
+        private void extensionOfTimeLetterToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            if (TxtFY.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "" || TxtContractID.Text == "")
+            {
+                TxtLog.Text = "Please fill mandator fields to continue !!!";
+                //TxtLog.Text += Environment.NewLine;
+            }
+            else
+            {
+                string ThisDir = Environment.CurrentDirectory;
+                //string FontDir1 = ThisDir + "\\Font\\Preeti Normal.otf";
+                // path folder
+                CreateAccessProjectFolders();
+                string filename_docx = EventHistoryFolder + "\\EOT.docx";
+
+                //CreateAccessProjectFolders();
+
+
+                //Start Word and create a new document.
+                Word._Application oWord;
+                Word._Document oDoc;
+                oWord = new Word.Application();
+                oWord.Visible = false;
+
+                object oMissing = System.Reflection.Missing.Value;
+                object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+
+                Cur_Dir = Environment.CurrentDirectory;
+                string filename_template = Cur_Dir + "\\ComboBoxList\\LetterFormat\\EOT_Template.dotx";
+                object oTemplate = filename_template;
+                //object oTemplate = "E:\\Tippani_Template.dotx";
+
+                oDoc = oWord.Documents.Add(ref oTemplate, ref oMissing, ref oMissing, ref oMissing);
+
+                //Bookmarks and Data
+                object oBookMark;
+                oBookMark = "EOTDate_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[4].Cells[2].Value.ToString();
+
+                oBookMark = "ContractorName_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorNameDev.Text;
+
+                oBookMark = "ContractorAddressBM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorAddressDev.Text;
+
+                oBookMark = "ContractName_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractName.Text;
+
+                oBookMark = "ContractID_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractID.Text;
+
+                oBookMark = "EOT_Time_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = LblEOT.Text;
+
+                oBookMark = "WorkCompletionDateOldBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[2].Cells[2].Value.ToString();
+
+                oBookMark = "WorkCompletionDateNewBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[3].Cells[2].Value.ToString();
+
+                //string filename_docx = Cur_Dir + "\\InputFolder\\NewLetter.docx"; 
+                //string filename_docx = Project_Folders + "\\" + TxtFirstName.Text + "_" + TxtPlotNo.Text + "_Letter.docx";
+
+                oDoc.SaveAs2(filename_docx);
+
+                oDoc.Close();
+                oWord.Quit();
+
+
+                //TxtRecentFolderLocation.Text = Project_Folders;
+                TxtLog.Text = "EOT letter Saved.";
+            }
+        }
+
+        private void CreateEOT()
+        {
+            try
+            {
+                string y, m, d;
+                string yn, mn, dn;
+                yn = " वर्ष ";
+                mn = " महिना ";
+                dn = " दिन ";
+                y = TxtEOTYear.Text;
+                m = TxtEOTMonth.Text;
+                d = TxtEOTDay.Text;
+                if(y == "0" || y == "")
+                {
+                    yn = "";
+                }
+                if (m == "0" || m == "")
+                {
+                    mn = "";
+                }
+                if (d == "0" || d == "")
+                {
+                    dn = "";
+                }
+                LblEOT.Text = y + yn + m + mn + d + dn;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void TxtEOTYear_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            CreateEOT();
+        }
+
+        private void TxtEOTMonth_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            CreateEOT();
+        }
+
+        private void TxtEOTDay_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            CreateEOT();
         }
     }
 }
