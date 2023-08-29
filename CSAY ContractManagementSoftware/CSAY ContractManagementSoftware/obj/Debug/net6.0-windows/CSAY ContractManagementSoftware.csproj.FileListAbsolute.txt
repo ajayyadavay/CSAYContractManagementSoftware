@@ -191,3 +191,4 @@ F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY 
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\ref\CSAY ContractManagementSoftware.dll
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY_ContractManagementSoftware.FrmCalcDeduction.resources
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY_ContractManagementSoftware.FrmPBAmount.resources
+F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\NodaTime.dll

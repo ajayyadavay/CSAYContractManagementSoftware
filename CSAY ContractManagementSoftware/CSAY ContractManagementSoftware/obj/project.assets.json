@@ -356,6 +356,22 @@
           }
         }
       },
+      "NodaTime/3.1.9": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.7.1"
+        },
+        "compile": {
+          "lib/net6.0/NodaTime.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/NodaTime.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "NPOI/2.5.6": {
         "type": "package",
         "dependencies": {
@@ -1229,6 +1245,19 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Runtime.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
             "related": ".xml"
           }
         }
@@ -2303,6 +2332,23 @@
         "newtonsoft.json.13.0.1.nupkg.sha512",
         "newtonsoft.json.nuspec",
         "packageIcon.png"
+      ]
+    },
+    "NodaTime/3.1.9": {
+      "sha512": "EzjwDOtsETlXWBDE6qvTQqc3guP+9xrAOf9j1mHL++UD4VeZay+dbCPNnXyZhoQMkKAOZ/+hIOtz7STl0Rkknw==",
+      "type": "package",
+      "path": "nodatime/3.1.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/NodaTime.dll",
+        "lib/net6.0/NodaTime.pdb",
+        "lib/net6.0/NodaTime.xml",
+        "lib/netstandard2.0/NodaTime.dll",
+        "lib/netstandard2.0/NodaTime.pdb",
+        "lib/netstandard2.0/NodaTime.xml",
+        "nodatime.3.1.9.nupkg.sha512",
+        "nodatime.nuspec"
       ]
     },
     "NPOI/2.5.6": {
@@ -4511,6 +4557,36 @@
         "system.runtime.nuspec"
       ]
     },
+    "System.Runtime.CompilerServices.Unsafe/4.7.1": {
+      "sha512": "zOHkQmzPCn5zm/BH+cxC1XbUS3P4Yoi3xzW7eRgVpDR2tPGSzyMZ17Ig1iRkfJuY0nhxkQQde8pgePNiA7z7TQ==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/4.7.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Runtime.Extensions/4.3.0": {
       "sha512": "guW0uK0fn5fcJJ1tJVXYd7/1h5F+pea1r7FLSOz/f8vPEqbR2ZAknuRDvTQ8PzAilDveOxNjSfr0CHfIQfFk8g==",
       "type": "package",
@@ -5894,6 +5970,7 @@
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
       "NPOI >= 2.5.6",
+      "NodaTime >= 3.1.9",
       "SQLite >= 3.13.0",
       "System.Data.SQLite >= 1.0.116",
       "System.Data.SQLite.Core >= 1.0.116",
@@ -5943,6 +6020,10 @@
           "NPOI": {
             "target": "Package",
             "version": "[2.5.6, )"
+          },
+          "NodaTime": {
+            "target": "Package",
+            "version": "[3.1.9, )"
           },
           "SQLite": {
             "target": "Package",

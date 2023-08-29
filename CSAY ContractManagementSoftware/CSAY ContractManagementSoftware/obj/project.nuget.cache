@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1La1Mwo/yc0Am/pFIDUhlm/4coqjUZpXF3IIvgrhJJGSOSb2Ip/bUki8h04qsjSHEzV1+9BRXEKmUO2xNevyPA==",
+  "dgSpecHash": "O7gDw6PwHLH8Sc86NG/bAt1kJk5Gnk1Cstey6+wAV/53DhP/vNKzRiKdix3bC0lZPjGwvbhjEmpxNOG3aFcmpQ==",
   "success": true,
   "projectFilePath": "F:\\VBStudio\\CSAYContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware\\CSAY ContractManagementSoftware.csproj",
   "expectedPackageFiles": [
@@ -22,6 +22,7 @@
     "C:\\Users\\GBIA CED\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\GBIA CED\\.nuget\\packages\\nodatime\\3.1.9\\nodatime.3.1.9.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\npoi\\2.5.6\\npoi.2.5.6.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\portable.bouncycastle\\1.8.9\\portable.bouncycastle.1.8.9.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
@@ -78,6 +79,7 @@
     "C:\\Users\\GBIA CED\\.nuget\\packages\\system.reflection.typeextensions\\4.1.0\\system.reflection.typeextensions.4.1.0.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\system.runtime\\4.3.1\\system.runtime.4.3.1.nupkg.sha512",
+    "C:\\Users\\GBIA CED\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.7.1\\system.runtime.compilerservices.unsafe.4.7.1.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\system.runtime.handles\\4.3.0\\system.runtime.handles.4.3.0.nupkg.sha512",
     "C:\\Users\\GBIA CED\\.nuget\\packages\\system.runtime.interopservices\\4.3.0\\system.runtime.interopservices.4.3.0.nupkg.sha512",

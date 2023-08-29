@@ -253,6 +253,8 @@
             this.ColAD = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
             this.ColBS = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
             this.groupBox15 = (new global::System.Windows.Forms.GroupBox());
+            this.BtnFindEOT = (new global::System.Windows.Forms.Button());
+            this.BtnFindNewWCdate = (new global::System.Windows.Forms.Button());
             this.TxtEOTDay = (new global::System.Windows.Forms.TextBox());
             this.label85 = (new global::System.Windows.Forms.Label());
             this.LblEOT = (new global::System.Windows.Forms.Label());
@@ -2613,6 +2615,8 @@
             // 
             // groupBox15
             // 
+            this.groupBox15.Controls.Add(this.BtnFindEOT);
+            this.groupBox15.Controls.Add(this.BtnFindNewWCdate);
             this.groupBox15.Controls.Add(this.TxtEOTDay);
             this.groupBox15.Controls.Add(this.label85);
             this.groupBox15.Controls.Add(this.LblEOT);
@@ -2626,6 +2630,38 @@
             this.groupBox15.TabIndex = (24);
             this.groupBox15.TabStop = (false);
             this.groupBox15.Text = ("Time Extended");
+            // 
+            // BtnFindEOT
+            // 
+            this.BtnFindEOT.FlatAppearance.BorderColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(128)), (global::System.Int32)((global::System.Byte)(0))));
+            this.BtnFindEOT.FlatAppearance.MouseDownBackColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(128)), (global::System.Int32)((global::System.Byte)(128))));
+            this.BtnFindEOT.FlatAppearance.MouseOverBackColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(224)), (global::System.Int32)((global::System.Byte)(192))));
+            this.BtnFindEOT.FlatStyle = (global::System.Windows.Forms.FlatStyle.Flat);
+            this.BtnFindEOT.Font = (new global::System.Drawing.Font("Comic Sans MS", 11F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.BtnFindEOT.ForeColor = (global::System.Drawing.Color.Black);
+            this.BtnFindEOT.Location = (new global::System.Drawing.Point(353, 81));
+            this.BtnFindEOT.Name = ("BtnFindEOT");
+            this.BtnFindEOT.Size = (new global::System.Drawing.Size(260, 43));
+            this.BtnFindEOT.TabIndex = (25);
+            this.BtnFindEOT.Text = ("Find EOT");
+            this.BtnFindEOT.UseVisualStyleBackColor = (true);
+            this.BtnFindEOT.Click += (this.BtnFindEOT_Click);
+            // 
+            // BtnFindNewWCdate
+            // 
+            this.BtnFindNewWCdate.FlatAppearance.BorderColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(128)), (global::System.Int32)((global::System.Byte)(0))));
+            this.BtnFindNewWCdate.FlatAppearance.MouseDownBackColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(128)), (global::System.Int32)((global::System.Byte)(128))));
+            this.BtnFindNewWCdate.FlatAppearance.MouseOverBackColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(224)), (global::System.Int32)((global::System.Byte)(192))));
+            this.BtnFindNewWCdate.FlatStyle = (global::System.Windows.Forms.FlatStyle.Flat);
+            this.BtnFindNewWCdate.Font = (new global::System.Drawing.Font("Comic Sans MS", 11F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.BtnFindNewWCdate.ForeColor = (global::System.Drawing.Color.Black);
+            this.BtnFindNewWCdate.Location = (new global::System.Drawing.Point(353, 38));
+            this.BtnFindNewWCdate.Name = ("BtnFindNewWCdate");
+            this.BtnFindNewWCdate.Size = (new global::System.Drawing.Size(260, 37));
+            this.BtnFindNewWCdate.TabIndex = (24);
+            this.BtnFindNewWCdate.Text = ("Find New WC date");
+            this.BtnFindNewWCdate.UseVisualStyleBackColor = (true);
+            this.BtnFindNewWCdate.Click += (this.BtnFindNewWCdate_Click);
             // 
             // TxtEOTDay
             // 
@@ -2650,7 +2686,7 @@
             this.LblEOT.Font = (new global::System.Drawing.Font("Kalimati", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.LblEOT.Location = (new global::System.Drawing.Point(6, 89));
             this.LblEOT.Name = ("LblEOT");
-            this.LblEOT.Size = (new global::System.Drawing.Size(602, 37));
+            this.LblEOT.Size = (new global::System.Drawing.Size(341, 37));
             this.LblEOT.TabIndex = (12);
             this.LblEOT.Text = ("EOT:");
             // 
@@ -3409,5 +3445,7 @@
         private global::System.Windows.Forms.Label label83;
         private global::System.Windows.Forms.Label label84;
         private global::System.Windows.Forms.TextBox TxtEOTYear;
+        private global::System.Windows.Forms.Button BtnFindNewWCdate;
+        private global::System.Windows.Forms.Button BtnFindEOT;
     }
 }

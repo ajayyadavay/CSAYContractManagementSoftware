@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[2.5.6, )"
             },
+            "NodaTime": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
             "SQLite": {
               "target": "Package",
               "version": "[3.13.0, )"

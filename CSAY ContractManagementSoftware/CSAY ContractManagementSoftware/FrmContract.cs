@@ -24,6 +24,7 @@ using Word = Microsoft.Office.Interop.Word;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
+using NodaTime;
 
 namespace CSAY_ContractManagementSoftware
 {
@@ -4288,7 +4289,7 @@ namespace CSAY_ContractManagementSoftware
                 y = TxtEOTYear.Text;
                 m = TxtEOTMonth.Text;
                 d = TxtEOTDay.Text;
-                if(y == "0" || y == "")
+                if (y == "0" || y == "")
                 {
                     yn = "";
                 }
@@ -4321,6 +4322,79 @@ namespace CSAY_ContractManagementSoftware
         private void TxtEOTDay_TextChanged(global::System.Object sender, global::System.EventArgs e)
         {
             CreateEOT();
+        }
+
+        private void BtnFindNewWCdate_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                int days, mon, yr;
+                days = Convert.ToInt32(TxtEOTDay.Text);
+                mon = Convert.ToInt32(TxtEOTMonth.Text);
+                yr = Convert.ToInt32(TxtEOTYear.Text);
+
+                mon += yr * 12;
+                string Olddates;
+                Olddates = dataGridView3.Rows[3].Cells[1].Value.ToString();
+                TxtWorkComplete.Text = NewDateAFterAddingDays_and_Months(days, mon, Olddates);
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        
+        private void BtnFindEOT_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                //string Olddates, newdates;
+
+                string Olddates = dataGridView3.Rows[3].Cells[1].Value.ToString();
+                string newdates = dataGridView3.Rows[2].Cells[1].Value.ToString();
+
+                int year1, month1, days1, year2, month2, days2;
+                string[] temp_date1 = Olddates.Split("-");
+                string[] temp_date2 = newdates.Split("-");
+
+                /*int[] monthdays = new int[]
+                {
+                    31,28,31,30,31,30,31,31,30,31,30,31
+                };*/
+
+                year1 = Convert.ToInt32(temp_date1[0]);
+                month1 = Convert.ToInt32(temp_date1[1]);
+                days1 = Convert.ToInt32(temp_date1[2]);
+
+                year2 = Convert.ToInt32(temp_date2[0]);
+                month2 = Convert.ToInt32(temp_date2[1]);
+                days2 = Convert.ToInt32(temp_date2[2]);
+
+                LocalDate start = new LocalDate(year1, month1, days1);
+                LocalDate end = new LocalDate(year2, month2, days2);
+
+
+
+                /*int[] EOT_Dur = DifferenceInDateYYMMDD(Olddates, newdates);
+                TxtEOTYear.Text = EOT_Dur[0].ToString();
+                TxtEOTMonth.Text = EOT_Dur[1].ToString();
+                TxtEOTDay.Text = EOT_Dur[2].ToString();
+                label86.Text = EOT_Dur.ToString();*/
+
+                Period agePeriod = Period.Between(start, end, PeriodUnits.YearMonthDay);
+
+                TxtEOTYear.Text = agePeriod.Years.ToString();
+                TxtEOTMonth.Text = agePeriod.Months.ToString();
+                TxtEOTDay.Text = agePeriod.Days.ToString();
+
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }
