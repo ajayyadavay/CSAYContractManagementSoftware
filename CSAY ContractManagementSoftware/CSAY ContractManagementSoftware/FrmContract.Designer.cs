@@ -33,6 +33,8 @@
             global::System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new global::System.Windows.Forms.DataGridViewCellStyle();
             global::System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new global::System.Windows.Forms.DataGridViewCellStyle();
             global::System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new global::System.Windows.Forms.DataGridViewCellStyle();
+            global::System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new global::System.Windows.Forms.DataGridViewCellStyle();
+            global::System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new global::System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = (new global::System.Windows.Forms.TabControl());
             this.TabLoadAllRecord = (new global::System.Windows.Forms.TabPage());
             this.groupBox10 = (new global::System.Windows.Forms.GroupBox());
@@ -247,6 +249,11 @@
             this.toolStripMenuItem2 = (new global::System.Windows.Forms.ToolStripSeparator());
             this.saveToExcelxlsxToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.TabContractProjectInfo = (new global::System.Windows.Forms.TabPage());
+            this.groupBox16 = (new global::System.Windows.Forms.GroupBox());
+            this.dataGridView4 = (new global::System.Windows.Forms.DataGridView());
+            this.ColDes1 = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
+            this.ColAPG1 = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
+            this.ColAPG2 = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
             this.groupBox14 = (new global::System.Windows.Forms.GroupBox());
             this.dataGridView3 = (new global::System.Windows.Forms.DataGridView());
             this.ColDescription = (new global::System.Windows.Forms.DataGridViewTextBoxColumn());
@@ -309,6 +316,7 @@
             this.lettersToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.workPermitLetterToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.extensionOfTimeLetterToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
+            this.tippaniForAdvancePayment1ToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.tabControl1.SuspendLayout();
             this.TabLoadAllRecord.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -329,6 +337,8 @@
             ((global::System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.TabContractProjectInfo.SuspendLayout();
+            this.groupBox16.SuspendLayout();
+            ((global::System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.groupBox14.SuspendLayout();
             ((global::System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBox15.SuspendLayout();
@@ -2556,6 +2566,7 @@
             // 
             // TabContractProjectInfo
             // 
+            this.TabContractProjectInfo.Controls.Add(this.groupBox16);
             this.TabContractProjectInfo.Controls.Add(this.groupBox14);
             this.TabContractProjectInfo.Controls.Add(this.groupBox12);
             this.TabContractProjectInfo.Controls.Add(this.groupBox11);
@@ -2566,6 +2577,52 @@
             this.TabContractProjectInfo.Text = ("Contractor and Project Info");
             this.TabContractProjectInfo.UseVisualStyleBackColor = (true);
             // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.dataGridView4);
+            this.groupBox16.Location = (new global::System.Drawing.Point(13, 380));
+            this.groupBox16.Name = ("groupBox16");
+            this.groupBox16.Size = (new global::System.Drawing.Size(619, 183));
+            this.groupBox16.TabIndex = (3);
+            this.groupBox16.TabStop = (false);
+            this.groupBox16.Text = ("Advance Payment Tippani data");
+            // 
+            // dataGridView4
+            // 
+            dataGridViewCellStyle3.BackColor = (global::System.Drawing.Color.Silver);
+            this.dataGridView4.AlternatingRowsDefaultCellStyle = (dataGridViewCellStyle3);
+            this.dataGridView4.BackgroundColor = (global::System.Drawing.Color.White);
+            this.dataGridView4.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
+            this.dataGridView4.Columns.AddRange(new global::System.Windows.Forms.DataGridViewColumn[] { this.ColDes1, this.ColAPG1, this.ColAPG2 });
+            this.dataGridView4.Location = (new global::System.Drawing.Point(12, 23));
+            this.dataGridView4.Name = ("dataGridView4");
+            dataGridViewCellStyle4.Font = (new global::System.Drawing.Font("Kalimati", 9.75F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.dataGridView4.RowsDefaultCellStyle = (dataGridViewCellStyle4);
+            this.dataGridView4.RowTemplate.Height = (25);
+            this.dataGridView4.Size = (new global::System.Drawing.Size(601, 154));
+            this.dataGridView4.TabIndex = (25);
+            // 
+            // ColDes1
+            // 
+            this.ColDes1.HeaderText = ("Description");
+            this.ColDes1.Name = ("ColDes1");
+            this.ColDes1.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            this.ColDes1.Width = (250);
+            // 
+            // ColAPG1
+            // 
+            this.ColAPG1.HeaderText = ("APG1");
+            this.ColAPG1.Name = ("ColAPG1");
+            this.ColAPG1.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            this.ColAPG1.Width = (150);
+            // 
+            // ColAPG2
+            // 
+            this.ColAPG2.HeaderText = ("APG2");
+            this.ColAPG2.Name = ("ColAPG2");
+            this.ColAPG2.SortMode = (global::System.Windows.Forms.DataGridViewColumnSortMode.NotSortable);
+            this.ColAPG2.Width = (150);
+            // 
             // groupBox14
             // 
             this.groupBox14.Controls.Add(this.dataGridView3);
@@ -2575,21 +2632,21 @@
             this.groupBox14.Size = (new global::System.Drawing.Size(660, 373));
             this.groupBox14.TabIndex = (2);
             this.groupBox14.TabStop = (false);
-            this.groupBox14.Text = ("Letter Info");
+            this.groupBox14.Text = ("Letter/Tippani Info");
             // 
             // dataGridView3
             // 
-            dataGridViewCellStyle3.BackColor = (global::System.Drawing.Color.Silver);
-            this.dataGridView3.AlternatingRowsDefaultCellStyle = (dataGridViewCellStyle3);
+            dataGridViewCellStyle5.BackColor = (global::System.Drawing.Color.Silver);
+            this.dataGridView3.AlternatingRowsDefaultCellStyle = (dataGridViewCellStyle5);
             this.dataGridView3.BackgroundColor = (global::System.Drawing.Color.White);
             this.dataGridView3.ColumnHeadersHeightSizeMode = (global::System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize);
             this.dataGridView3.Columns.AddRange(new global::System.Windows.Forms.DataGridViewColumn[] { this.ColDescription, this.ColAD, this.ColBS });
             this.dataGridView3.Location = (new global::System.Drawing.Point(17, 25));
             this.dataGridView3.Name = ("dataGridView3");
-            dataGridViewCellStyle4.Font = (new global::System.Drawing.Font("Kalimati", 9.75F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
-            this.dataGridView3.RowsDefaultCellStyle = (dataGridViewCellStyle4);
+            dataGridViewCellStyle6.Font = (new global::System.Drawing.Font("Kalimati", 9.75F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.dataGridView3.RowsDefaultCellStyle = (dataGridViewCellStyle6);
             this.dataGridView3.RowTemplate.Height = (25);
-            this.dataGridView3.Size = (new global::System.Drawing.Size(624, 185));
+            this.dataGridView3.Size = (new global::System.Drawing.Size(624, 224));
             this.dataGridView3.TabIndex = (0);
             // 
             // ColDescription
@@ -2624,9 +2681,9 @@
             this.groupBox15.Controls.Add(this.label83);
             this.groupBox15.Controls.Add(this.label84);
             this.groupBox15.Controls.Add(this.TxtEOTYear);
-            this.groupBox15.Location = (new global::System.Drawing.Point(17, 228));
+            this.groupBox15.Location = (new global::System.Drawing.Point(17, 255));
             this.groupBox15.Name = ("groupBox15");
-            this.groupBox15.Size = (new global::System.Drawing.Size(624, 139));
+            this.groupBox15.Size = (new global::System.Drawing.Size(624, 112));
             this.groupBox15.TabIndex = (24);
             this.groupBox15.TabStop = (false);
             this.groupBox15.Text = ("Time Extended");
@@ -2639,9 +2696,9 @@
             this.BtnFindEOT.FlatStyle = (global::System.Windows.Forms.FlatStyle.Flat);
             this.BtnFindEOT.Font = (new global::System.Drawing.Font("Comic Sans MS", 11F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.BtnFindEOT.ForeColor = (global::System.Drawing.Color.Black);
-            this.BtnFindEOT.Location = (new global::System.Drawing.Point(353, 81));
+            this.BtnFindEOT.Location = (new global::System.Drawing.Point(465, 57));
             this.BtnFindEOT.Name = ("BtnFindEOT");
-            this.BtnFindEOT.Size = (new global::System.Drawing.Size(260, 43));
+            this.BtnFindEOT.Size = (new global::System.Drawing.Size(148, 43));
             this.BtnFindEOT.TabIndex = (25);
             this.BtnFindEOT.Text = ("Find EOT");
             this.BtnFindEOT.UseVisualStyleBackColor = (true);
@@ -2655,9 +2712,9 @@
             this.BtnFindNewWCdate.FlatStyle = (global::System.Windows.Forms.FlatStyle.Flat);
             this.BtnFindNewWCdate.Font = (new global::System.Drawing.Font("Comic Sans MS", 11F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.BtnFindNewWCdate.ForeColor = (global::System.Drawing.Color.Black);
-            this.BtnFindNewWCdate.Location = (new global::System.Drawing.Point(353, 38));
+            this.BtnFindNewWCdate.Location = (new global::System.Drawing.Point(465, 14));
             this.BtnFindNewWCdate.Name = ("BtnFindNewWCdate");
-            this.BtnFindNewWCdate.Size = (new global::System.Drawing.Size(260, 37));
+            this.BtnFindNewWCdate.Size = (new global::System.Drawing.Size(148, 37));
             this.BtnFindNewWCdate.TabIndex = (24);
             this.BtnFindNewWCdate.Text = ("Find New WC date");
             this.BtnFindNewWCdate.UseVisualStyleBackColor = (true);
@@ -2665,7 +2722,7 @@
             // 
             // TxtEOTDay
             // 
-            this.TxtEOTDay.Location = (new global::System.Drawing.Point(258, 52));
+            this.TxtEOTDay.Location = (new global::System.Drawing.Point(370, 24));
             this.TxtEOTDay.Name = ("TxtEOTDay");
             this.TxtEOTDay.Size = (new global::System.Drawing.Size(89, 27));
             this.TxtEOTDay.TabIndex = (23);
@@ -2674,7 +2731,7 @@
             // label85
             // 
             this.label85.AutoSize = (true);
-            this.label85.Location = (new global::System.Drawing.Point(269, 29));
+            this.label85.Location = (new global::System.Drawing.Point(323, 27));
             this.label85.Name = ("label85");
             this.label85.Size = (new global::System.Drawing.Size(41, 20));
             this.label85.TabIndex = (22);
@@ -2684,15 +2741,15 @@
             // 
             this.LblEOT.BackColor = (global::System.Drawing.Color.WhiteSmoke);
             this.LblEOT.Font = (new global::System.Drawing.Font("Kalimati", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
-            this.LblEOT.Location = (new global::System.Drawing.Point(6, 89));
+            this.LblEOT.Location = (new global::System.Drawing.Point(6, 65));
             this.LblEOT.Name = ("LblEOT");
-            this.LblEOT.Size = (new global::System.Drawing.Size(341, 37));
+            this.LblEOT.Size = (new global::System.Drawing.Size(453, 37));
             this.LblEOT.TabIndex = (12);
             this.LblEOT.Text = ("EOT:");
             // 
             // TxtEOTMonth
             // 
-            this.TxtEOTMonth.Location = (new global::System.Drawing.Point(145, 52));
+            this.TxtEOTMonth.Location = (new global::System.Drawing.Point(228, 24));
             this.TxtEOTMonth.Name = ("TxtEOTMonth");
             this.TxtEOTMonth.Size = (new global::System.Drawing.Size(89, 27));
             this.TxtEOTMonth.TabIndex = (21);
@@ -2701,7 +2758,7 @@
             // label83
             // 
             this.label83.AutoSize = (true);
-            this.label83.Location = (new global::System.Drawing.Point(43, 29));
+            this.label83.Location = (new global::System.Drawing.Point(20, 27));
             this.label83.Name = ("label83");
             this.label83.Size = (new global::System.Drawing.Size(43, 20));
             this.label83.TabIndex = (18);
@@ -2710,7 +2767,7 @@
             // label84
             // 
             this.label84.AutoSize = (true);
-            this.label84.Location = (new global::System.Drawing.Point(156, 29));
+            this.label84.Location = (new global::System.Drawing.Point(164, 27));
             this.label84.Name = ("label84");
             this.label84.Size = (new global::System.Drawing.Size(58, 20));
             this.label84.TabIndex = (20);
@@ -2718,7 +2775,7 @@
             // 
             // TxtEOTYear
             // 
-            this.TxtEOTYear.Location = (new global::System.Drawing.Point(18, 52));
+            this.TxtEOTYear.Location = (new global::System.Drawing.Point(69, 24));
             this.TxtEOTYear.Name = ("TxtEOTYear");
             this.TxtEOTYear.Size = (new global::System.Drawing.Size(89, 27));
             this.TxtEOTYear.TabIndex = (19);
@@ -2737,14 +2794,14 @@
             this.groupBox12.Font = (new global::System.Drawing.Font("Comic Sans MS", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
             this.groupBox12.Location = (new global::System.Drawing.Point(15, 174));
             this.groupBox12.Name = ("groupBox12");
-            this.groupBox12.Size = (new global::System.Drawing.Size(617, 373));
+            this.groupBox12.Size = (new global::System.Drawing.Size(617, 199));
             this.groupBox12.TabIndex = (1);
             this.groupBox12.TabStop = (false);
             this.groupBox12.Text = ("Project Info");
             // 
             // TxtHeight
             // 
-            this.TxtHeight.Location = (new global::System.Drawing.Point(530, 261));
+            this.TxtHeight.Location = (new global::System.Drawing.Point(519, 151));
             this.TxtHeight.Name = ("TxtHeight");
             this.TxtHeight.Size = (new global::System.Drawing.Size(67, 28));
             this.TxtHeight.TabIndex = (17);
@@ -2752,7 +2809,7 @@
             // label54
             // 
             this.label54.AutoSize = (true);
-            this.label54.Location = (new global::System.Drawing.Point(433, 269));
+            this.label54.Location = (new global::System.Drawing.Point(422, 159));
             this.label54.Name = ("label54");
             this.label54.Size = (new global::System.Drawing.Size(81, 20));
             this.label54.TabIndex = (16);
@@ -2760,7 +2817,7 @@
             // 
             // TxtBreadth
             // 
-            this.TxtBreadth.Location = (new global::System.Drawing.Point(327, 261));
+            this.TxtBreadth.Location = (new global::System.Drawing.Point(316, 151));
             this.TxtBreadth.Name = ("TxtBreadth");
             this.TxtBreadth.Size = (new global::System.Drawing.Size(67, 28));
             this.TxtBreadth.TabIndex = (15);
@@ -2768,7 +2825,7 @@
             // label53
             // 
             this.label53.AutoSize = (true);
-            this.label53.Location = (new global::System.Drawing.Point(230, 269));
+            this.label53.Location = (new global::System.Drawing.Point(219, 159));
             this.label53.Name = ("label53");
             this.label53.Size = (new global::System.Drawing.Size(90, 20));
             this.label53.TabIndex = (14);
@@ -2776,7 +2833,7 @@
             // 
             // TxtLength
             // 
-            this.TxtLength.Location = (new global::System.Drawing.Point(104, 261));
+            this.TxtLength.Location = (new global::System.Drawing.Point(93, 151));
             this.TxtLength.Name = ("TxtLength");
             this.TxtLength.Size = (new global::System.Drawing.Size(77, 28));
             this.TxtLength.TabIndex = (13);
@@ -2784,7 +2841,7 @@
             // label52
             // 
             this.label52.AutoSize = (true);
-            this.label52.Location = (new global::System.Drawing.Point(17, 269));
+            this.label52.Location = (new global::System.Drawing.Point(6, 159));
             this.label52.Name = ("label52");
             this.label52.Size = (new global::System.Drawing.Size(81, 20));
             this.label52.TabIndex = (12);
@@ -2796,7 +2853,7 @@
             this.TxtProjectDescription.Multiline = (true);
             this.TxtProjectDescription.Name = ("TxtProjectDescription");
             this.TxtProjectDescription.ScrollBars = (global::System.Windows.Forms.ScrollBars.Vertical);
-            this.TxtProjectDescription.Size = (new global::System.Drawing.Size(573, 187));
+            this.TxtProjectDescription.Size = (new global::System.Drawing.Size(573, 88));
             this.TxtProjectDescription.TabIndex = (1);
             // 
             // label51
@@ -3088,24 +3145,31 @@
             // 
             // lettersToolStripMenuItem
             // 
-            this.lettersToolStripMenuItem.DropDownItems.AddRange(new global::System.Windows.Forms.ToolStripItem[] { this.workPermitLetterToolStripMenuItem, this.extensionOfTimeLetterToolStripMenuItem });
+            this.lettersToolStripMenuItem.DropDownItems.AddRange(new global::System.Windows.Forms.ToolStripItem[] { this.workPermitLetterToolStripMenuItem, this.extensionOfTimeLetterToolStripMenuItem, this.tippaniForAdvancePayment1ToolStripMenuItem });
             this.lettersToolStripMenuItem.Name = ("lettersToolStripMenuItem");
-            this.lettersToolStripMenuItem.Size = (new global::System.Drawing.Size(65, 24));
-            this.lettersToolStripMenuItem.Text = ("Letters");
+            this.lettersToolStripMenuItem.Size = (new global::System.Drawing.Size(148, 24));
+            this.lettersToolStripMenuItem.Text = ("Letters and Tippani");
             // 
             // workPermitLetterToolStripMenuItem
             // 
             this.workPermitLetterToolStripMenuItem.Name = ("workPermitLetterToolStripMenuItem");
-            this.workPermitLetterToolStripMenuItem.Size = (new global::System.Drawing.Size(238, 24));
+            this.workPermitLetterToolStripMenuItem.Size = (new global::System.Drawing.Size(284, 24));
             this.workPermitLetterToolStripMenuItem.Text = ("Work Permit Letter");
             this.workPermitLetterToolStripMenuItem.Click += (this.workPermitLetterToolStripMenuItem_Click);
             // 
             // extensionOfTimeLetterToolStripMenuItem
             // 
             this.extensionOfTimeLetterToolStripMenuItem.Name = ("extensionOfTimeLetterToolStripMenuItem");
-            this.extensionOfTimeLetterToolStripMenuItem.Size = (new global::System.Drawing.Size(238, 24));
+            this.extensionOfTimeLetterToolStripMenuItem.Size = (new global::System.Drawing.Size(284, 24));
             this.extensionOfTimeLetterToolStripMenuItem.Text = ("Extension of Time Letter");
             this.extensionOfTimeLetterToolStripMenuItem.Click += (this.extensionOfTimeLetterToolStripMenuItem_Click);
+            // 
+            // tippaniForAdvancePayment1ToolStripMenuItem
+            // 
+            this.tippaniForAdvancePayment1ToolStripMenuItem.Name = ("tippaniForAdvancePayment1ToolStripMenuItem");
+            this.tippaniForAdvancePayment1ToolStripMenuItem.Size = (new global::System.Drawing.Size(284, 24));
+            this.tippaniForAdvancePayment1ToolStripMenuItem.Text = ("Tippani for Advance Payment 1");
+            this.tippaniForAdvancePayment1ToolStripMenuItem.Click += (this.tippaniForAdvancePayment1ToolStripMenuItem_Click);
             // 
             // FrmContract
             // 
@@ -3155,6 +3219,8 @@
             ((global::System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.TabContractProjectInfo.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            ((global::System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.groupBox14.ResumeLayout(false);
             ((global::System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBox15.ResumeLayout(false);
@@ -3447,5 +3513,11 @@
         private global::System.Windows.Forms.TextBox TxtEOTYear;
         private global::System.Windows.Forms.Button BtnFindNewWCdate;
         private global::System.Windows.Forms.Button BtnFindEOT;
+        private global::System.Windows.Forms.GroupBox groupBox16;
+        private global::System.Windows.Forms.DataGridView dataGridView4;
+        private global::System.Windows.Forms.DataGridViewTextBoxColumn ColDes1;
+        private global::System.Windows.Forms.DataGridViewTextBoxColumn ColAPG1;
+        private global::System.Windows.Forms.DataGridViewTextBoxColumn ColAPG2;
+        private global::System.Windows.Forms.ToolStripMenuItem tippaniForAdvancePayment1ToolStripMenuItem;
     }
 }

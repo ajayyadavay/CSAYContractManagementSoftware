@@ -142,6 +142,7 @@ namespace CSAY_ContractManagementSoftware
             }
 
             GenerateUnicodeDateTable();
+            GenerateAPGTippaniTable();
 
         }
 
@@ -158,6 +159,27 @@ namespace CSAY_ContractManagementSoftware
             dataGridView3.Rows[3].Cells[0].Value = "Old Work Complete Date";
             dataGridView3.Rows.Add();
             dataGridView3.Rows[4].Cells[0].Value = "EOT Date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[5].Cells[0].Value = "APG1 Issue date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[6].Cells[0].Value = "APG2 Issue Date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[7].Cells[0].Value = "APG1 Deadline date";
+            dataGridView3.Rows.Add();
+            dataGridView3.Rows[8].Cells[0].Value = "APG2 Deadline Date";
+        }
+
+        private void GenerateAPGTippaniTable()
+        {
+            dataGridView4.Rows.Clear();
+            dataGridView4.Rows.Add();
+            dataGridView4.Rows[0].Cells[0].Value = "Letter requesting AP date (BS)";
+            dataGridView4.Rows.Add();
+            dataGridView4.Rows[1].Cells[0].Value = "Percentage of AP";
+            dataGridView4.Rows.Add();
+            dataGridView4.Rows[2].Cells[0].Value = "Tippani writing date (BS)";
+            dataGridView4.Rows.Add();
+            dataGridView4.Rows[3].Cells[0].Value = "APG Amount";
         }
 
         public void LoadTxtToDatagridview(DataGridView Dgv, string FileName, int TxtStartRow, int no_of_Col)
@@ -192,6 +214,7 @@ namespace CSAY_ContractManagementSoftware
             Dgv.Rows.Clear();
             int startrow = TxtStartRow;
             int sn = 1;
+            //MessageBox.Show("i, startrow, (i-startrow) = " + i.ToString() + ", " + startrow.ToString() + ", " + (i - startrow).ToString());
             for (int row = startrow; row < (i - startrow); row++)
             {
                 Dgv.Rows.Add();
@@ -2689,6 +2712,112 @@ namespace CSAY_ContractManagementSoftware
                     }
                 }
 
+                SaveLetterTippaniInfo();
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void SaveLetterTippaniInfo()
+        {
+            try
+            {
+                if (TxtFY.Text == "" || TxtContractID.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "")
+                {
+                    TxtLog.Text += "Either Fiscal Year or Contract ID or Ward or Project Type is Empty. Please fill to save letter info.";
+                    TxtLog.Text = Environment.NewLine;
+                }
+                else
+                {
+                    string SaveAPGTippaniInfo, FileName, SaveLetterInfo;
+
+                    CreateAccessProjectFolders();
+
+
+                    SaveAPGTippaniInfo = "";
+                    SaveLetterInfo = "";
+
+                    int rows, cols;
+
+                    //Letter info AD and BS
+                    rows = 7;
+                    cols = 3;
+                    SaveLetterInfo += "Description\tDate(AD)\tDate(BS)";
+                    SaveLetterInfo += Environment.NewLine;
+                    for (int i = 0; i < rows; i++)
+                    {
+                        for (int j = 0; j < cols; j++)
+                        {
+                            SaveLetterInfo += dataGridView3.Rows[i].Cells[j].Value;
+                            SaveLetterInfo += "\t";
+
+                        }
+                        SaveLetterInfo += Environment.NewLine;
+                    }
+
+                    FileName = LastEventFolder + "\\LetterDatesAD_BS.txt";
+                    //using (StreamWriter swl = new StreamWriter(@".\LastEvent\LastBill.txt"))
+                    using (StreamWriter swl = new StreamWriter(FileName))
+                    {
+                        swl.Write(SaveLetterInfo);
+                    }
+
+                    TxtLog.Text += "Recent: Letter tippani dates AD-BS info saved at " + FileName;
+                    TxtLog.Text = Environment.NewLine;
+
+
+                    //APG tippani Info
+                    rows = 3;
+                    cols = 3;
+                    SaveAPGTippaniInfo += "Description\tAPG1\tAPG2";
+                    SaveAPGTippaniInfo += Environment.NewLine;
+                    for (int i = 0; i < rows; i++)
+                    {
+                        for (int j = 0; j < cols; j++)
+                        {
+                            SaveAPGTippaniInfo += dataGridView4.Rows[i].Cells[j].Value;
+                            SaveAPGTippaniInfo += "\t";
+
+                        }
+                        SaveAPGTippaniInfo += Environment.NewLine;
+                    }
+
+                    FileName = LastEventFolder + "\\AP_Tippani_Info.txt";
+                    //using (StreamWriter swl = new StreamWriter(@".\LastEvent\LastBill.txt"))
+                    using (StreamWriter swl = new StreamWriter(FileName))
+                    {
+                        swl.Write(SaveAPGTippaniInfo);
+                    }
+
+                    TxtLog.Text += "Recent: AP Tippani info saved at " + FileName;
+                    TxtLog.Text = Environment.NewLine;
+
+                }
+
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void ReadLetterTippaniInfo()
+        {
+            try
+            {
+                string FileName;
+                CreateAccessProjectFolders();
+                FileName = LastEventFolder + "\\LetterDatesAD_BS.txt";
+                LoadTxtToDatagridview(dataGridView3, FileName, 1, 3);//index of first line of .txt file is 1
+                TxtBillLog.Text = "Recent: Read letter date from Text Successfully: " + FileName;
+
+                FileName = LastEventFolder + "\\AP_Tippani_Info.txt";
+                LoadTxtToDatagridview(dataGridView4, FileName, 1, 3);
+
+                TxtBillLog.Text = "Recent: Read AP tippani info from Text Successfully: " + FileName;
             }
             catch
             {
@@ -2734,6 +2863,8 @@ namespace CSAY_ContractManagementSoftware
                     }
                 }
                 TxtBillLog.Text = "Recent: Read from Text Successfully: " + BillFilenName;
+
+                ReadLetterTippaniInfo();
             }
             catch
             {
@@ -4345,7 +4476,7 @@ namespace CSAY_ContractManagementSoftware
 
         }
 
-        
+
         private void BtnFindEOT_Click(global::System.Object sender, global::System.EventArgs e)
         {
             try
@@ -4395,6 +4526,113 @@ namespace CSAY_ContractManagementSoftware
 
             }
 
+        }
+
+        private void tippaniForAdvancePayment1ToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            if (TxtFY.Text == "" || TxtWard.Text == "" || TxtProjectType.Text == "" || TxtContractID.Text == "")
+            {
+                TxtLog.Text = "Please fill mandatory fields to continue !!!";
+                //TxtLog.Text += Environment.NewLine;
+            }
+            else
+            {
+                string ThisDir = Environment.CurrentDirectory;
+                //string FontDir1 = ThisDir + "\\Font\\Preeti Normal.otf";
+                // path folder
+                CreateAccessProjectFolders();
+                string filename_docx = EventHistoryFolder + "\\Tippani_AGP1.docx";
+
+                //CreateAccessProjectFolders();
+
+
+                //Start Word and create a new document.
+                Word._Application oWord;
+                Word._Document oDoc;
+                oWord = new Word.Application();
+                oWord.Visible = false;
+
+                object oMissing = System.Reflection.Missing.Value;
+                object oEndOfDoc = "\\endofdoc"; /* \endofdoc is a predefined bookmark */
+
+                Cur_Dir = Environment.CurrentDirectory;
+                string filename_template = Cur_Dir + "\\ComboBoxList\\LetterFormat\\Tippani_AGP1_Template.dotx";
+                object oTemplate = filename_template;
+                //object oTemplate = "E:\\Tippani_Template.dotx";
+
+                oDoc = oWord.Documents.Add(ref oTemplate, ref oMissing, ref oMissing, ref oMissing);
+
+                //Bookmarks and Data
+                object oBookMark;
+                oBookMark = "TippaniDate_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView4.Rows[2].Cells[1].Value.ToString();
+
+                oBookMark = "ContractorName_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorNameDev.Text;
+
+                oBookMark = "ContractorAddressBM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorAddressDev.Text;
+
+                oBookMark = "ContractDateBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[0].Cells[2].Value.ToString();
+
+                oBookMark = "ContractDateAD_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[0].Cells[1].Value.ToString();
+
+                oBookMark = "ContractName_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractName.Text;
+
+                oBookMark = "ContractID_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractID.Text;
+
+                oBookMark = "ReqLetterDateBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView4.Rows[0].Cells[1].Value.ToString();
+
+                oBookMark = "AP_Percent_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView4.Rows[1].Cells[1].Value.ToString();
+
+                oBookMark = "APGIssueDateBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[5].Cells[2].Value.ToString();
+
+                oBookMark = "APGIssueDateAD_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[5].Cells[1].Value.ToString();
+
+                oBookMark = "APGBankName_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtBankNameAPG1.Text;
+
+                oBookMark = "APGDLBS_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[7].Cells[2].Value.ToString();
+
+                oBookMark = "APGDLAD_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[8].Cells[1].Value.ToString();
+
+                oBookMark = "APGAmount_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView4.Rows[3].Cells[1].Value.ToString();
+
+                oBookMark = "APGRef_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtAPG1RefNo.Text;
+
+                oBookMark = "ContractPriceST_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView1.Rows[1].Cells[3].Value.ToString();
+
+                oBookMark = "AP_Percent1_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView4.Rows[1].Cells[1].Value.ToString();
+
+                oBookMark = "AP_Amount_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView1.Rows[9].Cells[3].Value.ToString();
+
+                //string filename_docx = Cur_Dir + "\\InputFolder\\NewLetter.docx"; 
+                //string filename_docx = Project_Folders + "\\" + TxtFirstName.Text + "_" + TxtPlotNo.Text + "_Letter.docx";
+
+                oDoc.SaveAs2(filename_docx);
+
+                oDoc.Close();
+                oWord.Quit();
+
+
+                //TxtRecentFolderLocation.Text = Project_Folders;
+                TxtLog.Text = "Tippani for AP-1 Saved.";
+            }
         }
     }
 }

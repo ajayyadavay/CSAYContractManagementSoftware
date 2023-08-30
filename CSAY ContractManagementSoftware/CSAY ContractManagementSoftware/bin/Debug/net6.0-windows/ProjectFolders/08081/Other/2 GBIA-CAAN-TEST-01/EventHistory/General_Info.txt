@@ -1,0 +1,38 @@
+
+ModifiedDate:Wednesday, August 30, 2023 9:50:21 AM
+-----------------------------------------------------------
+General Information of the Contract
+-----------------------------------------------------------
+1. Project ID		:	
+2. Fiscal Year		:	08081
+3. Contract ID		:	GBIA/CAAN/TEST/01
+4. Contract Name		:	Secrect Invasion
+5. Contract Budget		:	
+6. Location and Ward	:	-2
+7. Budget Type		:	
+9. Project Type		:	Other
+-----------------------------------------------------------
+Important Event Dates of the Contract
+-----------------------------------------------------------
+10. Current Status		:	
+11. Notice Issued		:	
+12. LOI			:	
+13. LOA			:	
+14. Contract Agreement	:	2023-08-10
+15. Work Permit		:	2023-08-15
+16. Work Complete		:	2023-12-15
+17. Running Bill		:	
+18. Final Bill		:	
+19. Contract Day remaining	:	
+-----------------------------------------------------------
+Procurement Info
+-----------------------------------------------------------
+20. Procurement Category	:	
+21. Procurement Method	:	
+22. Public Entity	:	
+-----------------------------------------------------------
+Amount Summary Info
+-----------------------------------------------------------
+23. Total Estimated Amount	:	
+24. Total Contract Amount	:	
+25. Total Final Bill Amount	:	

@@ -1,0 +1,17 @@
+
+ModifiedDate:Wednesday, August 30, 2023 9:53:14 AM
+--------------------------------------
+--------------------------------------
+A	PS			PS	0			
+B	Subtotal			Subtotal	0			
+C	VAT %	13	13	VAT %	0	13	13	
+D	VAT Amount			VAT Amount	0	0		
+E	Contingency %	0	0	Contingency %	0	0		
+F	Physical Contingency %	0	0	Physical Contingency %	0	0		
+G	Price Contingency%	0	0	Price Contingency %	0	0		
+H	Total (A+B+D)			Total (A+B+D)	0			
+I	GrandTotal incl. contingencies			GrandTotal incl. contingencies	0			
+J	Advance Payment1	0		Advance Payment deduct %	0			
+K	Advance Payment2	0		Deduct Retention and taxes %	5.5	5.5	5.5	
+L	Total Advance Payment			Net Payment to Contractor	0			
+

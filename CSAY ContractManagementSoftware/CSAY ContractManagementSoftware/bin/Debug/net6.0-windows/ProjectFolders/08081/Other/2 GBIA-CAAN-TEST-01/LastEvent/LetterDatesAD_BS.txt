@@ -1,0 +1,8 @@
+Description	Date(AD)	Date(BS)
+Contract Date	2023-08-10	2080-5-5	
+Work Permit Date	2023-08-15	2080-5-5	
+New Work Complete Date	2026-1-22	2080-5-5	
+Old Work Complete Date	2023-12-15	2080-5-5	
+EOT Date	2023-10-10	2080-5-5	
+APG1 Issue date	2023-8-8	2080-5-5	
+APG2 Issue Date	2023-9-9	2080-5-5	
