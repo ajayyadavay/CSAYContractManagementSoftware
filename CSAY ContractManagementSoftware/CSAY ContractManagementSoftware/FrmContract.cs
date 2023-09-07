@@ -158,7 +158,7 @@ namespace CSAY_ContractManagementSoftware
             dataGridView3.Rows.Add();
             dataGridView3.Rows[3].Cells[0].Value = "Old Work Complete Date";
             dataGridView3.Rows.Add();
-            dataGridView3.Rows[4].Cells[0].Value = "EOT Date";
+            dataGridView3.Rows[4].Cells[0].Value = "EOT letter Date";
             dataGridView3.Rows.Add();
             dataGridView3.Rows[5].Cells[0].Value = "APG1 Issue date";
             dataGridView3.Rows.Add();
@@ -4633,6 +4633,26 @@ namespace CSAY_ContractManagementSoftware
                 //TxtRecentFolderLocation.Text = Project_Folders;
                 TxtLog.Text = "Tippani for AP-1 Saved.";
             }
+        }
+
+        private void TxtAPG1DL_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            dataGridView3.Rows[7].Cells[1].Value = TxtAPG1DL.Text;
+        }
+
+        private void TxtAPG2DL_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            dataGridView3.Rows[8].Cells[1].Value = TxtAPG1DL.Text;
+        }
+
+        private void TxtAPG1Amount_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            dataGridView4.Rows[3].Cells[1].Value = TxtAPG1Amount.Text;
+        }
+
+        private void TxtAPG2Amount_TextChanged(global::System.Object sender, global::System.EventArgs e)
+        {
+            dataGridView4.Rows[3].Cells[2].Value = TxtAPG2Amount.Text;
         }
     }
 }

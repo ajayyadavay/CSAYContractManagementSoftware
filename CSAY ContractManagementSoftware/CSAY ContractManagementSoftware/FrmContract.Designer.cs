@@ -2098,6 +2098,7 @@
             this.TxtAPG2Amount.Name = ("TxtAPG2Amount");
             this.TxtAPG2Amount.Size = (new global::System.Drawing.Size(100, 28));
             this.TxtAPG2Amount.TabIndex = (5);
+            this.TxtAPG2Amount.TextChanged += (this.TxtAPG2Amount_TextChanged);
             // 
             // label17
             // 
@@ -2114,6 +2115,7 @@
             this.TxtAPG2DL.Name = ("TxtAPG2DL");
             this.TxtAPG2DL.Size = (new global::System.Drawing.Size(100, 28));
             this.TxtAPG2DL.TabIndex = (3);
+            this.TxtAPG2DL.TextChanged += (this.TxtAPG2DL_TextChanged);
             // 
             // label18
             // 
@@ -2245,6 +2247,7 @@
             this.TxtAPG1Amount.Name = ("TxtAPG1Amount");
             this.TxtAPG1Amount.Size = (new global::System.Drawing.Size(100, 28));
             this.TxtAPG1Amount.TabIndex = (5);
+            this.TxtAPG1Amount.TextChanged += (this.TxtAPG1Amount_TextChanged);
             // 
             // label12
             // 
@@ -2261,6 +2264,7 @@
             this.TxtAPG1DL.Name = ("TxtAPG1DL");
             this.TxtAPG1DL.Size = (new global::System.Drawing.Size(100, 28));
             this.TxtAPG1DL.TabIndex = (3);
+            this.TxtAPG1DL.TextChanged += (this.TxtAPG1DL_TextChanged);
             // 
             // label11
             // 
