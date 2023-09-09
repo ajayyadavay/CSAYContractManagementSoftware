@@ -25,6 +25,7 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 using NodaTime;
+using AD_BS_Converter;
 
 namespace CSAY_ContractManagementSoftware
 {
@@ -4642,7 +4643,7 @@ namespace CSAY_ContractManagementSoftware
 
         private void TxtAPG2DL_TextChanged(global::System.Object sender, global::System.EventArgs e)
         {
-            dataGridView3.Rows[8].Cells[1].Value = TxtAPG1DL.Text;
+            dataGridView3.Rows[8].Cells[1].Value = TxtAPG2DL.Text;
         }
 
         private void TxtAPG1Amount_TextChanged(global::System.Object sender, global::System.EventArgs e)
@@ -4653,6 +4654,163 @@ namespace CSAY_ContractManagementSoftware
         private void TxtAPG2Amount_TextChanged(global::System.Object sender, global::System.EventArgs e)
         {
             dataGridView4.Rows[3].Cells[2].Value = TxtAPG2Amount.Text;
+        }
+
+        private void convertADToBSToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            try
+            {
+                //load default format bill format text name
+                string[] BaseDatesAll = System.IO.File.ReadAllLines(@".\ComboBoxList\ADBSConversion\BaseDate.txt");
+                string BaseDateAD = BaseDatesAll[0].Split('\t')[1];
+                string BaseDateBS = BaseDatesAll[1].Split('\t')[1];
+                int BaseYearBS = Convert.ToInt32(BaseDateBS.Split('-')[0]);
+
+                //MessageBox.Show("BS = " + BaseDateBS + "\nAD = " + BaseDateAD);
+                int No_of_Month_in_List = 0, thisyearBS;
+                string appendedDays = "";
+                //string[] days_of_each_Month_in_List = new string[120];
+                string directory1 = Environment.CurrentDirectory + "\\ComboBoxList\\ADBSConversion\\DaysEachMonth";
+
+                //load format bill in combobox
+                //string dir = Environment.CurrentDirectory + "\\ComboBoxList\\BillFormat";
+                string[] files = Directory.GetFiles(directory1, "*.txt", SearchOption.TopDirectoryOnly);//Directory.GetFiles(dir);
+                int countyearfiles = 0;
+                foreach (string filePath in files)
+                {
+                    int yearfilename = Convert.ToInt32(System.IO.Path.GetFileNameWithoutExtension(filePath));
+                    if (yearfilename >= BaseYearBS)
+                    {
+                        countyearfiles++;
+                    }
+
+                    //int fileCount = Directory.GetFiles(directory1, "*.txt", SearchOption.TopDirectoryOnly).Length;
+                }
+
+                int no_of_Yrs = countyearfiles;
+                for (int i = 0; i < no_of_Yrs; i++)
+                {
+                    thisyearBS = BaseYearBS + i;
+                    string filename = directory1 + "\\" + thisyearBS.ToString() + ".txt";
+                    string[] EachDaysinMonth = System.IO.File.ReadAllLines(filename);
+                    int No_of_Month_in_Year1 = EachDaysinMonth[0].Split(',').Length;
+
+                    No_of_Month_in_List += No_of_Month_in_Year1;
+                    if (i != (no_of_Yrs - 1)) appendedDays += EachDaysinMonth[0] + ',';
+                    else appendedDays += EachDaysinMonth[0];
+                    //days_of_each_Month_in_List = EachDaysinMonth[0].Split(',');
+                }
+
+                string[] days_of_each_Month_in_List = appendedDays.Split(',');
+                //MessageBox.Show("appendeddays = " + appendedDays);
+                //MessageBox.Show("months = " + No_of_Month_in_List + "\nDays = " + days_of_each_Month_in_List[7]);
+
+                CSAYADtoBSConverter AD2BS = new CSAYADtoBSConverter();
+
+                int countrows = dataGridView3.Rows.Count - 1;
+                for (int i = 0; i < countrows; i++)
+                {
+                    string thisDateAD = "";
+                    if (dataGridView3.Rows[i].Cells[1].Value != null)
+                    {
+                        //MessageBox.Show("row = " + i.ToString() + "\nDBVAL = " + dataGridView3.Rows[i].Cells[1].Value);
+                        thisDateAD = dataGridView3.Rows[i].Cells[1].Value.ToString();
+                        //CSAYADtoBSConverter AD2BS = new CSAYADtoBSConverter();
+                        int daysdiff = AD2BS.DifferenceInDate(BaseDateAD, thisDateAD);
+
+                        string newdateBS = AD2BS.Add_days_to_BS_Date(BaseDateBS, daysdiff, No_of_Month_in_List, days_of_each_Month_in_List);
+                        dataGridView3.Rows[i].Cells[2].Value = newdateBS;
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+
+
+        }
+
+        private void dateValidationToolStripMenuItem_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            string infoDate = "";
+            //load default format bill format text name
+            string[] BaseDatesAll = System.IO.File.ReadAllLines(@".\ComboBoxList\ADBSConversion\BaseDate.txt");
+            string BaseDateAD = BaseDatesAll[0].Split('\t')[1];
+            string BaseDateBS = BaseDatesAll[1].Split('\t')[1];
+            int BaseYearBS = Convert.ToInt32(BaseDateBS.Split('-')[0]);
+
+            infoDate += "TIME PERIOD WITHIN WHICH DATE CAN BE CONVERTED\n";
+            infoDate += "------------------------------------------------------------------------\n";
+            infoDate += "\nBase Date AD = " + BaseDateAD.ToString();
+            infoDate += "\nBase Date BS = " + BaseDateBS.ToString();
+
+            //MessageBox.Show("BS = " + BaseDateBS + "\nAD = " + BaseDateAD);
+            int No_of_Month_in_List = 0, thisyearBS;
+            string appendedDays = "";
+            //string[] days_of_each_Month_in_List = new string[120];
+            string directory1 = Environment.CurrentDirectory + "\\ComboBoxList\\ADBSConversion\\DaysEachMonth";
+
+            //load format bill in combobox
+            //string dir = Environment.CurrentDirectory + "\\ComboBoxList\\BillFormat";
+            string[] files = Directory.GetFiles(directory1, "*.txt", SearchOption.TopDirectoryOnly);//Directory.GetFiles(dir);
+            int countyearfiles = 0;
+            foreach (string filePath in files)
+            {
+                int yearfilename = Convert.ToInt32(System.IO.Path.GetFileNameWithoutExtension(filePath));
+                if (yearfilename >= BaseYearBS)
+                {
+                    countyearfiles++;
+                }
+
+                //int fileCount = Directory.GetFiles(directory1, "*.txt", SearchOption.TopDirectoryOnly).Length;
+            }
+
+            int no_of_Yrs = countyearfiles;
+            for (int i = 0; i < no_of_Yrs; i++)
+            {
+                thisyearBS = BaseYearBS + i;
+                string filename = directory1 + "\\" + thisyearBS.ToString() + ".txt";
+                string[] EachDaysinMonth = System.IO.File.ReadAllLines(filename);
+                int No_of_Month_in_Year1 = EachDaysinMonth[0].Split(',').Length;
+
+                No_of_Month_in_List += No_of_Month_in_Year1;
+                if (i != (no_of_Yrs - 1)) appendedDays += EachDaysinMonth[0] + ',';
+                else appendedDays += EachDaysinMonth[0];
+                //days_of_each_Month_in_List = EachDaysinMonth[0].Split(',');
+            }
+
+            infoDate += "\n\nNo. of months starting from base date = " + No_of_Month_in_List.ToString();
+
+            string[] days_of_each_Month_in_List = appendedDays.Split(',');
+
+            //summation of total days starting from base date
+            int[] IntDays = new int[No_of_Month_in_List];
+            int sum = 0;
+            for (int i = 0; i < No_of_Month_in_List; i++)
+            {
+                IntDays[i] = Convert.ToInt32(days_of_each_Month_in_List[i]);
+                sum += IntDays[i];
+            }
+
+            infoDate += "\nNo. of days starting from base date = " + sum.ToString();
+
+            int days = sum;
+            string oldDate = BaseDateAD;
+            string LastDateAD = NewDateAFterAddingDays_and_Months(days, 0, oldDate);
+            infoDate += "\n\nLast date AD up to which date can be converted = " + LastDateAD;
+
+            //oldDate = BaseDateBS;
+            int days2add = sum;
+            CSAYADtoBSConverter ad2bs = new CSAYADtoBSConverter();
+            string LastDateBS = ad2bs.Add_days_to_BS_Date(BaseDateBS, days2add, No_of_Month_in_List, days_of_each_Month_in_List);
+            infoDate += "\nLast date BS up to which date can be converted = " + LastDateBS;
+            infoDate += "\n\nNote: It can only convert date between Basedate and Lastdate as mentioned above";
+            infoDate += "\n\nNote: To convert beyond the above bound, you can add days of months to .txt or/and change base date.";
+            MessageBox.Show(infoDate);
+
+
         }
     }
 }

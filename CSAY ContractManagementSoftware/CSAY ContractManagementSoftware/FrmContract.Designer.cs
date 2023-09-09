@@ -299,7 +299,7 @@
             this.toolStripMenuItem1 = (new global::System.Windows.Forms.ToolStripSeparator());
             this.createPdfToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.aboutToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
-            this.toolStripMenuItem3 = (new global::System.Windows.Forms.ToolStripSeparator());
+            this.toolStripMenuItem7 = (new global::System.Windows.Forms.ToolStripSeparator());
             this.exitToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.databaseToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.addToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
@@ -317,6 +317,10 @@
             this.workPermitLetterToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.extensionOfTimeLetterToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.tippaniForAdvancePayment1ToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
+            this.dateConversionToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
+            this.convertADToBSToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
+            this.toolStripMenuItem3 = (new global::System.Windows.Forms.ToolStripSeparator());
+            this.dateValidationToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.tabControl1.SuspendLayout();
             this.TabLoadAllRecord.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -3003,7 +3007,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Font = (new global::System.Drawing.Font("Segoe UI", 11.25F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
-            this.menuStrip1.Items.AddRange(new global::System.Windows.Forms.ToolStripItem[] { this.fileToolStripMenuItem, this.databaseToolStripMenuItem, this.settingToolStripMenuItem, this.lettersToolStripMenuItem });
+            this.menuStrip1.Items.AddRange(new global::System.Windows.Forms.ToolStripItem[] { this.fileToolStripMenuItem, this.databaseToolStripMenuItem, this.settingToolStripMenuItem, this.lettersToolStripMenuItem, this.dateConversionToolStripMenuItem });
             this.menuStrip1.Location = (new global::System.Drawing.Point(0, 0));
             this.menuStrip1.Name = ("menuStrip1");
             this.menuStrip1.Size = (new global::System.Drawing.Size(1370, 28));
@@ -3012,7 +3016,7 @@
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new global::System.Windows.Forms.ToolStripItem[] { this.createProjectFolderToolStripMenuItem, this.analyseDateToolStripMenuItem, this.toolStripMenuItem1, this.createPdfToolStripMenuItem, this.aboutToolStripMenuItem, this.toolStripMenuItem3, this.exitToolStripMenuItem });
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new global::System.Windows.Forms.ToolStripItem[] { this.createProjectFolderToolStripMenuItem, this.analyseDateToolStripMenuItem, this.toolStripMenuItem1, this.createPdfToolStripMenuItem, this.aboutToolStripMenuItem, this.toolStripMenuItem7, this.exitToolStripMenuItem });
             this.fileToolStripMenuItem.Name = ("fileToolStripMenuItem");
             this.fileToolStripMenuItem.Size = (new global::System.Drawing.Size(44, 24));
             this.fileToolStripMenuItem.Text = ("File");
@@ -3050,10 +3054,10 @@
             this.aboutToolStripMenuItem.Text = ("About");
             this.aboutToolStripMenuItem.Click += (this.aboutToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem3
+            // toolStripMenuItem7
             // 
-            this.toolStripMenuItem3.Name = ("toolStripMenuItem3");
-            this.toolStripMenuItem3.Size = (new global::System.Drawing.Size(214, 6));
+            this.toolStripMenuItem7.Name = ("toolStripMenuItem7");
+            this.toolStripMenuItem7.Size = (new global::System.Drawing.Size(214, 6));
             // 
             // exitToolStripMenuItem
             // 
@@ -3174,6 +3178,32 @@
             this.tippaniForAdvancePayment1ToolStripMenuItem.Size = (new global::System.Drawing.Size(284, 24));
             this.tippaniForAdvancePayment1ToolStripMenuItem.Text = ("Tippani for Advance Payment 1");
             this.tippaniForAdvancePayment1ToolStripMenuItem.Click += (this.tippaniForAdvancePayment1ToolStripMenuItem_Click);
+            // 
+            // dateConversionToolStripMenuItem
+            // 
+            this.dateConversionToolStripMenuItem.DropDownItems.AddRange(new global::System.Windows.Forms.ToolStripItem[] { this.convertADToBSToolStripMenuItem, this.toolStripMenuItem3, this.dateValidationToolStripMenuItem });
+            this.dateConversionToolStripMenuItem.Name = ("dateConversionToolStripMenuItem");
+            this.dateConversionToolStripMenuItem.Size = (new global::System.Drawing.Size(130, 24));
+            this.dateConversionToolStripMenuItem.Text = ("Date Conversion");
+            // 
+            // convertADToBSToolStripMenuItem
+            // 
+            this.convertADToBSToolStripMenuItem.Name = ("convertADToBSToolStripMenuItem");
+            this.convertADToBSToolStripMenuItem.Size = (new global::System.Drawing.Size(193, 24));
+            this.convertADToBSToolStripMenuItem.Text = ("Convert AD to BS");
+            this.convertADToBSToolStripMenuItem.Click += (this.convertADToBSToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = ("toolStripMenuItem3");
+            this.toolStripMenuItem3.Size = (new global::System.Drawing.Size(190, 6));
+            // 
+            // dateValidationToolStripMenuItem
+            // 
+            this.dateValidationToolStripMenuItem.Name = ("dateValidationToolStripMenuItem");
+            this.dateValidationToolStripMenuItem.Size = (new global::System.Drawing.Size(193, 24));
+            this.dateValidationToolStripMenuItem.Text = ("Date Validation");
+            this.dateValidationToolStripMenuItem.Click += (this.dateValidationToolStripMenuItem_Click);
             // 
             // FrmContract
             // 
@@ -3433,7 +3463,6 @@
         private global::System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private global::System.Windows.Forms.ToolStripMenuItem createPdfToolStripMenuItem;
         private global::System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private global::System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private global::System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private global::System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
         private global::System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
@@ -3523,5 +3552,10 @@
         private global::System.Windows.Forms.DataGridViewTextBoxColumn ColAPG1;
         private global::System.Windows.Forms.DataGridViewTextBoxColumn ColAPG2;
         private global::System.Windows.Forms.ToolStripMenuItem tippaniForAdvancePayment1ToolStripMenuItem;
+        private global::System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        private global::System.Windows.Forms.ToolStripMenuItem dateConversionToolStripMenuItem;
+        private global::System.Windows.Forms.ToolStripMenuItem convertADToBSToolStripMenuItem;
+        private global::System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private global::System.Windows.Forms.ToolStripMenuItem dateValidationToolStripMenuItem;
     }
 }
