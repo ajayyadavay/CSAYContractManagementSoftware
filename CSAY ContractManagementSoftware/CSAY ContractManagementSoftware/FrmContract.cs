@@ -4812,5 +4812,13 @@ namespace CSAY_ContractManagementSoftware
 
 
         }
+
+        private void BtnConvertNumToWord_Click(global::System.Object sender, global::System.EventArgs e)
+        {
+            double num = Convert.ToDouble(TxtNum.Text);
+            CSAYNumToWord cn2w = new CSAYNumToWord();
+            TxtWordNepali.Text = cn2w.ConvertNumberToNepaliWord(num);
+            TxtWordEnglish.Text = cn2w.ConvertNumberToEnglishWord(num);
+        }
     }
 }

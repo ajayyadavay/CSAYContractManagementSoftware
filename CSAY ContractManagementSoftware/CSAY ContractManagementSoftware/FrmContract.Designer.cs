@@ -223,6 +223,8 @@
             this.label11 = (new global::System.Windows.Forms.Label());
             this.label10 = (new global::System.Windows.Forms.Label());
             this.TabContractBill = (new global::System.Windows.Forms.TabPage());
+            this.BtnConvertNumToWord = (new global::System.Windows.Forms.Button());
+            this.TxtNum = (new global::System.Windows.Forms.TextBox());
             this.LblAmountValidity = (new global::System.Windows.Forms.Label());
             this.TxtBillLog = (new global::System.Windows.Forms.TextBox());
             this.groupBox1 = (new global::System.Windows.Forms.GroupBox());
@@ -321,6 +323,8 @@
             this.convertADToBSToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
             this.toolStripMenuItem3 = (new global::System.Windows.Forms.ToolStripSeparator());
             this.dateValidationToolStripMenuItem = (new global::System.Windows.Forms.ToolStripMenuItem());
+            this.TxtWordNepali = (new global::System.Windows.Forms.TextBox());
+            this.TxtWordEnglish = (new global::System.Windows.Forms.TextBox());
             this.tabControl1.SuspendLayout();
             this.TabLoadAllRecord.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -2290,6 +2294,10 @@
             // 
             // TabContractBill
             // 
+            this.TabContractBill.Controls.Add(this.TxtWordEnglish);
+            this.TabContractBill.Controls.Add(this.TxtWordNepali);
+            this.TabContractBill.Controls.Add(this.BtnConvertNumToWord);
+            this.TabContractBill.Controls.Add(this.TxtNum);
             this.TabContractBill.Controls.Add(this.LblAmountValidity);
             this.TabContractBill.Controls.Add(this.TxtBillLog);
             this.TabContractBill.Controls.Add(this.groupBox1);
@@ -2300,6 +2308,29 @@
             this.TabContractBill.TabIndex = (2);
             this.TabContractBill.Text = ("Contract and Bill");
             this.TabContractBill.UseVisualStyleBackColor = (true);
+            // 
+            // BtnConvertNumToWord
+            // 
+            this.BtnConvertNumToWord.FlatAppearance.BorderColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(128)), (global::System.Int32)((global::System.Byte)(0))));
+            this.BtnConvertNumToWord.FlatAppearance.MouseDownBackColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(128)), (global::System.Int32)((global::System.Byte)(128))));
+            this.BtnConvertNumToWord.FlatAppearance.MouseOverBackColor = (global::System.Drawing.Color.FromArgb((global::System.Int32)((global::System.Byte)(255)), (global::System.Int32)((global::System.Byte)(224)), (global::System.Int32)((global::System.Byte)(192))));
+            this.BtnConvertNumToWord.FlatStyle = (global::System.Windows.Forms.FlatStyle.Flat);
+            this.BtnConvertNumToWord.Font = (new global::System.Drawing.Font("Comic Sans MS", 11F, global::System.Drawing.FontStyle.Regular, global::System.Drawing.GraphicsUnit.Point));
+            this.BtnConvertNumToWord.ForeColor = (global::System.Drawing.Color.Black);
+            this.BtnConvertNumToWord.Location = (new global::System.Drawing.Point(388, 455));
+            this.BtnConvertNumToWord.Name = ("BtnConvertNumToWord");
+            this.BtnConvertNumToWord.Size = (new global::System.Drawing.Size(264, 35));
+            this.BtnConvertNumToWord.TabIndex = (17);
+            this.BtnConvertNumToWord.Text = ("Convert Num to Word");
+            this.BtnConvertNumToWord.UseVisualStyleBackColor = (true);
+            this.BtnConvertNumToWord.Click += (this.BtnConvertNumToWord_Click);
+            // 
+            // TxtNum
+            // 
+            this.TxtNum.Location = (new global::System.Drawing.Point(18, 463));
+            this.TxtNum.Name = ("TxtNum");
+            this.TxtNum.Size = (new global::System.Drawing.Size(334, 27));
+            this.TxtNum.TabIndex = (4);
             // 
             // LblAmountValidity
             // 
@@ -2319,7 +2350,7 @@
             this.TxtBillLog.Multiline = (true);
             this.TxtBillLog.Name = ("TxtBillLog");
             this.TxtBillLog.ScrollBars = (global::System.Windows.Forms.ScrollBars.Vertical);
-            this.TxtBillLog.Size = (new global::System.Drawing.Size(438, 137));
+            this.TxtBillLog.Size = (new global::System.Drawing.Size(438, 77));
             this.TxtBillLog.TabIndex = (2);
             // 
             // groupBox1
@@ -3205,6 +3236,22 @@
             this.dateValidationToolStripMenuItem.Text = ("Date Validation");
             this.dateValidationToolStripMenuItem.Click += (this.dateValidationToolStripMenuItem_Click);
             // 
+            // TxtWordNepali
+            // 
+            this.TxtWordNepali.Location = (new global::System.Drawing.Point(18, 496));
+            this.TxtWordNepali.Multiline = (true);
+            this.TxtWordNepali.Name = ("TxtWordNepali");
+            this.TxtWordNepali.Size = (new global::System.Drawing.Size(634, 55));
+            this.TxtWordNepali.TabIndex = (18);
+            // 
+            // TxtWordEnglish
+            // 
+            this.TxtWordEnglish.Location = (new global::System.Drawing.Point(658, 496));
+            this.TxtWordEnglish.Multiline = (true);
+            this.TxtWordEnglish.Name = ("TxtWordEnglish");
+            this.TxtWordEnglish.Size = (new global::System.Drawing.Size(634, 55));
+            this.TxtWordEnglish.TabIndex = (19);
+            // 
             // FrmContract
             // 
             this.AutoScaleDimensions = (new global::System.Drawing.SizeF(7F, 15F));
@@ -3557,5 +3604,9 @@
         private global::System.Windows.Forms.ToolStripMenuItem convertADToBSToolStripMenuItem;
         private global::System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private global::System.Windows.Forms.ToolStripMenuItem dateValidationToolStripMenuItem;
+        private global::System.Windows.Forms.Button BtnConvertNumToWord;
+        private global::System.Windows.Forms.TextBox TxtNum;
+        private global::System.Windows.Forms.TextBox TxtWordEnglish;
+        private global::System.Windows.Forms.TextBox TxtWordNepali;
     }
 }
