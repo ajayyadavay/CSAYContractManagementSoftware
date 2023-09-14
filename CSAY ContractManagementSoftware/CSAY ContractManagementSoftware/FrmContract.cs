@@ -4541,6 +4541,9 @@ namespace CSAY_ContractManagementSoftware
                 string ThisDir = Environment.CurrentDirectory;
                 //string FontDir1 = ThisDir + "\\Font\\Preeti Normal.otf";
                 // path folder
+                double num;
+                string num2words;
+                CSAYNumToWord cnw = new CSAYNumToWord();
                 CreateAccessProjectFolders();
                 string filename_docx = EventHistoryFolder + "\\Tippani_AGP1.docx";
 
@@ -4571,7 +4574,7 @@ namespace CSAY_ContractManagementSoftware
                 oBookMark = "ContractorName_BM";
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorNameDev.Text;
 
-                oBookMark = "ContractorAddressBM";
+                oBookMark = "ContractorAddress_BM";
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtContractorAddressDev.Text;
 
                 oBookMark = "ContractDateBS_BM";
@@ -4605,10 +4608,15 @@ namespace CSAY_ContractManagementSoftware
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[7].Cells[2].Value.ToString();
 
                 oBookMark = "APGDLAD_BM";
-                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[8].Cells[1].Value.ToString();
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView3.Rows[7].Cells[1].Value.ToString();
 
                 oBookMark = "APGAmount_BM";
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView4.Rows[3].Cells[1].Value.ToString();
+
+                num = Convert.ToDouble(dataGridView4.Rows[3].Cells[1].Value.ToString());
+                num2words = cnw.ConvertNumberToNepaliWord(num);
+                oBookMark = "APG1_Amount_Words_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = num2words;
 
                 oBookMark = "APGRef_BM";
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = TxtAPG1RefNo.Text;
@@ -4616,11 +4624,21 @@ namespace CSAY_ContractManagementSoftware
                 oBookMark = "ContractPriceST_BM";
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView1.Rows[1].Cells[3].Value.ToString();
 
+                num = Convert.ToDouble(dataGridView1.Rows[1].Cells[3].Value.ToString());
+                num2words = cnw.ConvertNumberToNepaliWord(num);
+                oBookMark = "Subtotal_Amount_Words_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = num2words;
+
                 oBookMark = "AP_Percent1_BM";
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView4.Rows[1].Cells[1].Value.ToString();
 
                 oBookMark = "AP_Amount_BM";
                 oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = dataGridView1.Rows[9].Cells[3].Value.ToString();
+
+                num = Convert.ToDouble(dataGridView1.Rows[9].Cells[3].Value.ToString());
+                num2words = cnw.ConvertNumberToNepaliWord(num);
+                oBookMark = "AP_Amount_Words_BM";
+                oDoc.Bookmarks.get_Item(ref oBookMark).Range.Text = num2words;
 
                 //string filename_docx = Cur_Dir + "\\InputFolder\\NewLetter.docx"; 
                 //string filename_docx = Project_Folders + "\\" + TxtFirstName.Text + "_" + TxtPlotNo.Text + "_Letter.docx";

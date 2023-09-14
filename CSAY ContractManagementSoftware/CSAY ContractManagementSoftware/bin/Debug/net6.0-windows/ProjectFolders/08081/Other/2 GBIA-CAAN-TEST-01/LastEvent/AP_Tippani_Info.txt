@@ -1,4 +1,0 @@
-Description	APG1	APG2
-Letter requesting AP date (BS)	2080-5-5	2080-5-5	
-Percentage of AP	5	10	
-Tippani writing date (BS)	2080-5-5	2080-5-5	
