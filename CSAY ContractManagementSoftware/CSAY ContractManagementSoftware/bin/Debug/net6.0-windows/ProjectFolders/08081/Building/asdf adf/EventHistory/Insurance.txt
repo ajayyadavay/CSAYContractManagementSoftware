@@ -1,0 +1,12 @@
+
+ModifiedDate:Sunday, May 12, 2024 4:36:06 PM
+-----------------------------------------------------------
+Ins of the Contract
+-----------------------------------------------------------
+1. Ins Doc Ref. No.:		:	
+2. Ins Deadline:		:	
+3. Ins Amount:		:	
+4. Ins Min Deadline:		:	
+5. Remark:		:	
+6. Bank Name and Address:	:	,
+

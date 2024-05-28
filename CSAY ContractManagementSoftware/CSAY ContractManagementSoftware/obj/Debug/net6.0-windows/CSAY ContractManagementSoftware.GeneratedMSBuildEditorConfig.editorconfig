@@ -15,3 +15,5 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CSAY_ContractManagementSoftware
 build_property.ProjectDir = F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

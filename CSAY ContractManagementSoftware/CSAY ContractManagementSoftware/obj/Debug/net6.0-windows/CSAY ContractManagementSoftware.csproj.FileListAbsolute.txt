@@ -183,7 +183,6 @@ F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY 
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.AssemblyInfoInputs.cache
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.AssemblyInfo.cs
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.csproj.CoreCompileInputs.cache
-F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.csproj.CopyComplete
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.dll
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\refint\CSAY ContractManagementSoftware.dll
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.pdb
@@ -192,3 +191,5 @@ F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY 
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY_ContractManagementSoftware.FrmCalcDeduction.resources
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY_ContractManagementSoftware.FrmPBAmount.resources
 F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\bin\Debug\net6.0-windows\NodaTime.dll
+F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY ContractManagementSoftware.sourcelink.json
+F:\VBStudio\CSAYContractManagementSoftware\CSAY ContractManagementSoftware\CSAY ContractManagementSoftware\obj\Debug\net6.0-windows\CSAY Con.F32CD537.Up2Date

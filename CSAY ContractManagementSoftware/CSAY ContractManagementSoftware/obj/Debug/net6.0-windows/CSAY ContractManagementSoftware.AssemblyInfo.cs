@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("ajayyadav@2022")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d4df5b2c4d3c6873f46958c4bafea0ca98d2c4e")]
 [assembly: System.Reflection.AssemblyProductAttribute("CSAY ContractManagementSoftware")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CSAY ContractManagementSoftware")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,0 +1,8 @@
+Description	Date(AD)	Date(BS)
+Contract Date			
+Work Permit Date			
+New Work Complete Date			
+Old Work Complete Date			
+EOT letter Date			
+APG1 Issue date			
+APG2 Issue Date			

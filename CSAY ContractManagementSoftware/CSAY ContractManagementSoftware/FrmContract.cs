@@ -33,8 +33,8 @@ namespace CSAY_ContractManagementSoftware
     {
 #nullable disable
         //Declare global variables
-        int rowsAmtGrid = 12, colsAmtGrid = 8;
-        int rowsAmtGridBill = 12;
+        int rowsAmtGrid = 14, colsAmtGrid = 8;
+        int rowsAmtGridBill = 14;
         int n_of_calc_Row = 4, n_of_calc_Col = 5;
 
         string Cur_Dir, Contract_ID, Ward, Project_Type, Project_Folders, ThisContractFolder, EventHistoryFolder, LastEventFolder;
@@ -372,8 +372,9 @@ namespace CSAY_ContractManagementSoftware
                 int APGDay = Convert.ToInt32(ContractDays * 0.8 + 1);
                 TxtAPG1MinDL.Text = NewDateAFterAddingDays_and_Months(APGDay, 0, TxtContractAgreement.Text);//txtworkpermit.text
                 TxtAPG2MinDL.Text = TxtAPG1MinDL.Text;
-                TxtInsMinDL.Text = TxtWorkComplete.Text;
-                TxtPBMinDL.Text = NewDateAFterAddingDays_and_Months(365, 1, TxtWorkComplete.Text);
+                TxtInsMinDL.Text = NewDateAFterAddingDays_and_Months(365, 0, TxtWorkComplete.Text);
+                TxtPBMinDL.Text = NewDateAFterAddingDays_and_Months(395, 0, TxtWorkComplete.Text);
+                //TxtPBMinDL.Text = NewDateAFterAddingDays_and_Months(365, 1, TxtWorkComplete.Text);
                 TxtFL_PBMinDL.Text = TxtWorkComplete.Text;
 
                 //check if APG, PB, Ins document deadline is equal or more than Min valid date
@@ -2582,6 +2583,7 @@ namespace CSAY_ContractManagementSoftware
         {
             dataGridView1.Rows[0].Cells[2].Style.BackColor = Color.Yellow; //PS Estimate
             dataGridView1.Rows[1].Cells[2].Style.BackColor = Color.Yellow; //Subtotal Estimate
+            dataGridView1.Rows[12].Cells[2].Style.BackColor = Color.Yellow; //PS VAT Amount Estimate
 
             dataGridView1.Rows[1].Cells[3].Style.BackColor = Color.Yellow; //Subtotal Contract
             dataGridView1.Rows[9].Cells[3].Style.BackColor = Color.Yellow; //AP1 Contract
@@ -2590,6 +2592,7 @@ namespace CSAY_ContractManagementSoftware
             dataGridView1.Rows[0].Cells[6].Style.BackColor = Color.Yellow; //PS Up2ThisBill
             dataGridView1.Rows[1].Cells[6].Style.BackColor = Color.Yellow; //Subtotal Up2ThisBill
             dataGridView1.Rows[9].Cells[6].Style.BackColor = Color.Yellow; //Deduct AP Up2ThisBill
+            dataGridView1.Rows[12].Cells[6].Style.BackColor = Color.Yellow; //PS VAT Amount Up2Bill
 
         }
 
@@ -2599,7 +2602,7 @@ namespace CSAY_ContractManagementSoftware
         {
             try
             {
-                int[] InRowIndex = new int[] //Total inrows = 8, except row 3,7,8,11
+                /*int[] InRowIndex = new int[] //Total inrows = 8, except row 3,7,8,11
                 {
                     0, //PS
                     1, //Subtotal
@@ -2609,7 +2612,7 @@ namespace CSAY_ContractManagementSoftware
                     9,  //AP Deduction %
                     12, //All Deduction amount
                     13  //Net payable
-                };
+                };*/
 
                 //Input data from grid
                 for (int j = 0; j < (rowsAmtGridBill); j++) //rowsAmtGrid = 114 i.e. j = 0 to 13 for bill
@@ -2744,7 +2747,7 @@ namespace CSAY_ContractManagementSoftware
                     int rows, cols;
 
                     //Letter info AD and BS
-                    rows = 7;
+                    rows = 9;
                     cols = 3;
                     SaveLetterInfo += "Description\tDate(AD)\tDate(BS)";
                     SaveLetterInfo += Environment.NewLine;
@@ -2771,7 +2774,7 @@ namespace CSAY_ContractManagementSoftware
 
 
                     //APG tippani Info
-                    rows = 3;
+                    rows = 4;
                     cols = 3;
                     SaveAPGTippaniInfo += "Description\tAPG1\tAPG2";
                     SaveAPGTippaniInfo += Environment.NewLine;
@@ -3350,6 +3353,8 @@ namespace CSAY_ContractManagementSoftware
                 double PS1, ST1, VAT_Per, Contingencies, VAT_Amount, GT_exclCont, GT_inclCont;
                 double AP1, AP2, AP_Total, Ap_ded_amount;
                 double AP_deduction_Per, Deduction_Per, Net_Pay;
+                double DeductionPerVAT, PS_VAT_Amount, PS_ST;
+                double DeductST, DeductVAT;
 
                 int[] CalcColIndex = new int[]
                {
@@ -3372,7 +3377,7 @@ namespace CSAY_ContractManagementSoftware
                     dataGridView1.Rows[7].Cells[idx].Value = GT_exclCont.ToString();
 
                     Contingencies = 0;
-                    for (int i = 4; i <= 5; i++)
+                    for (int i = 4; i <= 6; i++)
                     {
                         Contingencies += Convert.ToDouble(dataGridView1.Rows[i].Cells[idx].Value);
                     }
@@ -3391,10 +3396,21 @@ namespace CSAY_ContractManagementSoftware
                     {
                         AP_deduction_Per = Convert.ToDouble(dataGridView1.Rows[9].Cells[6].Value);
                         Deduction_Per = Convert.ToDouble(dataGridView1.Rows[10].Cells[6].Value);
+                        PS_VAT_Amount = Convert.ToDouble(dataGridView1.Rows[12].Cells[6].Value);
+                        DeductionPerVAT = Convert.ToDouble(dataGridView1.Rows[13].Cells[6].Value);
+
+                        PS_ST = PS1 - PS_VAT_Amount;
+
+                        double NewST = ST1 + PS_ST;
+                        double NewVAT = VAT_Amount + PS_VAT_Amount;
+
+                        DeductST = Math.Round(Deduction_Per / 100.0 * NewST, 2);
+                        DeductVAT = Math.Round(DeductionPerVAT / 100.0 * NewVAT, 2);
 
                         AP_Total = Convert.ToDouble(dataGridView1.Rows[11].Cells[3].Value);
                         Ap_ded_amount = AP_Total * AP_deduction_Per / 100.0;
-                        Net_Pay = Math.Round(GT_exclCont - (Deduction_Per / 100.0 * ST1) - Ap_ded_amount, 2);
+                        //Net_Pay = Math.Round(GT_exclCont - (Deduction_Per / 100.0 * ST1) - Ap_ded_amount, 2);
+                        Net_Pay = Math.Round(GT_exclCont - DeductST - DeductVAT - Ap_ded_amount, 2);
                         dataGridView1.Rows[11].Cells[6].Value = Net_Pay.ToString();
                     }
 

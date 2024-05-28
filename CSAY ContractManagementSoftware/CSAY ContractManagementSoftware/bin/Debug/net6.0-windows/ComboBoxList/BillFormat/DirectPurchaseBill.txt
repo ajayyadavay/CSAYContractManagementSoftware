@@ -1,5 +1,5 @@
 SN	Description Estimate	Amount Estimate	Amount Contract	Description Bill	Amount Up2 Previous	Amount Up2 Thisbill	Amount This bill Only
-A	PS			PS	0		
+A	PS including VAT			PS	0		
 B	Subtotal			Subtotal	0		
 C	VAT %	13	13	VAT %	0	13	13
 D	VAT Amount			VAT Amount	0	0	
@@ -9,5 +9,7 @@ G	Price Contingency%	0	0	Price Contingency %	0	0
 H	Total (A+B+D)			Total (A+B+D)	0		
 I	GrandTotal incl. contingencies			GrandTotal incl. contingencies	0		
 J	Advance Payment1	0		Advance Payment deduct %	0		
-K	Advance Payment2	0		Deduct Retention and taxes %	5.5	5.5	5.5
+K	Advance Payment2	0		Deduct Retention and taxes %	1.6	1.6	1.6
 L	Total Advance Payment			Net Payment to Contractor	0		
+M	VAT Amount of PS			VAT Amount of PS	0		
+N	Deduction% in VAT Amount	0	0	Deduction% in VAT Amount	30	30	30
